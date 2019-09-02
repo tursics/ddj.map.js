@@ -23,3 +23,19 @@ call in your JavaScript file
 ```
 	ddj.map.marker.init(elementName, data);
 ```
+## API
+
+```onAdd``` function(obj, val) { return false; }
+
+```onAddHTML``` function(obj, val) { return false; }
+
+tbd. uses
+
+* obj.index
+* obj.lat
+* obj.lng
+* obj.htmlClass
+* obj.htmlIconSize
+* obj.htmlElement
+* obj.opacity
+* obj.clickable

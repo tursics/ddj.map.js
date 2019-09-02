@@ -24,6 +24,9 @@ var ddj = ddj || {};
 			onAdd: function () {
 				return true;
 			},
+			onAddHTML: function () {
+				return false;
+			},
 			onMouseOver: null,
 			onMouseOut: null,
 			onClick: null
@@ -62,7 +65,7 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		update: function () {
-			var key, val, obj, addObj;
+			var key, val, obj, addObj, addHTMLObj;
 
 			if (ddj.marker.store.layerGroup) {
 				ddj.getMap().removeLayer(ddj.marker.store.layerGroup);
@@ -99,9 +102,23 @@ var ddj = ddj || {};
 						opacity: 1,
 						clickable: 1,
 						iconPrefix: 'fa',
-						iconFace: 'fa-dot-circle-o'
+						iconFace: 'fa-dot-circle-o',
+						htmlClass: '',
+						htmlIconSize: null,
+						htmlElement: ''
 					};
-					addObj = ddj.marker.settings.onAdd(obj, val);
+					try {
+						addObj = ddj.marker.settings.onAdd(obj, val);
+					} catch (x) {
+						console.log(x);
+						addObj = false;
+					}
+					try {
+						addHTMLObj = ddj.marker.settings.onAddHTML(obj, val);
+					} catch (y) {
+						console.log(y);
+						addHTMLObj = false;
+					}
 
 					if (addObj !== false) {
 						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
@@ -110,6 +127,18 @@ var ddj = ddj || {};
 								prefix: obj.iconPrefix,
 								icon: obj.iconFace,
 								markerColor: obj.color
+							}),
+							opacity: obj.opacity,
+							clickable: obj.clickable
+						}));
+					}
+					if (addHTMLObj !== false) {
+						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
+							data: obj.index,
+							icon: L.divIcon({
+								className: obj.htmlClass,
+								iconSize: obj.htmlIconSize,
+								html: obj.htmlElement
 							}),
 							opacity: obj.opacity,
 							clickable: obj.clickable
