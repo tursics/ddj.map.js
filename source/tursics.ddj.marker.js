@@ -1,5 +1,5 @@
 /* tursics.ddj.marker.js */
-/* version 0.1 */
+/* version 0.2 */
 
 /*jslint browser: true*/
 /*global L,console*/
@@ -64,6 +64,55 @@ var ddj = ddj || {};
 
 		// ---------------------------------------------------------------------
 
+		fixGeometryData: function (val) {
+			if (val.geometry && val.properties) {
+				var lat, lng, latMin, latMax, lngMin, lngMax, a, area, p, point;
+
+				if (val.geometry.type === 'Polygon') {
+					latMin = val.geometry.coordinates[0][0][1];
+					latMax = val.geometry.coordinates[0][0][1];
+					lngMin = val.geometry.coordinates[0][0][0];
+					lngMax = val.geometry.coordinates[0][0][0];
+
+					for (a = 0; a < val.geometry.coordinates.length; ++a) {
+						area = val.geometry.coordinates[a];
+
+						for (p = 0; p < area.length; ++p) {
+							point = area[p];
+
+							if (point[1] < latMin) {
+								latMin = point[1];
+							}
+							if (point[1] > latMax) {
+								latMax = point[1];
+							}
+							if (point[0] < lngMin) {
+								lngMin = point[0];
+							}
+							if (point[0] > lngMax) {
+								lngMax = point[0];
+							}
+						}
+					}
+					lat = (latMin + latMax) / 2;
+					lng = (lngMin + lngMax) / 2;
+				} else if (val.geometry.type === 'Point') {
+					lat = val.geometry.coordinates[1];
+					lng = val.geometry.coordinates[0];
+				} else {
+					console.log(val.geometry.type + ' not yet implemented');
+				}
+
+				val = val.properties;
+				val.lat = val.lat || lat;
+				val.lng = val.lng || lng;
+			}
+
+			return val;
+		},
+
+		// ---------------------------------------------------------------------
+
 		update: function () {
 			var key, val, obj, addObj, addHTMLObj;
 
@@ -90,8 +139,9 @@ var ddj = ddj || {};
 				}
 			});
 
-			for (key = 0; key < ddj.getData().length; ++key) {
-				val = ddj.getData(key);
+			for (key = 0; key < ddj.getRowData().length; ++key) {
+				val = ddj.getRowData(key);
+				val = ddj.marker.fixGeometryData(val);
 
 				if ((typeof val.lat !== 'undefined') && (typeof val.lng !== 'undefined')) {
 					obj = {

@@ -1,5 +1,5 @@
 /* tursics.ddj.js */
-/* version 0.1 */
+/* version 0.2 */
 
 /*jslint browser: true*/
 /*global */
@@ -34,6 +34,11 @@ var ddj = ddj || {};
 
 	ddj.init = function (userData) {
 		ddj.store.userData = userData;
+
+		// use geojson file
+		if (userData && userData.type && (userData.type === 'FeatureCollection') && userData.features) {
+			ddj.store.userData = userData.features;
+		}
 	};
 
 	// -------------------------------------------------------------------------
@@ -62,14 +67,28 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
-	ddj.getData = function (key) {
+	ddj.getRowData = function (key) {
 		if (typeof key === 'undefined') {
 			return ddj.store.userData;
 		}
 		if (key === null) {
 			return ddj.store.userData;
 		}
+
 		return ddj.store.userData[key];
+	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.getData = function (key) {
+		var data = ddj.getRowData(key);
+
+		// use geojson file
+		if (data && data.geometry && data.properties) {
+			data = data.properties;
+		}
+
+		return data;
 	};
 
 	// -------------------------------------------------------------------------
