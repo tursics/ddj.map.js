@@ -1,5 +1,5 @@
 /* tursics.ddj.voronoi.js */
-/* version 0.1 */
+/* version 0.2 */
 
 /*jslint browser: true*/
 /*global console,L,d3*/
