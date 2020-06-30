@@ -114,7 +114,7 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		update: function () {
-			var key, val, obj, addObj, addHTMLObj;
+			var key, valObj, val, valCount, obj, addObj, addHTMLObj, uniqueSetId = [], uniqueId = ddj.getUniqueIdentifier();
 
 			if (ddj.marker.store.layerGroup) {
 				ddj.getMap().removeLayer(ddj.marker.store.layerGroup);
@@ -142,10 +142,23 @@ var ddj = ddj || {};
 			for (key = 0; key < ddj.getRowData().length; ++key) {
 				val = ddj.getRowData(key);
 				val = ddj.marker.fixGeometryData(val);
+				valObj = val;
+				valCount = 1;
+
+				if (Array.isArray(valObj)) {
+					val = valObj[0];
+					valCount = valObj.length;
+				}
+
+				if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
+					// add marker only once
+					continue;
+				}
 
 				if ((typeof val.lat !== 'undefined') && (typeof val.lng !== 'undefined')) {
 					obj = {
 						index: key,
+						count: valCount,
 						lat: parseFloat(val.lat),
 						lng: parseFloat(val.lng),
 						color: 'blue',
@@ -181,6 +194,8 @@ var ddj = ddj || {};
 							opacity: obj.opacity,
 							clickable: obj.clickable
 						}));
+
+						uniqueSetId.push(val[uniqueId]);
 					}
 					if (addHTMLObj !== false) {
 						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
@@ -193,6 +208,8 @@ var ddj = ddj || {};
 							opacity: obj.opacity,
 							clickable: obj.clickable
 						}));
+
+						uniqueSetId.push(val[uniqueId]);
 					}
 				}
 			}

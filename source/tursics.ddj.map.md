@@ -1,6 +1,6 @@
 # tursics.ddj.map.js
 
-version 0.1
+version 0.2
 
 ## description
 
@@ -20,11 +20,18 @@ include in HTML header
 
 call in your JavaScript file
 ```
-	ddj.map.init(elementName, data);
+	ddj.map.init(elementName, settings);
 ```
 
-## API
-
-```onZoomed``` function() {}
-
-```onMoved``` function() {}
+A sample for settings 
+```
+var settings = {
+	mapboxId: 'username.hash',
+	mapboxToken: 'pk.mapbox.token',
+	attribution: 'made with love',
+	centerLat: 52.518413,
+	centerLng: 13.408368,
+	zoom: 13,
+	onFocusOnce: null // callback function
+};
+```

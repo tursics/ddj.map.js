@@ -1,6 +1,13 @@
 # tursics.ddj.voronoi.js
 
-version 0.1
+version 0.2
+
+## todo
+
+voronoi is broken
+
+please fix ddj.getData() for 'unique identifier'
+
 
 ## description
 

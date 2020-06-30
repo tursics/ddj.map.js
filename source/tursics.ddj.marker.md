@@ -1,6 +1,6 @@
 # tursics.ddj.marker.js
 
-version 0.1
+version 0.2
 
 ## description
 
@@ -21,13 +21,25 @@ include in HTML header
 
 call in your JavaScript file
 ```
-	ddj.map.marker.init(elementName, data);
+	ddj.init(data);
+	ddj.marker.init({
+			onAdd: function (marker, value) {
+				return true;
+			},
+			onAddHTML: function (marker, value) {
+				return false;
+			},
+			onMouseOver: function (latlng, data) {
+				// to somethink
+			},
+			onMouseOut: function (latlng, data) {
+				// to somethink
+			},
+			onClick: function (latlng, data) {
+				// to somethink
+			}
+		});
 ```
-## API
-
-```onAdd``` function(obj, val) { return false; }
-
-```onAddHTML``` function(obj, val) { return false; }
 
 tbd. uses
 

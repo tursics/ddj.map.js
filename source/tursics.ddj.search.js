@@ -28,6 +28,7 @@ var ddj = ddj || {};
 			onClick: null,
 			onFocus: null,
 			onFormat: null,
+			orientation: 'bottom',
 			showNoSuggestion: true,
 			titleNoSuggestion: '<i class="fa fa-info-circle" aria-hidden="true"></i> Geben sie bitte einen Suchbegriff ein'
 		},
@@ -67,15 +68,29 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		update: function () {
-			var key, val, obj, addObj, dataLength = ddj.getData().length;
+			var key, val, valObj, valCount, obj, addObj, dataLength = ddj.getData().length,
+				uniqueSetId = [],
+				uniqueId = ddj.getUniqueIdentifier();
 
 			ddj.search.store.objects = [];
 
 			for (key = 0; key < dataLength; ++key) {
-				val = ddj.getData(key);
+				val = valObj = ddj.getData(key);
+				valCount = 1;
+
+				if (Array.isArray(valObj)) {
+					val = valObj[0];
+					valCount = valObj.length;
+				}
+
+				if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
+					// add to search only once
+					continue;
+				}
 
 				obj = {
 					index: key,
+					count: valCount,
 					value: '',
 					sortValue1: key,
 					sortValue2: key
@@ -84,6 +99,8 @@ var ddj = ddj || {};
 
 				if (addObj !== false) {
 					ddj.search.store.objects.push(obj);
+
+					uniqueSetId.push(val[uniqueId]);
 				}
 			}
 
@@ -113,6 +130,7 @@ var ddj = ddj || {};
 						return str;
 					}
 				},
+				orientation: ddj.search.settings.orientation,
 				showNoSuggestionNotice: ddj.search.settings.showNoSuggestion,
 				noSuggestionNotice: ddj.search.settings.titleNoSuggestion
 			});

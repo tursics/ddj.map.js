@@ -31,6 +31,7 @@ var ddj = ddj || {};
 		settings: {
 			mapboxId: 'tursics.l7ad5ee8',
 			mapboxToken: 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg',
+			attribution: '',
 			centerLat: 52.518413,
 			centerLng: 13.408368,
 			zoom: 13,
@@ -55,7 +56,7 @@ var ddj = ddj || {};
 				return;
 			}
 
-			var key, mapboxTiles;
+			var key, mapboxTiles, attribution = [];
 
 			if ((settings !== null) && (typeof (settings) === 'object')) {
 				for (key in settings) {
@@ -65,8 +66,14 @@ var ddj = ddj || {};
 				}
 			}
 
+			attribution.push('<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap-Mitwirkende</a>');
+			attribution.push('<a href="https://www.mapbox.com" target="_blank">Mapbox</a>');
+			if (ddj.map.settings.attribution !== '') {
+				attribution.push(ddj.map.settings.attribution);
+			}
+
 			mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/' + ddj.map.settings.mapboxId + '/{z}/{x}/{y}.png?access_token=' + ddj.map.settings.mapboxToken, {
-				attribution: '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap-Mitwirkende</a>, <a href="https://www.mapbox.com" target="_blank">Mapbox</a>'
+				attribution: attribution.join(', ')
 			});
 
 			ddj.setMapDOMName(elementName);

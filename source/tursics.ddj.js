@@ -14,6 +14,16 @@ String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
 
 // -----------------------------------------------------------------------------
 
+if (typeof Array.isArray === 'undefined') {
+	Array.isArray = function (obj) {
+		'use strict';
+
+		return Object.prototype.toString.call(obj) === '[object Array]';
+	};
+}
+
+// -----------------------------------------------------------------------------
+
 var ddj = ddj || {};
 
 // -----------------------------------------------------------------------------
@@ -27,7 +37,8 @@ var ddj = ddj || {};
 	ddj.store = {
 		map: null,
 		mapDOMelementID: '',
-		userData: null
+		userData: null,
+		uniqueIdentifier: null
 	};
 
 	// -------------------------------------------------------------------------
@@ -89,6 +100,46 @@ var ddj = ddj || {};
 		}
 
 		return data;
+	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.getUniqueIdentifier = function () {
+		var id = ddj.store.uniqueIdentifier;
+
+		if ((typeof id === 'undefined') || (id === undefined) || (id === null) || (id === '')) {
+			return null;
+		}
+
+		return id;
+	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.setUniqueIdentifier = function (identifier) {
+		ddj.store.uniqueIdentifier = identifier;
+	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.getAllObjects = function (obj) {
+		var u, allObjects = [], id = ddj.getUniqueIdentifier();
+
+		if (id === null) {
+			return obj;
+		}
+
+		for (u = 0; u < ddj.store.userData.length; ++u) {
+			if (ddj.store.userData[u][id] === obj[id]) {
+				allObjects.push(ddj.store.userData[u]);
+			}
+		}
+
+		if (allObjects.length === 1) {
+			return allObjects[0];
+		}
+
+		return allObjects;
 	};
 
 	// -------------------------------------------------------------------------
