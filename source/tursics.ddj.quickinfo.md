@@ -1,6 +1,6 @@
 # tursics.ddj.quickinfo.js
 
-version 0.2
+version 0.3
 
 ## description
 

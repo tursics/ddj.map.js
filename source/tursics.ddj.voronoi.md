@@ -1,6 +1,6 @@
 # tursics.ddj.voronoi.js
 
-version 0.2
+version 0.3
 
 ## todo
 
