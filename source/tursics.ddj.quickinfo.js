@@ -109,13 +109,26 @@ var ddj = ddj || {};
 			function setText(key, txt) {
 				var item = ddj.quickinfo.store.root.find('[data-quickdata="' + key + '"]');
 
-				if (item.parent().hasClass('number')) {
-					txt = formatNumber(txt);
-				} else if (item.parent().hasClass('boolean')) {
-					txt = (txt === 1 ? ddj.quickinfo.settings.dictYes : ddj.quickinfo.settings.dictNo);
+				if (item.length > 0) {
+					if (item.parent().hasClass('number')) {
+						txt = formatNumber(txt);
+					} else if (item.parent().hasClass('boolean')) {
+						txt = (txt === 1 ? ddj.quickinfo.settings.dictYes : ddj.quickinfo.settings.dictNo);
+					}
+
+					item.text(txt);
 				}
 
-				item.text(txt);
+				item = ddj.quickinfo.store.root.find('[data-hide-if-zero="' + key + '"]');
+
+				if (item.length > 0) {
+					var show = 'block';
+					if ((txt === '0') || (txt === 0) || (txt === null)) {
+						show = 'none';
+					}
+
+					item.css('display', show);
+				}
 			}
 
 			var d, data, dataArray = obj, key, i, infoList, infoItems = [], infoSnippets = [];

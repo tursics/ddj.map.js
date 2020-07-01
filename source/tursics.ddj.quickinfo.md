@@ -33,4 +33,5 @@ sample HTML file
 	hasClass('boolean')
 	data-quickinfo="list"
 	data-quickinfo="item"
+	data-hide-if-zero="item"
 ```
