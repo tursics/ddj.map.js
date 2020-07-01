@@ -155,7 +155,7 @@ var ddj = ddj || {};
 					continue;
 				}
 
-				if ((typeof val.lat !== 'undefined') && (typeof val.lng !== 'undefined')) {
+				if ((typeof val.lat !== 'undefined') && (val.lat !== '') && (typeof val.lng !== 'undefined') && (val.lng !== '')) {
 					obj = {
 						index: key,
 						count: valCount,
