@@ -1,0 +1,291 @@
+<!DOCTYPE HTML>
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
+
+	<meta name="author" content="Thomas Tursics" />
+	<meta name="keywords" content="Berlin,Schule,Kapazität,Schulkapazität,Mitte,Lichtenberg,Schulplätze,Grundschulen" />
+	<meta name="robots" content="index,follow" />
+
+ 	<title>Schulplätze an Grundschulen in Berlin-Mitte und Lichtenberg</title>
+	<meta property="og:title" content="Schulplätze an Grundschulen in Berlin-Mitte und Lichtenberg" />
+
+	<meta name="description" content="Seit Jahren steigt die Anzahl der Schüler*innen kontinuierlich an. Doch wie wird die Verteilung nach den Sommerferien sein? Welche Schule bietet noch Platz, welche ist seit Jahren mehr als voll belegt?" />
+	<meta property="og:description" content="Seit Jahren steigt die Anzahl der Schüler*innen kontinuierlich an. Doch wie wird die Verteilung nach den Sommerferien sein? Welche Schule bietet noch Platz, welche ist seit Jahren mehr als voll belegt?" />
+
+	<link rel="image_src" type="image/png" href="http://www.tursics.de/story/schulplatz-an-grundschulen/assets/social.png" />
+	<meta property="og:image" content="http://www.tursics.de/story/schulplatz-an-grundschulen/assets/social.png" />
+
+	<meta property="og:url" content="http://www.tursics.de/story/schulplatz-an-grundschulen/">
+
+	<meta property="og:type" content="article" />
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@tursics">
+	<meta name="twitter:creator" content="@tursics">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<link rel="stylesheet" href="theme/worker/index.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="../../source/tursics.ddj.js"></script>
+	<script src="../../source/tursics.ddj.map.js"></script>
+	<script src="../../source/tursics.ddj.marker.js"></script>
+	<script src="../../source/tursics.ddj.quickinfo.js"></script>
+	<script src="../../source/tursics.ddj.search.js"></script>
+	<script src="../../source/tursics.ddj.voronoi.js"></script>
+	<script src="index.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+
+	<link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/assets/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/assets/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/assets/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/assets/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/assets/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./assets/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./assets/favicon-96x96.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/assets/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+	<div data-role="page" id="pageMap">
+		<div role="main" class="ui-content" id="mapContainer"></div>
+		<div class="bigSign">
+			<div class="sign config hideMobile">
+				<div class="signLine">
+					Zeige auf der Karte...
+				</div>
+				<div>
+					<div>
+						Schuljahr: 
+						<div data-role="controlgroup" data-type="horizontal" id="settingYear">
+						  <a href="#" value="2018" class="ui-btn ui-corner-all">2018/19</a>
+						  <a href="#" value="2019" class="ui-btn ui-corner-all">2019/20</a>
+						  <a href="#" value="2020" class="ui-btn ui-corner-all ui-btn-active">2020/21</a>
+						</div>						
+						<div class="clear"></div>
+					</div>
+					<div>
+						<span class="tutorialClassSizes"></span>Schüler*innen pro Klasse: 
+						<span style="display: inline-flex;">
+							<input type="number" value="24" min="8" max="50" onchange="dataUpdated()" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" id="settingClassSizes">
+						</span>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+			<div class="sign visibleWithoutErrors" id="infoSign">
+				<h3>
+					Schulplätze an Grundschulen
+				</h3>
+				<div class="signLine">
+					Berlin-Mitte und Lichtenberg
+				</div>
+				<div>
+					Stöbern sie auf der Karte und klicken sie auf einzelne Schulen für weitere Informationen.
+				</div>
+				<div class="visibleWithData hideMobile" style="padding-bottom: 0;">
+					Oder suchen sie nach einer Schule:
+				</div>
+				<div class="searchInput visibleWithData hideMobile">
+					<input type="text" name="schools" id="autocomplete" placeholder="hier suchen" />
+					<div><i class="fa fa-search" aria-hidden="true"></i></div>
+				</div>
+				<div class="visibleWithoutData center">
+					<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+				</div>
+				<div class="hideMobile" style="padding: .5em 0 0 0">
+					<img src="assets/bima-rahmanda-unsplash.png" style="width: 100%">
+				</div>
+				<div class="showMobile" style="font-style: italic">
+					<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+					Hinweis: Nicht alle Funktionalitäten werden auf dem Handy angezeigt.
+				</div>
+			</div>
+			<div class="sign normal" id="receipt" data-quickinfo="box">
+				<h3>
+					Planungsregion <span data-quickdata="regiontitle"></span>
+				</h3>
+				<div class="signLine"><span data-quickdata="district"></span></div>
+				<div>
+					<div><span data-quickdata="title"></span> (<span data-quickdata="BSN"></span>)</div>
+					<div data-quickdata="address"></div>
+					<div><span data-quickdata="zip"></span> Berlin</div>
+					<div class="empty"></div>
+					<div class="bold">Platz in der Schule</div>
+
+					<div data-hide-if-zero="startingclassesCurrent">Es werden <span data-quickdata="startingclassesCurrent"></span> Klassen aufgenommen</div>
+
+					<div data-hide-if-zero="studentsCurrent"><span data-hide-if-zero="startingclassesCurrent">Voraussichtlich ca. </span><span data-hide-if-zero="startingstudentsCurrent">Voraussichtlich ca. </span><span data-quickdata="studentsCurrent"></span> Schüler*innen</div>
+					<div><span data-quickdata="draftinessCurrent"></span> Züge mit <span data-quickdata="seatsCurrent"></span> Plätzen</div>
+					<div data-hide-if-zero="workloadCurrent"><span data-quickdata="workloadCurrent"></span>% Auslastung</div>
+					<div data-hide-if-zero="classsizesCurrent"><span data-quickdata="classsizesCurrent"></span> Ø Frequenz laut Zügigkeit</div>
+				</div>
+				<div id="receiptClose" data-quickinfo="close"><i class="fa fa-chevron-left" aria-hidden="true"></i>schließen</div>
+			</div>
+			<div class="sign visibleWithErrors" id="errorPAge">
+				<h3>
+					Es ist ein Fehler aufgetreten
+				</h3>
+				<div class="signLine">
+					Entschuldigung, das hätte nicht passieren sollen
+				</div>
+				<div>
+					Bitte lade diese Seite noch einmal neu oder schicke mir eine <a href="mailto:thomas@tursics.de">Nachricht per E-Mail</a>.
+				</div>
+			</div>
+		</div>
+		<div data-role="popup" id="popupShare" data-theme="a" class="ui-corner-all">
+			<div style="padding:0;margin:-1px 0 0 -1px;overflow-x:hidden;">
+				<div data-role="tabs" id="tabs" style="padding:0;">
+					<div data-role="navbar">
+						<ul>
+							<li><a href="#shareLink" id="tabShareLink" data-ajax="false" class="ui-btn-active">Link teilen</a></li>
+							<li><a href="#embedMap" id="tabEmbedMap" data-ajax="false">Karte einbetten</a></li>
+						</ul>
+					</div>
+					<div id="shareLink" class="ui-body-d ui-content">
+						<div>
+							In sozialen Netzwerken teilen:
+							<div class="social">
+								<a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.tursics.de%2Fstory%2Fschulplatz-an-grundschulen%2F" rel="popup" title="Bei Facebook teilen">Facebook<span></span></a>
+								<a class="twitter"  href="https://twitter.com/intent/tweet?text=Schulplätze%20an%20Grundschulen%20in%20Berlin-Mitte%20und%20Lichtenberg&amp;url=http://www.tursics.de/story/schulplatz-an-grundschulen/" rel="popup" title="Bei Twitter teilen">Twitter<span></span></a>
+								<a class="whatsapp" href="whatsapp://send?text=Schulplätze%20an%20Grundschulen%20in%20Berlin-Mitte%20und%20Lichtenberg%3A%20http%3A%2F%2Fwww.tursics.de%2Fstory%2Fschulplatz-an-grundschulen%2F" rel="popup" title="Bei WhatsApp teilen">WhatsApp<span></span></a>
+							</div>
+						</div>
+						<div>
+							oder den Link kopieren:<br>
+							<input value="http://www.tursics.de/story/schulplatz-an-grundschulen/">
+						</div>
+						<div style="text-align:center;margin:0;"><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Schließen</a></div>
+					</div>
+					<div id="embedMap" class="ui-body-d ui-content">
+						<div style="width:400px">
+							Den Codeschnipsel können Sie direkt in Ihre Webseite oder in Ihren Wordpress-Blog einbauen.<br>
+						</div>
+						<div class="ui-field-contain ui-grid-b">
+							<div class="ui-block-a" style="padding:0 1em 0 0;margin:0;">
+								<select id="selectEmbedSize" data-native-menu="false" data-inline="false">
+									<option value="400x300">Klein</option>
+									<option value="650x450">Mittel</option>
+									<option value="800x600">Groß</option>
+								</select>
+							</div>
+							<div class="ui-block-b" style="width:66.666%;padding:.25em 0 0 0;margin:0;">
+								<input id="inputEmbedURI" value="" data-inline="true">
+							</div>
+						</div>
+						<iframe></iframe>
+						<div style="text-align:center;margin:.8em 0 0 0;"><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Schließen</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-role="popup" data-icon="fa fa-info" id="popupAuthor" data-theme="a" class="ui-corner-all">
+			<div style="padding:10px 20px;">
+				<h3>Über die Karte</h3>
+				<div>
+ 					Berlin, 24.06.2020
+				</div>
+				<div>
+					Ein Teil der Daten wurde direkt vom Bezirksamt geliefert,
+					die Anzahl der Schüler*innen aus dem <a href="https://www.berlin.de/sen/bildung/schule/berliner-schulen/schulverzeichnis/">Schulverzeichnis</a>,
+					die Zügigkeit der Schulen aus den <a href="https://www.berlin.de/ba-mitte/politik-und-verwaltung/aemter/schul-und-sportamt/schule/entwurf-schulentwicklungsplanung.pdf">Schulentwicklungsplänen</a>,
+					die Schul-Grundaten mit CC-BY-3.0 als Open Data von der <a href="https://daten.berlin.de/datensaetze/schulen-berlin">Senatsverwaltung für Bildung, Jugend und Familie</a>.
+					Die <a href="https://tursics.com/script/school-student-development/spreadsheets.php">Rohdaten können heruntergeladen</a> werden.
+					Die Webseitenquelltexte können Sie <a href="https://github.com/tursics/school-student-development">auf github</a> ansehen und frei (MIT-Lizenz) verwenden.
+				</div>
+				<div>
+					Zusammenstellung BEA Mitte / Irrtümer vorbehalten. Entwickelt von Jan Krebs und Thomas Tursics.
+				</div>
+				<div>
+					Haben Sie eine Anmerkung oder einen Fehler entdeckt, dann freue ich mich über <a href="mailto:thomas@tursics.de">Ihre E-Mail</a>.
+				</div>
+				<div style="text-align:center;margin:.8em 0 0 0;"><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a" data-rel="back">Schließen</a></div>
+			</div>
+		</div>
+		<div data-role="popup" data-tutorial="dialog" id="popupTutorial" data-theme="b" class="ui-corner-all">
+			<div data-tutorial="page">
+				Die Karte zeigt die geplante Schulplatzbelegung bei Grundschulen in Berlin-Mitte und Lichtenberg an.
+				<br><br>
+				Seit Jahren steigt die Anzahl der Schüler*innen kontinuierlich an.
+				Doch wie wird die Verteilung nach den Sommerferien sein?
+				Welche Schule bietet noch Platz, welche ist seit Jahren mehr als voll belegt?
+			</div>
+			<div data-tutorial="page">
+				Aus dem Verhältnis zwischen der Zahl an Schulplätzen und der Zahl der Kinder,
+				die tatächlich an dieser Schule lernen, lässt sich berechnen,
+				wie stark "ausgelastet" eine Schule ist.
+				<br><br>
+				Bei gleicher Zahl von Kindern und Schulplätzen, liegt die Auslastung bei 100%. Trotzdem werden die Klassen in der Praxis etwas unterschiedliche Größen haben.
+			</div>
+			<div data-tutorial="page">
+				Auf der Karte wird jede Schule mit einem Pin dargestellt und die Auslastung farblich dargestellt.<br>
+				<br>
+				<div style="margin:2px 0 0 0">
+					<span style="background:#555555;padding:0 2em 0 0;margin:0 .5em 0 0"></span>
+					Schule nicht geöffnet
+				</div>
+				<div style="margin:2px 0 0 0">
+					<span style="background:#44a5d7;padding:0 2em 0 0;margin:0 .5em 0 0"></span>
+					bis 80% Auslastung
+				</div>
+				<div style="margin:2px 0 0 0">
+					<span style="background:#6eaa25;padding:0 2em 0 0;margin:0 .5em 0 0"></span>
+					bis 95% Auslastung
+				</div>
+				<div style="margin:2px 0 0 0">
+					<span style="background:#f09333;padding:0 2em 0 0;margin:0 .5em 0 0"></span>
+					bis 110% Auslastung
+				</div>
+				<div style="margin:2px 0 0 0">
+					<span style="background:#d03c2d;padding:0 2em 0 0;margin:0 .5em 0 0"></span>
+					mehr als 110% Auslastung
+				</div>
+			</div>
+			<div data-tutorial="page">
+				Die Größe der Schulen wird in Zügen angegeben.
+				Ein Zug bedeutet eine Klasse in jedem Jahrgang.
+				<br><br>
+				Die Berliner Grundschule reicht von Jahrgang 1 bis 6, ein Zug bedeutet somit, dass sechs Schulklassen in der Schule sind.
+				Da jede Klasse einen gewissen Platz braucht, ist die Zügigkeit direkt von der Zahl der Räume abhängig, die zur Verfügung stehen.
+			</div>
+			<div data-tutorial="page">
+				Die Zahl der Kinder, die in einer Schule gleichzeitig lernen können, hängt davon ab, wie viele Kinder in jeder Klasse sind ("Klassenfrequenz").
+				<br><br>
+				In Berlin wird diese "Kapazität" der Grundschulen mit 24 Kindern pro Klasse berechnet.
+				Die tatsächliche Größe der Klassen variiert.
+				Die berechnete Zahl der Plätze ist daher eine formale Größe.
+			</div>
+			<div data-tutorial="page">
+				Die Klassenfrequenz ist für die Grundschulen auf 23 bis 26 Kinder pro Klasse festgelegt, und bei Vorliegen bestimmter Indikatoren auf 21 bis 25 Kinder.
+				<br><br>
+				Die Größe der Klassen prägt u.a. entscheidend die Lern-Möglichkeiten, und trägt zur Unterrichtsqualität bei.
+				Um die Auswirkungen anschaulich zu machen, können Sie diesen Wert ändern.
+			</div>
+			<div data-tutorial="page">
+				Weil der Schulraum in Berlin vielfach nicht ausreicht, sind viele Schulen zu mehr als 100% "ausgelastet".
+				Klassen werden vergrößert, Fach- und Horträume zugunsten von Unterrichtsräumen aufgelöst.
+				<br><br>
+				Die "Ø-Frequenz laut Zügigkeit" gibt an, wie viele Kinder durchschnittlich in jeder Klasse wären, wenn die Zahl der eingerichteten Klassen genau so groß wäre wie laut Zügigkeit vorgesehen.
+			</div>
+		</div>
+	</div>
+</body>
+</html>
