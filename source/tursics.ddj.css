@@ -6,3 +6,6 @@
 	height: 100%;
 	padding: 0px !important;
 }
+#map .attribution {
+	display: none;
+}

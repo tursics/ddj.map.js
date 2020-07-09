@@ -160,7 +160,8 @@ var ddj = ddj || {};
 	ddj.onPageShow = function(event) {
 		var elementId = 'map',
 			element = document.getElementById(elementId),
-			mapCenter = ddj.getMetaContent('ddj:mapCenter');
+			mapCenter = ddj.getMetaContent('ddj:mapCenter'),
+			attribution = element.getElementsByClassName('attribution');
 
 		if (element && (mapCenter.split(',').length === 2)) {
 			ddj.map.init(elementId, {
@@ -169,7 +170,7 @@ var ddj = ddj || {};
 				centerLat: mapCenter.split(',')[0].trim(),
 				centerLng: mapCenter.split(',')[1].trim(),
 				zoom: ddj.getMetaContent('ddj:mapZoom'),
-		//		attribution: 'icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>',
+				attribution: attribution.length > 0 ? attribution[0].innerHTML : '',
 				onFocusOnce: mapAction
 			});
 		}
