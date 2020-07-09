@@ -30,3 +30,8 @@ call in your JavaScript file
 	ddj.getUniqueIdentifier();            // get the unique key or null
 
 ```
+
+## workflow
+
+- waiting on 'page show' event
+- search div for map with the id 'map'

@@ -7,14 +7,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
 
 	<meta name="author" content="Thomas Tursics" />
-	<meta name="keywords" content="Berlin,Schule,Kapazität,Schulkapazität,Mitte,Lichtenberg,Schulplätze,Grundschulen" />
+	<meta name="keywords" content="package,tursics,ddj,sample" />
 	<meta name="robots" content="index,follow" />
 
- 	<title>Schulplätze an Grundschulen in Berlin-Mitte und Lichtenberg</title>
-	<meta property="og:title" content="Schulplätze an Grundschulen in Berlin-Mitte und Lichtenberg" />
+ 	<title>Sample tursics.ddj</title>
+	<meta property="og:title" content="Sample tursics.ddj" />
 
-	<meta name="description" content="Seit Jahren steigt die Anzahl der Schüler*innen kontinuierlich an. Doch wie wird die Verteilung nach den Sommerferien sein? Welche Schule bietet noch Platz, welche ist seit Jahren mehr als voll belegt?" />
-	<meta property="og:description" content="Seit Jahren steigt die Anzahl der Schüler*innen kontinuierlich an. Doch wie wird die Verteilung nach den Sommerferien sein? Welche Schule bietet noch Platz, welche ist seit Jahren mehr als voll belegt?" />
+	<meta name="description" content="Sample page to demonstrate the using of tursics.ddj package." />
+	<meta property="og:description" content="Sample page to demonstrate the using of tursics.ddj package." />
 
 	<link rel="image_src" type="image/png" href="http://www.tursics.de/story/schulplatz-an-grundschulen/assets/social.png" />
 	<meta property="og:image" content="http://www.tursics.de/story/schulplatz-an-grundschulen/assets/social.png" />
@@ -26,14 +26,23 @@
 	<meta name="twitter:site" content="@tursics">
 	<meta name="twitter:creator" content="@tursics">
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<!-- setup the map -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
+	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
+	<meta name="ddj:mapCenter" content="52.524889, 13.367792"> <!-- center the main station in Berlin-Mitte -->
+	<meta name="ddj:mapZoom" content="13">
+
+	<!-- other -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<link rel="stylesheet" href="theme/worker/index.css" />
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="../../source/tursics.ddj.js"></script>
 	<script src="../../source/tursics.ddj.map.js"></script>
@@ -44,7 +53,6 @@
 	<script src="index.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="/assets/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/assets/apple-icon-60x60.png">
@@ -65,7 +73,7 @@
 </head>
 <body>
 	<div data-role="page" id="pageMap">
-		<div role="main" class="ui-content" id="mapContainer"></div>
+		<div role="main" class="ui-content" id="map"></div>
 		<div class="bigSign">
 			<div class="sign config hideMobile">
 				<div class="signLine">
@@ -111,7 +119,7 @@
 					<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 				</div>
 				<div class="hideMobile" style="padding: .5em 0 0 0">
-					<img src="assets/bima-rahmanda-unsplash.png" style="width: 100%">
+					some image here
 				</div>
 				<div class="showMobile" style="font-style: italic">
 					<i class="fa fa-hand-o-right" aria-hidden="true"></i>

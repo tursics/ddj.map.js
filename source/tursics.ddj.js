@@ -1,8 +1,8 @@
 /* tursics.ddj.js */
-/* version 0.3 */
+/* version 0.4 */
 
 /*jslint browser: true*/
-/*global */
+/*global window,document */
 
 // -----------------------------------------------------------------------------
 
@@ -38,7 +38,8 @@ var ddj = ddj || {};
 		map: null,
 		mapDOMelementID: '',
 		userData: null,
-		uniqueIdentifier: null
+		uniqueIdentifier: null,
+		eventPageShowWasSet: false
 	};
 
 	// -------------------------------------------------------------------------
@@ -141,6 +142,46 @@ var ddj = ddj || {};
 
 		return allObjects;
 	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.getMetaContent = function(name) {
+		var metaTag = document.querySelector('meta[name="' + name + '"]');
+
+		if (metaTag) {
+			return metaTag.content || '';
+		}
+
+		return '';
+	};
+
+	// -------------------------------------------------------------------------
+
+	ddj.onPageShow = function(event) {
+		var elementId = 'map',
+			element = document.getElementById(elementId),
+			mapCenter = ddj.getMetaContent('ddj:mapCenter');
+
+		if (element && (mapCenter.split(',').length === 2)) {
+			ddj.map.init(elementId, {
+				mapboxId: ddj.getMetaContent('ddj:mapboxId'),
+				mapboxToken: ddj.getMetaContent('ddj:mapboxToken'),
+				centerLat: mapCenter.split(',')[0].trim(),
+				centerLng: mapCenter.split(',')[1].trim(),
+				zoom: ddj.getMetaContent('ddj:mapZoom'),
+		//		attribution: 'icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>',
+				onFocusOnce: mapAction
+			});
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
+	if (!ddj.store.eventPageShowWasSet) {
+		ddj.store.eventPageShowWasSet = true;
+
+		window.addEventListener('pageshow', ddj.onPageShow);
+	}
 
 	// -------------------------------------------------------------------------
 

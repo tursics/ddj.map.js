@@ -10,11 +10,11 @@ var config = {
 	dataIgnoreSecondLine: true,
 	dataIgnoreLastLine: true,
 	embedUrl: 'https://tursics.github.io/school-student-development/',
-	mapboxId: 'tursics.l7ad5ee8',
-	mapboxToken: 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg',
-	mapCenterLat: 52.524889, // center the main station in Berlin-Mitte
-	mapCenterLng: 13.367792,
-	mapZoom: 13,
+//	mapboxId: 'tursics.l7ad5ee8',
+//	mapboxToken: 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg',
+//	mapCenterLat: 52.524889, // center the main station in Berlin-Mitte
+//	mapCenterLng: 13.367792,
+//	mapZoom: 13,
 };
 
 var userInput = {
@@ -302,7 +302,7 @@ $(document).on("pageshow", "#pageMap", function () {
 		}
 	}
 
-	ddj.map.init('mapContainer', {
+/*	ddj.map.init('mapContainer', {
 		mapboxId: config.mapboxId,
 		mapboxToken: config.mapboxToken,
 		centerLat: config.mapCenterLat,
@@ -310,7 +310,7 @@ $(document).on("pageshow", "#pageMap", function () {
 		zoom: config.mapZoom,
 //		attribution: 'icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">flaticon.com</a>',
 		onFocusOnce: mapAction
-	});
+	});*/
 	
 	var dataUrlStudentDevelopment =  config.dataUrl + '?nocache=' + (new Date().getTime());
 
