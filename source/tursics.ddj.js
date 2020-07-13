@@ -34,6 +34,12 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	function mapAction() {
+		// nothing to do
+	}
+
+	// -------------------------------------------------------------------------
+
 	ddj.store = {
 		map: null,
 		mapDOMelementID: '',
@@ -157,7 +163,7 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
-	ddj.onPageShow = function(event) {
+	ddj.onPageShow = function() {
 		var elementId = 'map',
 			element = document.getElementById(elementId),
 			mapCenter = ddj.getMetaContent('ddj:mapCenter'),
