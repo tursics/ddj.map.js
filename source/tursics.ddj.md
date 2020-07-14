@@ -54,6 +54,7 @@ call in your JavaScript file
 	<!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<script src="../../source/tursics.ddj.js"></script>
+	<script src="../../source/tursics.ddj.autostart.js"></script>
 	<script src="../../source/tursics.ddj.map.js"></script>
 	<script src="../../source/tursics.ddj.marker.js"></script>
 	<script src="../../source/tursics.ddj.quickinfo.js"></script>
