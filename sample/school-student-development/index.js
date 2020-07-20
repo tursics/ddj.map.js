@@ -301,29 +301,6 @@ $(document).on("pageshow", "#pageMap", function () {
 
 	$.getJSON(dataUrlStudentDevelopment, function (dataStudentDevelopment) {
 	}).done(function() {
-		ddj.marker.init({
-			onAdd: function (marker, value) {
-				if (value.workloadCurrent < 1) {
-					marker.color = 'gray';
-				} else if (value.workloadCurrent < 80) {
-					marker.color = 'blue';
-				} else if (value.workloadCurrent <= 95) {
-					marker.color = 'green';
-				} else if (value.workloadCurrent <= 110) {
-					marker.color = 'orange';
-				} else {
-					marker.color = 'red';
-				}
-//				marker.iconPrefix = 'pin';
-//				marker.iconFace = value.pin;
-
-				return true;
-			},
-			onClick: function (latlng, data) {
-				updateMapSelectItem(data);
-			}
-		});
-
 		ddj.search.init({
 			orientation: 'auto',
 			showNoSuggestion: true,

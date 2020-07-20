@@ -41,6 +41,12 @@ call in your JavaScript file
 
 ```
 <head>
+	<!-- setup the data -->
+	<meta name="ddj:data" content="data.json">
+	<meta name="ddj:dataIgnoreSecondLine" content="false">
+	<meta name="ddj:dataIgnoreLastLine" content="false">
+	<meta name="ddj:dataUniqueIdentifier" content="title">
+
 	<!-- setup the map -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
@@ -51,7 +57,12 @@ call in your JavaScript file
 	<meta name="ddj:mapCenter" content="52.524889, 13.367792"> <!-- center the main station in Berlin-Mitte -->
 	<meta name="ddj:mapZoom" content="13">
 
-	<!-- other -->
+	<!-- setup the map pins -->
+	<meta name="ddj:pinColor" content="green">
+	<meta name="ddj:pinIcon" content="fa-times">
+	<meta name="ddj:pinIconPrefix" content="fa">
+
+<!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<script src="../../source/tursics.ddj.js"></script>
 	<script src="../../source/tursics.ddj.autostart.js"></script>

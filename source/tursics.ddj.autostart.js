@@ -71,33 +71,72 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	function updateMapSelectItem(data) {
+/*		globalData.selectedItem = data;
+		ddj.quickinfo.show(globalData.selectedItem);*/
+		console.log('todo');
+	}
+
+	// -------------------------------------------------------------------------
+
 	function onPageShow() {
 		ddj.map.autostart();
 
-		var dataUri = ddj.getMetaContent('ddj:data');
+		var dataUri = ddj.getMetaContent('ddj:data'),
+			dataIgnoreSecondLine = (ddj.getMetaContent('ddj:dataIgnoreSecondLine') || '') === 'true',
+			dataIgnoreLastLine = (ddj.getMetaContent('ddj:dataIgnoreLastLine') || '') === 'true',
+			dataUniqueIdentifier = ddj.getMetaContent('ddj:dataUniqueIdentifier') || '',
+			pinColor = ddj.getMetaContent('ddj:pinColor') || '',
+			pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
+			pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '';
+
 		if (dataUri) {
 			dataUri = dataUri + '?nocache=' + (new Date().getTime());
 
-			// Assign handlers immediately after making the request,
-			// and remember the jqxhr object for this request
-			var jqxhr = getJSON( dataUri, function() {
-				console.log( "success" );
-			})
-			.done(function() {
-				console.log( "second success" );
-			})
-			.fail(function() {
-				console.log( "error" );
-			})
-			.always(function() {
-				console.log( "complete" );
-			});
+			getJSON(dataUri, function (jsonObject) {
+				var data = jsonObject;
 
-			// Perform other work here ...
+				if (dataIgnoreSecondLine) {
+					data.shift();
+				}
+				if (dataIgnoreLastLine) {
+					data.pop();
+				}
 
-			// Set another completion function for the request above
-			jqxhr.always(function() {
-				console.log( "second complete" );
+				ddj.init(data);
+
+				if (dataUniqueIdentifier !== '') {
+					ddj.setUniqueIdentifier(dataUniqueIdentifier);
+				}
+			}).done(function() {
+				ddj.marker.init({
+					onAdd: function (marker, value) {
+						if (value.workloadCurrent < 1) {
+							marker.color = 'gray';
+						} else if (value.workloadCurrent < 80) {
+							marker.color = 'blue';
+						} else if (value.workloadCurrent <= 95) {
+							marker.color = 'green';
+						} else if (value.workloadCurrent <= 110) {
+							marker.color = 'orange';
+						} else {
+							marker.color = 'red';
+						}
+
+						if (pinColor !== '') {
+							marker.color = pinColor;
+						}
+						if (pinIcon !== '') {
+							marker.iconPrefix = pinIconPrefix;
+							marker.iconFace = pinIcon;
+						}
+
+						return true;
+					},
+					onClick: function (latlng, data) {
+						updateMapSelectItem(data);
+					}
+				});
 			});
 		}
 	}
