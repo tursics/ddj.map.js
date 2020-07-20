@@ -106,6 +106,18 @@ function updateDirtyData() {
 		val.seatsCurrent = formatGermanFloat(parseGermanFloat(val.draftinessCurrent) * userInput.seatsPerClassSizes, 0);
 		val.workloadCurrent = formatGermanFloat(parseGermanFloat(val.studentsCurrent) / parseGermanFloat(val.seatsCurrent) * 100, 0);
 		val.classsizesCurrent = formatGermanFloat(parseGermanFloat(val.studentsCurrent) / parseGermanFloat(val.seatsCurrent) * userInput.classSizes, 1);
+
+		if (val.workloadCurrent < 1) {
+			val.pinColor = 'gray';
+		} else if (val.workloadCurrent < 80) {
+			val.pinColor = 'blue';
+		} else if (val.workloadCurrent <= 95) {
+			val.pinColor = 'green';
+		} else if (val.workloadCurrent <= 110) {
+			val.pinColor = 'orange';
+		} else {
+			val.pinColor = 'red';
+		}
 	});
 
 	if (globalData.selectedItem !== null) {

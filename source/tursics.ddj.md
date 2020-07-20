@@ -61,6 +61,9 @@ call in your JavaScript file
 	<meta name="ddj:pinColor" content="green">
 	<meta name="ddj:pinIcon" content="fa-times">
 	<meta name="ddj:pinIconPrefix" content="fa">
+	<meta name="ddj:pinColorColumn" content="pinColor">
+	<meta name="ddj:pinIconColumn" content="pinIcon">
+	<meta name="ddj:pinIconPrefixColumn" content="pinIconPrefix">
 
 <!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />

@@ -88,7 +88,10 @@ var ddj = ddj || {};
 			dataUniqueIdentifier = ddj.getMetaContent('ddj:dataUniqueIdentifier') || '',
 			pinColor = ddj.getMetaContent('ddj:pinColor') || '',
 			pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
-			pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '';
+			pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
+			pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
+			pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
+			pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '';
 
 		if (dataUri) {
 			dataUri = dataUri + '?nocache=' + (new Date().getTime());
@@ -111,24 +114,20 @@ var ddj = ddj || {};
 			}).done(function() {
 				ddj.marker.init({
 					onAdd: function (marker, value) {
-						if (value.workloadCurrent < 1) {
-							marker.color = 'gray';
-						} else if (value.workloadCurrent < 80) {
-							marker.color = 'blue';
-						} else if (value.workloadCurrent <= 95) {
-							marker.color = 'green';
-						} else if (value.workloadCurrent <= 110) {
-							marker.color = 'orange';
-						} else {
-							marker.color = 'red';
-						}
-
 						if (pinColor !== '') {
 							marker.color = pinColor;
 						}
+						if ((pinColorColumn !== '') && value[pinColorColumn]) {
+							marker.color = value[pinColorColumn];
+						}
+
 						if (pinIcon !== '') {
 							marker.iconPrefix = pinIconPrefix;
 							marker.iconFace = pinIcon;
+						}
+						if ((pinIconColumn !== '') && value[pinIconColumn]) {
+							marker.iconPrefix = value[pinIconPrefixColumn];
+							marker.iconFace = value[pinIconColumn];
 						}
 
 						return true;
