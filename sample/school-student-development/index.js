@@ -300,17 +300,6 @@ $(document).on("pageshow", "#pageMap", function () {
 	var dataUrlStudentDevelopment =  config.dataUrl + '?nocache=' + (new Date().getTime());
 
 	$.getJSON(dataUrlStudentDevelopment, function (dataStudentDevelopment) {
-		var data = dataStudentDevelopment;
-
-		if (config.dataIgnoreSecondLine) {
-			data.shift();
-		}
-		if (config.dataIgnoreLastLine) {
-			data.pop();
-		}
-
-		ddj.init(data);
-		ddj.setUniqueIdentifier('BSN');
 	}).done(function() {
 		ddj.marker.init({
 			onAdd: function (marker, value) {

@@ -68,10 +68,13 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		update: function () {
-			var key, val, valObj, valCount, obj, addObj, dataLength = ddj.getData().length,
+			var key, val, valObj, valCount, obj, addObj, dataLength = 0,
 				uniqueSetId = [],
 				uniqueId = ddj.getUniqueIdentifier();
 
+      if (ddj.getData()) {
+        dataLength = ddj.getData().length;
+      }
 			ddj.search.store.objects = [];
 
 			for (key = 0; key < dataLength; ++key) {

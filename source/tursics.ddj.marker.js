@@ -139,78 +139,80 @@ var ddj = ddj || {};
 				}
 			});
 
-			for (key = 0; key < ddj.getRowData().length; ++key) {
-				val = ddj.getRowData(key);
-				val = ddj.marker.fixGeometryData(val);
-				valObj = val;
-				valCount = 1;
-
-				if (Array.isArray(valObj)) {
-					val = valObj[0];
-					valCount = valObj.length;
-				}
-
-				if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
-					// add marker only once
-					continue;
-				}
-
-				if ((typeof val.lat !== 'undefined') && (val.lat !== '') && (typeof val.lng !== 'undefined') && (val.lng !== '')) {
-					obj = {
-						index: key,
-						count: valCount,
-						lat: parseFloat(val.lat),
-						lng: parseFloat(val.lng),
-						color: 'blue',
-						opacity: 1,
-						clickable: 1,
-						iconPrefix: 'fa',
-						iconFace: 'fa-dot-circle-o',
-						htmlClass: '',
-						htmlIconSize: null,
-						htmlElement: ''
-					};
-					try {
-						addObj = ddj.marker.settings.onAdd(obj, val);
-					} catch (x) {
-						console.log(x);
-						addObj = false;
-					}
-					try {
-						addHTMLObj = ddj.marker.settings.onAddHTML(obj, val);
-					} catch (y) {
-						console.log(y);
-						addHTMLObj = false;
-					}
-
-					if (addObj !== false) {
-						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
-							data: obj.index,
-							icon: L.AwesomeMarkers.icon({
-								prefix: obj.iconPrefix,
-								icon: obj.iconFace,
-								markerColor: obj.color
-							}),
-							opacity: obj.opacity,
-							clickable: obj.clickable
-						}));
-
-						uniqueSetId.push(val[uniqueId]);
-					}
-					if (addHTMLObj !== false) {
-						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
-							data: obj.index,
-							icon: L.divIcon({
-								className: obj.htmlClass,
-								iconSize: obj.htmlIconSize,
-								html: obj.htmlElement
-							}),
-							opacity: obj.opacity,
-							clickable: obj.clickable
-						}));
-
-						uniqueSetId.push(val[uniqueId]);
-					}
+      if (ddj.getRowData()) {
+  			for (key = 0; key < ddj.getRowData().length; ++key) {
+  				val = ddj.getRowData(key);
+  				val = ddj.marker.fixGeometryData(val);
+  				valObj = val;
+  				valCount = 1;
+  
+  				if (Array.isArray(valObj)) {
+  					val = valObj[0];
+  					valCount = valObj.length;
+  				}
+  
+  				if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
+  					// add marker only once
+  					continue;
+  				}
+  
+  				if ((typeof val.lat !== 'undefined') && (val.lat !== '') && (typeof val.lng !== 'undefined') && (val.lng !== '')) {
+  					obj = {
+  						index: key,
+  						count: valCount,
+  						lat: parseFloat(val.lat),
+  						lng: parseFloat(val.lng),
+  						color: 'blue',
+  						opacity: 1,
+  						clickable: 1,
+  						iconPrefix: 'fa',
+  						iconFace: 'fa-dot-circle-o',
+  						htmlClass: '',
+  						htmlIconSize: null,
+  						htmlElement: ''
+  					};
+  					try {
+  						addObj = ddj.marker.settings.onAdd(obj, val);
+  					} catch (x) {
+  						console.log(x);
+  						addObj = false;
+  					}
+  					try {
+  						addHTMLObj = ddj.marker.settings.onAddHTML(obj, val);
+  					} catch (y) {
+  						console.log(y);
+  						addHTMLObj = false;
+  					}
+  
+  					if (addObj !== false) {
+  						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
+  							data: obj.index,
+  							icon: L.AwesomeMarkers.icon({
+  								prefix: obj.iconPrefix,
+  								icon: obj.iconFace,
+  								markerColor: obj.color
+  							}),
+  							opacity: obj.opacity,
+  							clickable: obj.clickable
+  						}));
+  
+  						uniqueSetId.push(val[uniqueId]);
+  					}
+  					if (addHTMLObj !== false) {
+  						ddj.marker.store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
+  							data: obj.index,
+  							icon: L.divIcon({
+  								className: obj.htmlClass,
+  								iconSize: obj.htmlIconSize,
+  								html: obj.htmlElement
+  							}),
+  							opacity: obj.opacity,
+  							clickable: obj.clickable
+  						}));
+  
+  						uniqueSetId.push(val[uniqueId]);
+  					}
+  				}
 				}
 			}
 		}
