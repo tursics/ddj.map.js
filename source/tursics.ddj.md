@@ -68,7 +68,11 @@ call in your JavaScript file
 	<!-- setup the welcome screen -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
 
-<!-- other -->
+	<!-- setup the search -->
+	<meta name="ddj:searchTitleColumn" content="title">
+	<meta name="ddj:searchDescriptionColumn" content="description">
+
+	<!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<script src="../../source/tursics.ddj.js"></script>
 	<script src="../../source/tursics.ddj.autostart.js"></script>

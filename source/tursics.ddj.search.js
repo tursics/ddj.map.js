@@ -42,26 +42,42 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		autostart: function() {
-			var noSuggestion = ddj.getSelectionHTML('[data-search="noSuggestion"]') || ddj.search.settings.titleNoSuggestion;
+			var noSuggestion = ddj.getSelectionHTML('[data-search="noSuggestion"]') || ddj.search.settings.titleNoSuggestion,
+				pinColor = ddj.getMetaContent('ddj:pinColor') || '',
+				pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
+				searchTitleColumn = ddj.getMetaContent('ddj:searchTitleColumn') || '',
+				searchDescriptionColumn = ddj.getMetaContent('ddj:searchDescriptionColumn') || '',
+				uniqueId = ddj.getUniqueIdentifier();
 
 			ddj.search.init({
 				orientation: 'auto',
 				showNoSuggestion: true,
 				titleNoSuggestion: noSuggestion,
 				onAdd: function (obj, value) {
-					var name = value.title,
-						color = 'darkred';
+					var name = '',
+						description = '',
+						color = 'blue';
 
-					if ('' !== value.BSN) {
-						name += ' (' + value.BSN + ')';
+					if ((searchTitleColumn !== '') && value[searchTitleColumn]) {
+						name = value[searchTitleColumn];
+					}
+					if ((searchDescriptionColumn !== '') && value[searchDescriptionColumn]) {
+						description = value[searchDescriptionColumn];
+					}
+
+					if (pinColor !== '') {
+						color = pinColor;
+					}
+					if ((pinColorColumn !== '') && value[pinColorColumn]) {
+						color = value[pinColorColumn];
 					}
 
 					obj.sortValue1 = name;
-					obj.sortValue2 = value.BSN;
-					obj.data = value.BSN;
+					obj.sortValue2 = value[uniqueId];
+					obj.data = value[uniqueId];
 					obj.color = color;
 					obj.value = name;
-					obj.desc = value.regiontitle;
+					obj.desc = description;
 
 					return true;
 				},
@@ -84,9 +100,9 @@ var ddj = ddj || {};
 				},
 				onClick: function (data) {
 					if (Array.isArray(data)) {
-						selectSuggestion(data[0].BSN);
+						selectSuggestion(data[0][uniqueId]);
 					} else {
-						selectSuggestion(data.BSN);
+						selectSuggestion(data[uniqueId]);
 					}
 				}
 			});
