@@ -2,7 +2,7 @@
 /* version 0.3 */
 
 /*jslint browser: true*/
-/*global window,document,XMLHttpRequest*/
+/*global window,XMLHttpRequest*/
 
 // -----------------------------------------------------------------------------
 
@@ -79,47 +79,16 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
-	function showSelection(selector, show) {
-		var query, s;
-
-		selector = selector || '';
-		query = document.querySelectorAll(selector);
-
-		for (s = 0; s < query.length; ++s) {
-			query[s].style.display = show ? 'block' : 'none';
-		}
-	}
-
-	// -------------------------------------------------------------------------
-
-	function setSelectionValue(selector, value) {
-		var query, s;
-
-		selector = selector || '';
-		query = document.querySelectorAll(selector);
-
-		for (s = 0; s < query.length; ++s) {
-			query[s].value = value;
-		}
-	}
-
-	// -------------------------------------------------------------------------
-
 	function onPageShow() {
-		ddj.map.autostart();
-
 		var dataUri = ddj.getMetaContent('ddj:data'),
 			dataIgnoreSecondLine = (ddj.getMetaContent('ddj:dataIgnoreSecondLine') || '') === 'true',
 			dataIgnoreLastLine = (ddj.getMetaContent('ddj:dataIgnoreLastLine') || '') === 'true',
-			dataUniqueIdentifier = ddj.getMetaContent('ddj:dataUniqueIdentifier') || '',
-			pinColor = ddj.getMetaContent('ddj:pinColor') || '',
-			pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
-			pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
-			pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
-			pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
-			pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '';
+			dataUniqueIdentifier = ddj.getMetaContent('ddj:dataUniqueIdentifier') || '';
 
 		ddj.autostart.store.selectedItem = null;
+		ddj.setSelectionValue('[data-search="textinput"]', '');
+
+		ddj.map.autostart();
 
 		if (dataUri) {
 			dataUri = dataUri + '?nocache=' + (new Date().getTime());
@@ -140,50 +109,20 @@ var ddj = ddj || {};
 					ddj.setUniqueIdentifier(dataUniqueIdentifier);
 				}
 			}).done(function() {
-				ddj.marker.init({
-					onAdd: function (marker, value) {
-						if (pinColor !== '') {
-							marker.color = pinColor;
-						}
-						if ((pinColorColumn !== '') && value[pinColorColumn]) {
-							marker.color = value[pinColorColumn];
-						}
-
-						if (pinIcon !== '') {
-							marker.iconPrefix = pinIconPrefix;
-							marker.iconFace = pinIcon;
-						}
-						if ((pinIconColumn !== '') && value[pinIconColumn]) {
-							marker.iconPrefix = value[pinIconPrefixColumn];
-							marker.iconFace = value[pinIconColumn];
-						}
-
-						return true;
-					},
+				ddj.marker.autostart({
 					onClick: function (latlng, data) {
 						updateMapSelectItem(data);
-					}
-				});
-
-				ddj.quickinfo.init({
-					onShow: function () {
-						showSelection('[data-welcomeinfo="box"]', false);
 					},
-					onHide: function () {
-						setSelectionValue('[data-search="textinput"]', '');
-						showSelection('[data-welcomeinfo="box"]', true);
-
-						ddj.autostart.store.selectedItem = null;
-					}
 				});
 
-				showSelection('.visibleWithoutData', false);
-				showSelection('.visibleWithData', true);
+				ddj.quickinfo.autostart();
+
+				ddj.showSelection('.visibleWithoutData', false);
+				ddj.showSelection('.visibleWithData', true);
 			}).fail(function() {
-				showSelection('.visibleWithoutErrors', false);
-				showSelection('.visibleWithErrors', true);
+				ddj.showSelection('.visibleWithoutErrors', false);
+				ddj.showSelection('.visibleWithErrors', true);
 			}).always(function() {
-				setSelectionValue('[data-search="textinput"]', '');
 			});
 		}
 	}
@@ -193,6 +132,7 @@ var ddj = ddj || {};
 	ddj.autostart = {
 
 		// ---------------------------------------------------------------------
+
 		store: {
 			selectedItem: null,
 		},

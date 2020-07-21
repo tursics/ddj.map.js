@@ -157,6 +157,32 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	ddj.showSelection = function(selector, show) {
+		var query, s;
+
+		selector = selector || '';
+		query = document.querySelectorAll(selector);
+
+		for (s = 0; s < query.length; ++s) {
+			query[s].style.display = show ? 'block' : 'none';
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
+	ddj.setSelectionValue = function(selector, value) {
+		var query, s;
+
+		selector = selector || '';
+		query = document.querySelectorAll(selector);
+
+		for (s = 0; s < query.length; ++s) {
+			query[s].value = value;
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
 }());
 
 // -----------------------------------------------------------------------------

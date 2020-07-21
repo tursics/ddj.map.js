@@ -55,6 +55,22 @@ var ddj = ddj || {};
 
 		// ---------------------------------------------------------------------
 
+		autostart: function() {
+			ddj.quickinfo.init({
+				onShow: function () {
+					ddj.showSelection('[data-welcome="box"]', false);
+				},
+				onHide: function () {
+					ddj.setSelectionValue('[data-search="textinput"]', '');
+					ddj.showSelection('[data-welcome="box"]', true);
+
+					ddj.autostart.store.selectedItem = null;
+				}
+			});
+		},
+
+		// ---------------------------------------------------------------------
+
 		init: function (settings) {
 			if (ddj.quickinfo.store.root !== null) {
 				return;

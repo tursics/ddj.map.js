@@ -85,7 +85,7 @@ call in your JavaScript file
 	</div>
 
 	<!-- show the welcome screen -->
-	<div class="visibleWithoutErrors" data-welcomeinfo="box">
+	<div class="visibleWithoutErrors" data-welcome="box">
 		<h3>
 			Best data visualization
 		</h3>

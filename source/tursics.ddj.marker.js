@@ -40,6 +40,44 @@ var ddj = ddj || {};
 
 		// ---------------------------------------------------------------------
 
+		autostart: function(options) {
+			var pinColor = ddj.getMetaContent('ddj:pinColor') || '',
+				pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
+				pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
+				pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
+				pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
+				pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '';
+
+			ddj.marker.init({
+				onAdd: function (marker, value) {
+					if (pinColor !== '') {
+						marker.color = pinColor;
+					}
+					if ((pinColorColumn !== '') && value[pinColorColumn]) {
+						marker.color = value[pinColorColumn];
+					}
+
+					if (pinIcon !== '') {
+						marker.iconPrefix = pinIconPrefix;
+						marker.iconFace = pinIcon;
+					}
+					if ((pinIconColumn !== '') && value[pinIconColumn]) {
+						marker.iconPrefix = value[pinIconPrefixColumn];
+						marker.iconFace = value[pinIconColumn];
+					}
+
+					return true;
+				},
+				onClick: function (latlng, data) {
+					if (options.onClick) {
+						options.onClick(latlng, data);
+					}
+				}
+			});
+		},
+
+		// ---------------------------------------------------------------------
+
 		init: function (settings) {
 			if (null !== ddj.marker.store.layerGroup) {
 				return;
