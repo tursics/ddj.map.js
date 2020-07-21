@@ -7,8 +7,6 @@
 
 var config = {
 	dataUrl: 'https://tursics.com/script/school-student-development/spreadsheets.php',
-	dataIgnoreSecondLine: true,
-	dataIgnoreLastLine: true,
 	embedUrl: 'https://tursics.github.io/school-student-development/',
 };
 
@@ -18,16 +16,6 @@ var userInput = {
 	classSizes:  24,
 	seatsPerClassSizes: 144,
 };
-
-var globalData = {
-	selectedItem: null,
-};
-
-// -----------------------------------------------------------------------------
-
-function mapAction() {
-	'use strict';
-}
 
 // -----------------------------------------------------------------------------
 
@@ -63,10 +51,8 @@ function formatGermanFloat(number, fractional) {
 function updateMapSelectItem(data) {
 	'use strict';
 
-	mapAction();
-
-	globalData.selectedItem = data;
-	ddj.quickinfo.show(globalData.selectedItem);
+//	globalData.selectedItem = data;
+//	ddj.quickinfo.show(globalData.selectedItem);
 }
 
 // -----------------------------------------------------------------------------
@@ -120,8 +106,8 @@ function updateDirtyData() {
 		}
 	});
 
-	if (globalData.selectedItem !== null) {
-		ddj.quickinfo.show(globalData.selectedItem);
+	if (ddj.autostart.store.selectedItem !== null) {
+		ddj.quickinfo.show(ddj.autostart.store.selectedItem);
 	}
 
 	ddj.marker.update();
@@ -335,8 +321,6 @@ $(document).on("pageshow", "#pageMap", function () {
 				return true;
 			},
 			onFocus: function () {
-				mapAction();
-
 				window.scrollTo(0, 0);
 				document.body.scrollTop = 0;
 				$('#pageMap').animate({
@@ -362,28 +346,9 @@ $(document).on("pageshow", "#pageMap", function () {
 			}
 		});
 
-		ddj.quickinfo.init({
-			onShow: function () {
-				$('#infoSign').hide();
-			},
-			onHide: function () {
-				$('#autocomplete').val('');
-				$('#infoSign').show();
-				globalData.selectedItem = null;
-			}
-		});
-
 		dataUpdated();
-
-		$('.visibleWithoutData').hide();
-		$('.visibleWithData').show();
-	}).fail(function(jqXHR, textStatus) {
-		$('.visibleWithoutErrors').hide();
-		$('.visibleWithErrors').show();
 	}).always(function() {
 		ddj.getMap().addControl(new ControlInfo());
-
-		$('#autocomplete').val('');
 
 		$('#settingYear').find('.ui-btn').on('click', function(){      
 			$('#settingYear').find('.ui-btn').removeClass('ui-btn-active');

@@ -76,9 +76,28 @@ call in your JavaScript file
 	<script src="../../source/tursics.ddj.voronoi.js"></script>
 </head>
 <body>
+
+	<!-- show the map -->
 	<div id="map">
 		<div class="attribution">
 			<a href="http://tursics.de" title="tursics.ddj">tursics.ddj</a>
+		</div>
+	</div>
+
+	<!-- show the welcome screen -->
+	<div class="visibleWithoutErrors" data-welcomeinfo="box">
+		<h3>
+			Best data visualization
+		</h3>
+		<div>
+			Short description
+		</div>
+		<div data-search="box" class="visibleWithData hideMobile">
+			<input type="text" name="searchterm" id="searchterm" data-search="textinput" placeholder="search" />
+			<div><i class="fa fa-search" aria-hidden="true"></i></div>
+		</div>
+		<div class="visibleWithoutData">
+			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 		</div>
 	</div>
 </body>

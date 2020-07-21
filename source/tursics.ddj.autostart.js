@@ -72,9 +72,35 @@ var ddj = ddj || {};
 	// -------------------------------------------------------------------------
 
 	function updateMapSelectItem(data) {
-/*		globalData.selectedItem = data;
-		ddj.quickinfo.show(globalData.selectedItem);*/
-		console.log('todo');
+		ddj.autostart.store.selectedItem = data;
+
+		ddj.quickinfo.show(ddj.autostart.store.selectedItem);
+	}
+
+	// -------------------------------------------------------------------------
+
+	function showSelection(selector, show) {
+		var query, s;
+
+		selector = selector || '';
+		query = document.querySelectorAll(selector);
+
+		for (s = 0; s < query.length; ++s) {
+			query[s].style.display = show ? 'block' : 'none';
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
+	function setSelectionValue(selector, value) {
+		var query, s;
+
+		selector = selector || '';
+		query = document.querySelectorAll(selector);
+
+		for (s = 0; s < query.length; ++s) {
+			query[s].value = value;
+		}
 	}
 
 	// -------------------------------------------------------------------------
@@ -92,6 +118,8 @@ var ddj = ddj || {};
 			pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
 			pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
 			pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '';
+
+		ddj.autostart.store.selectedItem = null;
 
 		if (dataUri) {
 			dataUri = dataUri + '?nocache=' + (new Date().getTime());
@@ -136,6 +164,26 @@ var ddj = ddj || {};
 						updateMapSelectItem(data);
 					}
 				});
+
+				ddj.quickinfo.init({
+					onShow: function () {
+						showSelection('[data-welcomeinfo="box"]', false);
+					},
+					onHide: function () {
+						setSelectionValue('[data-search="textinput"]', '');
+						showSelection('[data-welcomeinfo="box"]', true);
+
+						ddj.autostart.store.selectedItem = null;
+					}
+				});
+
+				showSelection('.visibleWithoutData', false);
+				showSelection('.visibleWithData', true);
+			}).fail(function() {
+				showSelection('.visibleWithoutErrors', false);
+				showSelection('.visibleWithErrors', true);
+			}).always(function() {
+				setSelectionValue('[data-search="textinput"]', '');
 			});
 		}
 	}
@@ -143,6 +191,11 @@ var ddj = ddj || {};
 	// -------------------------------------------------------------------------
 
 	ddj.autostart = {
+
+		// ---------------------------------------------------------------------
+		store: {
+			selectedItem: null,
+		},
 
 		// ---------------------------------------------------------------------
 

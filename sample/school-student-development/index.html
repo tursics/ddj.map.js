@@ -89,7 +89,7 @@
 			</div>
 		</div>
 		<div class="bigSign">
-			<div class="sign config hideMobile">
+			<div class="sign config visibleWithoutErrors hideMobile">
 				<div class="signLine">
 					Zeige auf der Karte...
 				</div>
@@ -112,7 +112,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="sign visibleWithoutErrors" id="infoSign">
+			<div class="sign visibleWithoutErrors" id="infoSign" data-welcomeinfo="box">
 				<h3>
 					Schulplätze an Grundschulen
 				</h3>
@@ -125,8 +125,8 @@
 				<div class="visibleWithData hideMobile" style="padding-bottom: 0;">
 					Oder suchen sie nach einer Schule:
 				</div>
-				<div class="searchInput visibleWithData hideMobile">
-					<input type="text" name="schools" id="autocomplete" placeholder="hier suchen" />
+				<div data-search="box" class="searchInput visibleWithData hideMobile">
+					<input type="text" name="schools" id="autocomplete" data-search="textinput" placeholder="hier suchen" />
 					<div><i class="fa fa-search" aria-hidden="true"></i></div>
 				</div>
 				<div class="visibleWithoutData center">
@@ -161,7 +161,7 @@
 				</div>
 				<div id="receiptClose" data-quickinfo="close"><i class="fa fa-chevron-left" aria-hidden="true"></i>schließen</div>
 			</div>
-			<div class="sign visibleWithErrors" id="errorPAge">
+			<div class="sign visibleWithErrors" id="errorPage">
 				<h3>
 					Es ist ein Fehler aufgetreten
 				</h3>
