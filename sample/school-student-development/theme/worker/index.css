@@ -55,19 +55,6 @@
 	text-align: center;
 }
 
-.visibleWithData {
-	display: none;
-}
-.visibleWithoutData {
-	display: block;
-}
-.visibleWithErrors {
-	display: none;
-}
-.visibleWithoutErrors {
-	display: block;
-}
-
 /* page */
 
 #pageMap {
@@ -439,9 +426,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
    clear: both;
 }
 
-.showMobile {
-	display: none;
-}
 @media (max-width: 30em) {
 	.bigSign {
 		bottom: 0;
@@ -461,12 +445,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 		border-right: 0;
 		padding-bottom: 15px;
 		padding-right: 45px;
-	}
-	.showMobile {
-		display: block !important;
-	}
-	.hideMobile {
-		display: none !important;
 	}
 }
 

@@ -9,3 +9,28 @@
 #map .attribution {
 	display: none;
 }
+
+.visibleWithData {
+	display: none;
+}
+.visibleWithoutData {
+	display: block;
+}
+.visibleWithErrors {
+	display: none;
+}
+.visibleWithoutErrors {
+	display: block;
+}
+
+.showMobile {
+	display: none;
+}
+@media (max-width: 30em) {
+	.showMobile {
+		display: block !important;
+	}
+	.hideMobile {
+		display: none !important;
+	}
+}
