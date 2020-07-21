@@ -10,6 +10,10 @@
 	display: none;
 }
 
+[data-search="noSuggestion"] {
+	display: none;
+}
+
 .visibleWithData {
 	display: none;
 }

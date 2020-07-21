@@ -116,6 +116,7 @@ var ddj = ddj || {};
 				});
 
 				ddj.quickinfo.autostart();
+				ddj.search.autostart();
 
 				ddj.showSelection('.visibleWithoutData', false);
 				ddj.showSelection('.visibleWithData', true);

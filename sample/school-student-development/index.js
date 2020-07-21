@@ -297,55 +297,8 @@ $(document).on("pageshow", "#pageMap", function () {
 
 	var dataUrlStudentDevelopment =  config.dataUrl + '?nocache=' + (new Date().getTime());
 
-	$.getJSON(dataUrlStudentDevelopment, function (dataStudentDevelopment) {
+	$.getJSON(dataUrlStudentDevelopment, function () {
 	}).done(function() {
-		ddj.search.init({
-			orientation: 'auto',
-			showNoSuggestion: true,
-			titleNoSuggestion: '<i class="fa fa-info-circle" aria-hidden="true"></i> Geben sie bitte den Namen einer Schule ein',
-			onAdd: function (obj, value) {
-				var name = value.title,
-					color = 'darkred';
-
-				if ('' !== value.BSN) {
-					name += ' (' + value.BSN + ')';
-				}
-
-				obj.sortValue1 = name;
-				obj.sortValue2 = value.BSN;
-				obj.data = value.BSN;
-				obj.color = color;
-				obj.value = name;
-				obj.desc = value.regiontitle;
-
-				return true;
-			},
-			onFocus: function () {
-				window.scrollTo(0, 0);
-				document.body.scrollTop = 0;
-				$('#pageMap').animate({
-					scrollTop: parseInt(0, 10)
-				}, 500);
-			},
-			onFormat: function (suggestion, currentValue) {
-				var color = suggestion.color,
-					icon = 'fa-dot-circle-o',
-					str = '';
-
-				str += '<div class="autocomplete-icon back' + color + '"><i class="fa ' + icon + '" aria-hidden="true"></i></div>';
-				str += '<div>' + suggestion.value.replace(new RegExp(currentValue.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'gi'), '<strong>' + currentValue + '</strong>') + '</div>';
-				str += '<div class="' + color + '">' + suggestion.desc + '</div>';
-				return str;
-			},
-			onClick: function (data) {
-				if (Array.isArray(data)) {
-					selectSuggestion(data[0].BSN);
-				} else {
-					selectSuggestion(data.BSN);
-				}
-			}
-		});
-
 		dataUpdated();
 	}).always(function() {
 		ddj.getMap().addControl(new ControlInfo());

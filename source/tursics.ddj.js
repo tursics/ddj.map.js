@@ -170,6 +170,20 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	ddj.getSelectionValue = function(selector) {
+		if (selector) {
+			var query = document.querySelectorAll(selector);
+
+			if (query.length > 0) {
+				return query[0].value;
+			}
+		}
+
+		return '';
+	}
+
+	// -------------------------------------------------------------------------
+
 	ddj.setSelectionValue = function(selector, value) {
 		var query, s;
 
@@ -179,6 +193,20 @@ var ddj = ddj || {};
 		for (s = 0; s < query.length; ++s) {
 			query[s].value = value;
 		}
+	}
+
+	// -------------------------------------------------------------------------
+
+	ddj.getSelectionHTML = function(selector) {
+		if (selector) {
+			var query = document.querySelectorAll(selector);
+
+			if (query.length > 0) {
+				return query[0].innerHTML;
+			}
+		}
+
+		return '';
 	}
 
 	// -------------------------------------------------------------------------

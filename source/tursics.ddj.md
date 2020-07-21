@@ -65,6 +65,9 @@ call in your JavaScript file
 	<meta name="ddj:pinIconColumn" content="pinIcon">
 	<meta name="ddj:pinIconPrefixColumn" content="pinIconPrefix">
 
+	<!-- setup the welcome screen -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
+
 <!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<script src="../../source/tursics.ddj.js"></script>
@@ -93,8 +96,11 @@ call in your JavaScript file
 			Short description
 		</div>
 		<div data-search="box" class="visibleWithData hideMobile">
-			<input type="text" name="searchterm" id="searchterm" data-search="textinput" placeholder="search" />
+			<input type="text" name="searchterm" id="autocomplete" data-search="textinput" placeholder="search" />
 			<div><i class="fa fa-search" aria-hidden="true"></i></div>
+			<div data-search="noSuggestion">
+				<i class="fa fa-info-circle" aria-hidden="true"></i> Please enter a valid text
+			</div>
 		</div>
 		<div class="visibleWithoutData">
 			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
