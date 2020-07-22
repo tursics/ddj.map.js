@@ -148,7 +148,14 @@ var ddj = ddj || {};
 				ddj.showSelection('.visibleWithoutErrors', false);
 				ddj.showSelection('.visibleWithErrors', true);
 			}).always(function() {
+				if (ddj.autostart.store.onDoneCallback) {
+					ddj.autostart.store.onDoneCallback();
+				}
 			});
+		} else {
+			if (ddj.autostart.store.onDoneCallback) {
+				ddj.autostart.store.onDoneCallback();
+			}
 		}
 	}
 
@@ -160,6 +167,13 @@ var ddj = ddj || {};
 
 		store: {
 			selectedItem: null,
+			onDoneCallback: null,
+		},
+
+		// ---------------------------------------------------------------------
+
+		onDone: function (callback) {
+			ddj.autostart.store.onDoneCallback = callback;
 		},
 
 		// ---------------------------------------------------------------------

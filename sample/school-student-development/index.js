@@ -283,8 +283,6 @@ $(document).on("pageshow", "#pageMap", function () {
 	var dataUrlStudentDevelopment =  config.dataUrl + '?nocache=' + (new Date().getTime());
 
 	$.getJSON(dataUrlStudentDevelopment, function () {
-	}).done(function() {
-		dataUpdated();
 	}).always(function() {
 		ddj.getMap().addControl(new ControlInfo());
 
@@ -315,6 +313,8 @@ $(document).on("pageshow", "#pageMap", function () {
 
 		initTutorial();
 	});
+
+	ddj.autostart.onDone(dataUpdated);
 });
 
 // -----------------------------------------------------------------------------
