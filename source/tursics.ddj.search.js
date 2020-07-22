@@ -41,10 +41,14 @@ var ddj = ddj || {};
 
 		// ---------------------------------------------------------------------
 
-		autostart: function() {
+		autostart: function(options) {
 			var noSuggestion = ddj.getSelectionHTML('[data-search="noSuggestion"]') || ddj.search.settings.titleNoSuggestion,
 				pinColor = ddj.getMetaContent('ddj:pinColor') || '',
 				pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
+				pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
+				pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
+				pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
+				pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '',
 				searchTitleColumn = ddj.getMetaContent('ddj:searchTitleColumn') || '',
 				searchDescriptionColumn = ddj.getMetaContent('ddj:searchDescriptionColumn') || '',
 				uniqueId = ddj.getUniqueIdentifier();
@@ -56,7 +60,9 @@ var ddj = ddj || {};
 				onAdd: function (obj, value) {
 					var name = '',
 						description = '',
-						color = 'blue';
+						color = 'blue',
+						iconPrefix = 'fa',
+						iconFace = 'fa-dot-circle-o';
 
 					if ((searchTitleColumn !== '') && value[searchTitleColumn]) {
 						name = value[searchTitleColumn];
@@ -72,12 +78,23 @@ var ddj = ddj || {};
 						color = value[pinColorColumn];
 					}
 
+					if (pinIcon !== '') {
+						iconPrefix = pinIconPrefix;
+						iconFace = pinIcon;
+					}
+					if ((pinIconColumn !== '') && value[pinIconColumn]) {
+						iconPrefix = value[pinIconPrefixColumn];
+						iconFace = value[pinIconColumn];
+					}
+
 					obj.sortValue1 = name;
 					obj.sortValue2 = value[uniqueId];
 					obj.data = value[uniqueId];
 					obj.color = color;
 					obj.value = name;
 					obj.desc = description;
+					obj.iconPrefix = iconPrefix;
+					obj.iconFace = iconFace;
 
 					return true;
 				},
@@ -90,19 +107,22 @@ var ddj = ddj || {};
 				},
 				onFormat: function (suggestion, currentValue) {
 					var color = suggestion.color,
-						icon = 'fa-dot-circle-o',
+						iconPrefix = suggestion.iconPrefix,
+						iconFace = suggestion.iconFace,
 						str = '';
 
-					str += '<div class="autocomplete-icon back' + color + '"><i class="fa ' + icon + '" aria-hidden="true"></i></div>';
+					str += '<div class="autocomplete-icon back' + color + '"><i class="' + iconPrefix + ' ' + iconFace + '" aria-hidden="true"></i></div>';
 					str += '<div>' + suggestion.value.replace(new RegExp(currentValue.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), 'gi'), '<strong>' + currentValue + '</strong>') + '</div>';
 					str += '<div class="' + color + '">' + suggestion.desc + '</div>';
 					return str;
 				},
 				onClick: function (data) {
-					if (Array.isArray(data)) {
-						selectSuggestion(data[0][uniqueId]);
-					} else {
-						selectSuggestion(data[uniqueId]);
+					if (options.onClick) {
+						if (Array.isArray(data)) {
+							options.onClick(data[0][uniqueId]);
+						} else {
+							options.onClick(data[uniqueId]);
+						}
 					}
 				}
 			});

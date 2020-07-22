@@ -2,7 +2,7 @@
 /* version 0.3 */
 
 /*jslint browser: true*/
-/*global window,XMLHttpRequest*/
+/*global L,window,XMLHttpRequest*/
 
 // -----------------------------------------------------------------------------
 
@@ -79,6 +79,25 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	function selectSuggestion(selection) {
+		var key, val, data = ddj.getData(), uniqueId = ddj.getUniqueIdentifier();
+
+		for (key = 0; key < data.length; ++key) {
+			val = data[key];
+
+			if (val && (val[uniqueId] === selection)) {
+				if (val.lat && val.lng) {
+					ddj.getMap().panTo(new L.LatLng(val.lat, val.lng));
+				}
+				updateMapSelectItem(ddj.getAllObjects(val));
+
+				return;
+			}
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
 	function onPageShow() {
 		var dataUri = ddj.getMetaContent('ddj:data'),
 			dataIgnoreSecondLine = (ddj.getMetaContent('ddj:dataIgnoreSecondLine') || '') === 'true',
@@ -109,14 +128,19 @@ var ddj = ddj || {};
 					ddj.setUniqueIdentifier(dataUniqueIdentifier);
 				}
 			}).done(function() {
+				ddj.quickinfo.autostart();
+
 				ddj.marker.autostart({
 					onClick: function (latlng, data) {
 						updateMapSelectItem(data);
 					},
 				});
 
-				ddj.quickinfo.autostart();
-				ddj.search.autostart();
+				ddj.search.autostart({
+					onClick: function (data) {
+						selectSuggestion(data);
+					},
+				});
 
 				ddj.showSelection('.visibleWithoutData', false);
 				ddj.showSelection('.visibleWithData', true);

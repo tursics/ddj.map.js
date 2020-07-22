@@ -57,21 +57,6 @@ function updateMapSelectItem(data) {
 
 // -----------------------------------------------------------------------------
 
-function selectSuggestion(selection) {
-	'use strict';
-
-	var done = false;
-	$.each(ddj.getData(), function (key, val) {
-		if (!done && val && (val.BSN === selection)) {
-			done = true;
-			ddj.getMap().panTo(new L.LatLng(val.lat, val.lng));
-			updateMapSelectItem(ddj.getAllObjects(val));
-		}
-	});
-}
-
-// -----------------------------------------------------------------------------
-
 function updateDirtyData() {
 	'use strict';
 
