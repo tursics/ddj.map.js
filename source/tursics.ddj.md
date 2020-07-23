@@ -110,5 +110,12 @@ call in your JavaScript file
 			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 		</div>
 	</div>
+
+	<!-- starting point for own settings screen -->
+	<script>
+		ddj.autostart.onDone(function() {
+			// todo
+		});
+	</script>
 </body>
 ```
