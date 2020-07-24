@@ -1,7 +1,7 @@
 /* tursics.de/story/ - JavaScript file */
 
 /*jslint browser: true*/
-/*global $,L,window,document,ddj*/
+/*global $,L,document,ddj*/
 
 // -----------------------------------------------------------------------------
 
@@ -48,15 +48,6 @@ function formatGermanFloat(number, fractional) {
 
 // -----------------------------------------------------------------------------
 
-function updateMapSelectItem(data) {
-	'use strict';
-
-//	globalData.selectedItem = data;
-//	ddj.quickinfo.show(globalData.selectedItem);
-}
-
-// -----------------------------------------------------------------------------
-
 function updateDirtyData() {
 	'use strict';
 
@@ -67,7 +58,7 @@ function updateDirtyData() {
 	}
 
 	$.each(ddj.getData(), function (key, val) {
-		val.diffdraftinessCurrent = val['diffdraftiness' + userInput.year] || 0;
+		val.diffdraftinessCurrent = val['diffdraftiness' + userInput.year] || 0;
 		val.draftinessCurrent = val['draftiness' + userInput.year] || 1;
 		val.containerCurrent = val['container' + userInput.year] || '';
 		val.studentsCurrent = val['students' + userInput.year] || 0;
@@ -115,115 +106,6 @@ function dataUpdated() {
 
 	if (dirty) {
 		updateDirtyData();
-	}
-}
-
-// -----------------------------------------------------------------------------
-
-function initTutorial() {
-	'use strict';
-
-	if ($('[data-tutorial="dialog"]').length !== 1) {
-		return;
-	}
-
-	var tutorial = $('[data-tutorial="dialog"]');
-	var pages = tutorial.find('[data-tutorial="page"]');
-
-	tutorial.append(
-		'<div data-tutorial="footer">' +
-			'<div>' +
-				'Seite <span data-tutorial-currentpage>1</span> von ' + pages.length +
-			'</div>' +
-			'<div data-role="controlgroup" data-type="horizontal">' +
-				'<a href="#" class="ui-btn ui-corner-all ui-btn-a" onclick="onTutorialBack()"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>' +
-				'<a href="#" class="ui-btn ui-corner-all ui-btn-a" onclick="onTutorialNext()"><i class="fa fa-chevron-right" aria-hidden="true"></i></a>' +
-//				'<a href="#" class="ui-btn ui-corner-all ui-btn-a"><i class="fa fa-times" aria-hidden="true"></i></a>' +
-			'</div>' +
-		'</div>'
-	);
-
-	var controlgroups = tutorial.find('[data-role="controlgroup"]');
-	controlgroups.controlgroup({direction: "horizontal"});
-
-	$('[data-tutorial="dialog"]').popup({
-		afterclose: function( event, ui ) {
-			gotoTutorialStart();
-		}
-	});
-
-	gotoTutorialStart();
-
-	$('[data-tutorial="dialog"]').popup('open');
-}
-
-// -----------------------------------------------------------------------------
-
-function gotoTutorialStart() {
-	'use strict';
-
-	var pageElement = $('[data-tutorial-currentpage]')[0];
-
-	pageElement.textContent = 1;
-
-	updateTutorialPagesAndButtons();
-}
-
-// -----------------------------------------------------------------------------
-
-function onTutorialBack() {
-	'use strict';
-
-	var pageElement = $('[data-tutorial-currentpage]')[0],
-		page = parseInt(pageElement.textContent, 10);
-
-	if (page > 1) {
-		pageElement.textContent = page - 1;
-	}
-
-	updateTutorialPagesAndButtons();
-}
-
-// -----------------------------------------------------------------------------
-
-function onTutorialNext() {
-	'use strict';
-
-	var pageElement = $('[data-tutorial-currentpage]')[0],
-		pages = $('[data-tutorial="dialog"]').find('[data-tutorial="page"]'),
-		page = parseInt(pageElement.textContent, 10);
-
-	if (page < pages.length) {
-		pageElement.textContent = page + 1;
-
-		updateTutorialPagesAndButtons();
-	} else {
-		$('[data-tutorial="dialog"]').popup('close');
-	}
-}
-
-// -----------------------------------------------------------------------------
-
-function updateTutorialPagesAndButtons() {
-	'use strict';
-
-	var tutorial = $('[data-tutorial="dialog"]'),
-		pageElement = $('[data-tutorial-currentpage]')[0],
-		page = parseInt(pageElement.textContent, 10),
-		pages = tutorial.find('[data-tutorial="page"]'),
-		positionTo = $(pages[page - 1]).data('position-to'),
-		controlgroupLinks = tutorial.find('[data-role="controlgroup"] a'),
-		back = $(controlgroupLinks[0]);
-
-	pages.css('display', 'none');
-	$(pages[page - 1]).css('display', 'block');
-
-	tutorial.popup('option', 'positionTo', positionTo || 'origin');
-
-	if (page < 2) {
-		back.removeClass('disabled').addClass('disabled');
-	} else {
-		back.removeClass('disabled');
 	}
 }
 
@@ -310,8 +192,6 @@ $(document).on("pageshow", "#pageMap", function () {
 			updateEmbedURI();
 			$('#popupShare').popup('reposition', 'positionTo: window');
 		});
-
-		initTutorial();
 	});
 
 	ddj.autostart.onDone(dataUpdated);

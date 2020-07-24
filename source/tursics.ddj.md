@@ -80,6 +80,7 @@ call in your JavaScript file
 	<script src="../../source/tursics.ddj.marker.js"></script>
 	<script src="../../source/tursics.ddj.quickinfo.js"></script>
 	<script src="../../source/tursics.ddj.search.js"></script>
+	<script src="../../source/tursics.ddj.tutorial.js"></script>
 	<script src="../../source/tursics.ddj.voronoi.js"></script>
 </head>
 <body>
@@ -108,6 +109,13 @@ call in your JavaScript file
 		</div>
 		<div class="visibleWithoutData">
 			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+		</div>
+	</div>
+
+	<!-- show the tutorial screen -->
+	<div data-role="popup" data-tutorial="dialog" id="popupTutorial" data-theme="b" class="ui-corner-all">
+		<div data-tutorial="page">
+			Some text
 		</div>
 	</div>
 

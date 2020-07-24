@@ -71,6 +71,14 @@ var ddj = ddj || {};
 
 	// -------------------------------------------------------------------------
 
+	function cleanURI() {
+		if (window.location.hash) {
+			history.replaceState(null, null, ' ');
+		}
+	}
+
+	// -------------------------------------------------------------------------
+
 	function updateMapSelectItem(data) {
 		ddj.autostart.store.selectedItem = data;
 
@@ -103,6 +111,8 @@ var ddj = ddj || {};
 			dataIgnoreSecondLine = (ddj.getMetaContent('ddj:dataIgnoreSecondLine') || '') === 'true',
 			dataIgnoreLastLine = (ddj.getMetaContent('ddj:dataIgnoreLastLine') || '') === 'true',
 			dataUniqueIdentifier = ddj.getMetaContent('ddj:dataUniqueIdentifier') || '';
+
+		cleanURI();
 
 		ddj.autostart.store.selectedItem = null;
 		ddj.setSelectionValue('[data-search="textinput"]', '');
@@ -157,6 +167,8 @@ var ddj = ddj || {};
 				ddj.autostart.store.onDoneCallback();
 			}
 		}
+
+		ddj.tutorial.autostart();
 	}
 
 	// -------------------------------------------------------------------------
