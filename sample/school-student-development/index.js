@@ -106,7 +106,7 @@ function dataUpdated() {
 
 // -----------------------------------------------------------------------------
 
-$(document).on("pageshow", "#pageMap", function () {
+ddj.autostart.onDone(function() {
 	'use strict';
 
 	$('#settingYear').find('.ui-btn').on('click', function(){      
@@ -115,7 +115,7 @@ $(document).on("pageshow", "#pageMap", function () {
 		dataUpdated();
 	});
 
-	ddj.autostart.onDone(dataUpdated);
+	dataUpdated();
 });
 
 // -----------------------------------------------------------------------------
