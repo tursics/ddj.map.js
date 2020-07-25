@@ -72,11 +72,15 @@ call in your JavaScript file
 	<meta name="ddj:searchTitleColumn" content="title">
 	<meta name="ddj:searchDescriptionColumn" content="description">
 
+	<!-- setup the share dialog -->
+	<meta name="ddj:shareURI" content="https://tursics.github.io/tursics.ddj/">
+
 	<!-- other -->
 	<link rel="stylesheet" href="../../source/tursics.ddj.css" />
 	<script src="../../source/tursics.ddj.js"></script>
 	<script src="../../source/tursics.ddj.autostart.js"></script>
 	<script src="../../source/tursics.ddj.map.js"></script>
+	<script src="../../source/tursics.ddj.mapcontrols.js"></script>
 	<script src="../../source/tursics.ddj.marker.js"></script>
 	<script src="../../source/tursics.ddj.quickinfo.js"></script>
 	<script src="../../source/tursics.ddj.search.js"></script>

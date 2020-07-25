@@ -2,7 +2,7 @@
 /* version 0.3 */
 
 /*jslint browser: true*/
-/*global L,window,XMLHttpRequest*/
+/*global L,window,XMLHttpRequest,history*/
 
 // -----------------------------------------------------------------------------
 
@@ -118,6 +118,7 @@ var ddj = ddj || {};
 		ddj.setSelectionValue('[data-search="textinput"]', '');
 
 		ddj.map.autostart();
+		ddj.mapcontrols.autostart();
 
 		if (dataUri) {
 			dataUri = dataUri + '?nocache=' + (new Date().getTime());
