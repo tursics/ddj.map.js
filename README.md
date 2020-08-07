@@ -6,4 +6,4 @@ ddj.map makes it easier working with data on maps.
 
 ##More information
 
-tbd
+Prepare the node.js package with ```npm run build```
