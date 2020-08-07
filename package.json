@@ -1,0 +1,26 @@
+{
+  "name": "ddj.map",
+  "version": "1.0.0",
+  "description": "ddj.map makes it easier working with data on maps",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://tursics@github.com/tursics/ddj.map.js.git"
+  },
+  "keywords": [
+    "ddj",
+    "map"
+  ],
+  "author": "Thomas Tursics",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tursics/ddj.map.js/issues"
+  },
+  "homepage": "https://github.com/tursics/ddj.map.js#readme",
+  "devDependencies": {
+    "webpack": "^4.44.1"
+  }
+}

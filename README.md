@@ -2,7 +2,7 @@
 
 This repo will be transfer to a node.js package in the future.
 
-tursics.ddj.js makes it easier working with maps.
+ddj.map makes it easier working with data on maps.
 
 ##More information
 
