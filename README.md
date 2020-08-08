@@ -1,4 +1,4 @@
-# tursics.ddj.js
+# ddj.map.js
 
 This repo will be transfer to a node.js package in the future.
 
