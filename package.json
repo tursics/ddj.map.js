@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm run watch:build",
+    "watch:build": "nodemon --watch src --exec \"npm run build\""
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
   },
   "homepage": "https://github.com/tursics/ddj.map.js#readme",
   "devDependencies": {
+    "nodemon": "^2.0.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
   }
