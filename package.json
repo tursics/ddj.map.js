@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/tursics/ddj.map.js#readme",
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-loader": "^8.1.0",
     "nodemon": "^2.0.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
