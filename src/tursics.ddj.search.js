@@ -43,14 +43,14 @@ var ddj = ddj || {};
 
 		autostart: function(options) {
 			var noSuggestion = ddj.getSelectionHTML('[data-search="noSuggestion"]') || ddj.search.settings.titleNoSuggestion,
-				pinColor = ddj.getMetaContent('ddj:pinColor') || '',
-				pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
-				pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
-				pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
-				pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
-				pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '',
-				searchTitleColumn = ddj.getMetaContent('ddj:searchTitleColumn') || '',
-				searchDescriptionColumn = ddj.getMetaContent('ddj:searchDescriptionColumn') || '',
+				pinColor = ddj.tools.getMetaContent('ddj:pinColor') || '',
+				pinColorColumn = ddj.tools.getMetaContent('ddj:pinColorColumn') || '',
+				pinIcon = ddj.tools.getMetaContent('ddj:pinIcon') || '',
+				pinIconColumn = ddj.tools.getMetaContent('ddj:pinIconColumn') || '',
+				pinIconPrefix = ddj.tools.getMetaContent('ddj:pinIconPrefix') || '',
+				pinIconPrefixColumn = ddj.tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
+				searchTitleColumn = ddj.tools.getMetaContent('ddj:searchTitleColumn') || '',
+				searchDescriptionColumn = ddj.tools.getMetaContent('ddj:searchDescriptionColumn') || '',
 				uniqueId = ddj.getUniqueIdentifier();
 
 			ddj.search.init({

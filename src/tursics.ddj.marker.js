@@ -41,12 +41,12 @@ var ddj = ddj || {};
 		// ---------------------------------------------------------------------
 
 		autostart: function(options) {
-			var pinColor = ddj.getMetaContent('ddj:pinColor') || '',
-				pinColorColumn = ddj.getMetaContent('ddj:pinColorColumn') || '',
-				pinIcon = ddj.getMetaContent('ddj:pinIcon') || '',
-				pinIconColumn = ddj.getMetaContent('ddj:pinIconColumn') || '',
-				pinIconPrefix = ddj.getMetaContent('ddj:pinIconPrefix') || '',
-				pinIconPrefixColumn = ddj.getMetaContent('ddj:pinIconPrefixColumn') || '';
+			var pinColor = ddj.tools.getMetaContent('ddj:pinColor') || '',
+				pinColorColumn = ddj.tools.getMetaContent('ddj:pinColorColumn') || '',
+				pinIcon = ddj.tools.getMetaContent('ddj:pinIcon') || '',
+				pinIconColumn = ddj.tools.getMetaContent('ddj:pinIconColumn') || '',
+				pinIconPrefix = ddj.tools.getMetaContent('ddj:pinIconPrefix') || '',
+				pinIconPrefixColumn = ddj.tools.getMetaContent('ddj:pinIconPrefixColumn') || '';
 
 			ddj.marker.init({
 				onAdd: function (marker, value) {

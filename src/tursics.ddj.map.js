@@ -50,17 +50,17 @@ var ddj = ddj || {};
 		autostart: function() {
 			var elementId = 'map',
 				element = document.getElementById(elementId),
-				mapCenter = ddj.getMetaContent('ddj:mapCenter'),
+				mapCenter = ddj.tools.getMetaContent('ddj:mapCenter'),
 				attribution = element.getElementsByClassName('attribution');
 
 			if (element && (mapCenter.split(',').length === 2)) {
 				ddj.map.init(elementId, {
-					mapboxId: ddj.getMetaContent('ddj:mapboxId'),
-					mapboxToken: ddj.getMetaContent('ddj:mapboxToken'),
+					mapboxId: ddj.tools.getMetaContent('ddj:mapboxId'),
+					mapboxToken: ddj.tools.getMetaContent('ddj:mapboxToken'),
 					attribution: attribution.length > 0 ? attribution[0].innerHTML : '',
 					centerLat: mapCenter.split(',')[0].trim(),
 					centerLng: mapCenter.split(',')[1].trim(),
-					zoom: ddj.getMetaContent('ddj:mapZoom'),
+					zoom: ddj.tools.getMetaContent('ddj:mapZoom'),
 				});
 			}
 		},
