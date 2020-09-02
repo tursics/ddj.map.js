@@ -7,51 +7,6 @@ import tools from './ddj.tools';
 
 // -----------------------------------------------------------------------------
 
-function init(userData) {
-	ddj.store.userData = userData;
-
-	// use geojson file
-	if (userData && userData.type && (userData.type === 'FeatureCollection') && userData.features) {
-		ddj.store.userData = userData.features;
-	}
-
-	String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
-		return this.indexOf(prefix) === 0;
-	};
-
-	if (typeof Array.isArray === 'undefined') {
-		Array.isArray = function (obj) {
-			return Object.prototype.toString.call(obj) === '[object Array]';
-		};
-	}
-}
-
-// -----------------------------------------------------------------------------
-
-function getMap() {
-	return ddj.store.map;
-}
-
-// -----------------------------------------------------------------------------
-
-function setMap(map) {
-	ddj.store.map = map;
-}
-
-// -----------------------------------------------------------------------------
-
-function getMapDOMName() {
-	return ddj.store.mapDOMelementID;
-}
-
-// -----------------------------------------------------------------------------
-
-function setMapDOMName(name) {
-	ddj.store.mapDOMelementID = name;
-}
-
-// -----------------------------------------------------------------------------
-
 function getRowData(key) {
 	if (typeof key === 'undefined') {
 		return ddj.store.userData;
@@ -74,24 +29,6 @@ function getData(key) {
 	}
 
 	return data;
-}
-
-// -----------------------------------------------------------------------------
-
-function getUniqueIdentifier () {
-	var id = ddj.store.uniqueIdentifier;
-
-	if ((typeof id === 'undefined') || (id === undefined) || (id === null) || (id === '')) {
-		return null;
-	}
-
-	return id;
-}
-
-// -----------------------------------------------------------------------------
-
-function setUniqueIdentifier(identifier) {
-	ddj.store.uniqueIdentifier = identifier;
 }
 
 // -----------------------------------------------------------------------------

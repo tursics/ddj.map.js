@@ -4,16 +4,10 @@
 // -----------------------------------------------------------------------------
 
 const store = {
-	map: null,
-	mapDOMelementID: '',
-	userData: null,
-	uniqueIdentifier: null,
 	eventPageShowWasSet: false,
 };
 
-export default {
-	store
-}
+export default store;
 
 // -----------------------------------------------------------------------------
 

@@ -3,7 +3,11 @@
 
 // -----------------------------------------------------------------------------
 
+import * as data from './ddj.data';
+import * as map from './ddj.map';
+import * as mapcontrols from './ddj.mapcontrols';
 import * as tools from './ddj.tools';
+import * as tutorial from './ddj.tutorial';
 
 // -----------------------------------------------------------------------------
 
@@ -12,9 +16,7 @@ const store = {
 	onDoneCallback: null,
 }
 
-export default {
-	store
-}
+export default store;
 
 // -----------------------------------------------------------------------------
 
@@ -44,12 +46,12 @@ function getJSON(uri, successCallback) {
 	request.onreadystatechange = function() {
 		if (this.readyState === 4) {
 			if (this.status >= 200 && this.status < 400) {
-				var data = JSON.parse(this.responseText);
+				var jsonData = JSON.parse(this.responseText);
 				if (successCallback) {
-					successCallback(data);
+					successCallback(jsonData);
 				}
 				if (promiseObject.onDone) {
-					promiseObject.onDone(data);
+					promiseObject.onDone(jsonData);
 				}
 				if (promiseObject.onAlways) {
 					promiseObject.onAlways();
@@ -81,8 +83,8 @@ function cleanURI() {
 
 // -----------------------------------------------------------------------------
 
-function updateMapSelectItem(data) {
-	store.selectedItem = data;
+function updateMapSelectItem(selectedItem) {
+	store.selectedItem = selectedItem;
 
 	ddj.quickinfo.show(store.selectedItem);
 }
@@ -90,10 +92,10 @@ function updateMapSelectItem(data) {
 // -----------------------------------------------------------------------------
 
 function selectSuggestion(selection) {
-	var key, val, data = ddj.getData(), uniqueId = ddj.getUniqueIdentifier();
+	var key, val, items = ddj.getData(), uniqueId = data.getUniqueIdentifier();
 
-	for (key = 0; key < data.length; ++key) {
-		val = data[key];
+	for (key = 0; key < items.length; ++key) {
+		val = items[key];
 
 		if (val && (val[uniqueId] === selection)) {
 			if (val.lat && val.lng) {
@@ -118,14 +120,14 @@ function onPageShow() {
 		ddj.quickinfo.autostart();
 
 		ddj.marker.autostart({
-			onClick: function (latlng, data) {
-				updateMapSelectItem(data);
+			onClick: function (latlng, item) {
+				updateMapSelectItem(item);
 			},
 		});
 
 		ddj.search.autostart({
-			onClick: function (data) {
-				selectSuggestion(data);
+			onClick: function (item) {
+				selectSuggestion(item);
 			},
 		});
 
@@ -151,19 +153,19 @@ function onPageShow() {
 				dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true';
 
 			getJSON(dataUri, function (jsonObject) {
-				var data = jsonObject;
+				var jsonData = jsonObject;
 
 				if (dataIgnoreSecondLine) {
-					data.shift();
+					jsonData.shift();
 				}
 				if (dataIgnoreLastLine) {
-					data.pop();
+					jsonData.pop();
 				}
 
-				ddj.init(data);
+				data.init(jsonData);
 
 				if (dataUniqueIdentifier !== '') {
-					ddj.setUniqueIdentifier(dataUniqueIdentifier);
+					data.setUniqueIdentifier(dataUniqueIdentifier);
 				}
 			}).done(function() {
 				loadData(index + 1);
@@ -183,18 +185,17 @@ function onPageShow() {
 
 	store.selectedItem = null;
 	tools.setSelectionValue('[data-search="textinput"]', '');
-
-	ddj.map.autostart();
-	ddj.mapcontrols.autostart();
-	ddj.tutorial.autostart();
+	map.autostart();
+	mapcontrols.autostart();
+	tutorial.autostart();
 
 	loadData(0);
 }
 
 // -----------------------------------------------------------------------------
 
-if (!tools.default.store.eventPageShowWasSet) {
-	tools.default.store.eventPageShowWasSet = true;
+if (!tools.default.eventPageShowWasSet) {
+	tools.default.eventPageShowWasSet = true;
 
 	window.addEventListener('pageshow', onPageShow);
 }
