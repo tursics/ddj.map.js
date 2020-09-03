@@ -4,6 +4,7 @@
 // -----------------------------------------------------------------------------
 
 import * as map from './ddj.map';
+import * as tools from './ddj.tools';
 
 // -----------------------------------------------------------------------------
 
@@ -55,7 +56,7 @@ function updateEmbedURI() {
 	var size = $('#selectEmbedSize').val().split('x'),
 		x = size[0],
 		y = size[1],
-		dataShareURI = ddj.tools.getMetaContent('ddj:shareURI') || '',
+		dataShareURI = tools.getMetaContent('ddj:shareURI') || '',
 		html = '<iframe src="' + dataShareURI + '" width="' + x + '" height="' + y + '" frameborder="0" style="border:0" allowfullscreen></iframe>';
 
 	$('#inputEmbedURI').val(html);

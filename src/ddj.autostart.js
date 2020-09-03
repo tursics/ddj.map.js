@@ -6,6 +6,7 @@
 import * as data from './ddj.data';
 import * as map from './ddj.map';
 import * as mapcontrols from './ddj.mapcontrols';
+import * as quickinfo from './ddj.quickinfo';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
 
@@ -86,7 +87,7 @@ function cleanURI() {
 function updateMapSelectItem(selectedItem) {
 	store.selectedItem = selectedItem;
 
-	ddj.quickinfo.show(store.selectedItem);
+	quickinfo.show(store.selectedItem);
 }
 
 // -----------------------------------------------------------------------------
@@ -117,7 +118,7 @@ function onPageShow() {
 		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '';
 
 	function onDone() {
-		ddj.quickinfo.autostart();
+		quickinfo.autostart();
 
 		ddj.marker.autostart({
 			onClick: function (latlng, item) {
@@ -131,13 +132,13 @@ function onPageShow() {
 			},
 		});
 
-		ddj.showSelection('.visibleWithoutData', false);
-		ddj.showSelection('.visibleWithData', true);
+		tools.showSelection('.visibleWithoutData', false);
+		tools.showSelection('.visibleWithData', true);
 	}
 
 	function onFail() {
-		ddj.showSelection('.visibleWithoutErrors', false);
-		ddj.showSelection('.visibleWithErrors', true);
+		tools.showSelection('.visibleWithoutErrors', false);
+		tools.showSelection('.visibleWithErrors', true);
 	}
 
 	function onAlways() {
