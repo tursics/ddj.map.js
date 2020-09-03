@@ -17,6 +17,32 @@ const settings = {
 
 // -----------------------------------------------------------------------------
 
+export function getRow(key) {
+	if (typeof key === 'undefined') {
+		return store.userData;
+	}
+	if (key === null) {
+		return store.userData;
+	}
+
+	return store.userData[key];
+}
+
+// -----------------------------------------------------------------------------
+
+export function get(key) {
+	var data = getRow(key);
+
+	// use geojson file
+	if (data && data.geometry && data.properties) {
+		data = data.properties;
+	}
+
+	return data;
+}
+
+// -----------------------------------------------------------------------------
+
 export function init(userData) {
 	store.userData = userData;
 

@@ -41,7 +41,7 @@ function formatNumber(txt) {
 // -----------------------------------------------------------------------------
 
 export function init(settings) {
-	if (ddj.quickinfo.store.root !== null) {
+	if (store.root !== null) {
 		return;
 	}
 
@@ -49,22 +49,22 @@ export function init(settings) {
 
 	if ((settings !== null) && (typeof (settings) === 'object')) {
 		for (key in settings) {
-			if (settings.hasOwnProperty(key) && ddj.quickinfo.settings.hasOwnProperty(key)) {
-				ddj.quickinfo.settings[key] = settings[key];
+			if (settings.hasOwnProperty(key) && settings.hasOwnProperty(key)) {
+				settings[key] = settings[key];
 			}
 		}
 	}
 
-	ddj.quickinfo.store.root = $('div').find('[data-quickinfo="box"]');
+	store.root = $('div').find('[data-quickinfo="box"]');
 
-	ddj.quickinfo.store.root.find('[data-quickinfo="close"]').on('click', function () {
-		ddj.quickinfo.setVisible(false);
+	store.root.find('[data-quickinfo="close"]').on('click', function () {
+		setVisible(false);
 	});
-	ddj.quickinfo.store.root.find('[data-quickinfo="group"]').on('click', function () {
+	store.root.find('[data-quickinfo="group"]').on('click', function () {
 		$(this).toggleClass('groupClosed');
 	});
 
-	ddj.quickinfo.update();
+	update();
 }
 
 // -----------------------------------------------------------------------------
@@ -76,14 +76,14 @@ export function update() {
 
 export function setVisible(show) {
 	if (show) {
-		ddj.quickinfo.store.root.css('display', 'block');
-		if (ddj.quickinfo.settings.onShow) {
-			ddj.quickinfo.settings.onShow();
+		store.root.css('display', 'block');
+		if (settings.onShow) {
+			settings.onShow();
 		}
 	} else {
-		ddj.quickinfo.store.root.css('display', 'none');
-		if (ddj.quickinfo.settings.onHide) {
-			ddj.quickinfo.settings.onHide();
+		store.root.css('display', 'none');
+		if (settings.onHide) {
+			settings.onHide();
 		}
 	}
 }
@@ -92,19 +92,19 @@ export function setVisible(show) {
 
 export function show(obj) {
 	function setText(key, txt) {
-		var item = ddj.quickinfo.store.root.find('[data-quickdata="' + key + '"]');
+		var item = store.root.find('[data-quickdata="' + key + '"]');
 
 		if (item.length > 0) {
 			if (item.parent().hasClass('number')) {
 				txt = formatNumber(txt);
 			} else if (item.parent().hasClass('boolean')) {
-				txt = (txt === 1 ? ddj.quickinfo.settings.dictYes : ddj.quickinfo.settings.dictNo);
+				txt = (txt === 1 ? settings.dictYes : settings.dictNo);
 			}
 
 			item.text(txt);
 		}
 
-		item = ddj.quickinfo.store.root.find('[data-hide-if-zero="' + key + '"]');
+		item = store.root.find('[data-hide-if-zero="' + key + '"]');
 
 		if (item.length > 0) {
 			var show = 'block';
@@ -122,7 +122,7 @@ export function show(obj) {
 		dataArray = [obj];
 	}
 
-	infoList = ddj.quickinfo.store.root.find('[data-quickinfo="list"]');
+	infoList = store.root.find('[data-quickinfo="list"]');
 	if (infoList.length === 1) {
 		infoItems = infoList.find('[data-quickinfo="item"]');
 
@@ -153,13 +153,13 @@ export function show(obj) {
 		}
 	}
 
-	ddj.quickinfo.setVisible(true);
+	setVisible(true);
 }
 
 // -----------------------------------------------------------------------------
 
 export function autostart() {
-	ddj.quickinfo.init({
+	init({
 		onShow: function () {
 			ddj.showSelection('[data-welcome="box"]', false);
 		},

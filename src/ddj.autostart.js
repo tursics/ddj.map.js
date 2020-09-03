@@ -6,6 +6,7 @@
 import * as data from './ddj.data';
 import * as map from './ddj.map';
 import * as mapcontrols from './ddj.mapcontrols';
+import * as marker from './ddj.marker';
 import * as quickinfo from './ddj.quickinfo';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
@@ -120,7 +121,7 @@ function onPageShow() {
 	function onDone() {
 		quickinfo.autostart();
 
-		ddj.marker.autostart({
+		marker.autostart({
 			onClick: function (latlng, item) {
 				updateMapSelectItem(item);
 			},

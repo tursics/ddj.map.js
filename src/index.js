@@ -7,32 +7,6 @@ import tools from './ddj.tools';
 
 // -----------------------------------------------------------------------------
 
-function getRowData(key) {
-	if (typeof key === 'undefined') {
-		return ddj.store.userData;
-	}
-	if (key === null) {
-		return ddj.store.userData;
-	}
-
-	return ddj.store.userData[key];
-}
-
-// -----------------------------------------------------------------------------
-
-function getData(key) {
-	var data = ddj.getRowData(key);
-
-	// use geojson file
-	if (data && data.geometry && data.properties) {
-		data = data.properties;
-	}
-
-	return data;
-}
-
-// -----------------------------------------------------------------------------
-
 function getAllObjects(obj) {
 	var u, allObjects = [], id = ddj.getUniqueIdentifier();
 
