@@ -48,11 +48,11 @@ function updateDirtyData() {
 
 	userInput.seatsPerClassSizes = userInput.classSizes * userInput.primarySchoolYears;
 
-	if (ddj.getData() === null) {
+	if (ddj.data.get() === null) {
 		return;
 	}
 
-	$.each(ddj.getData(), function (key, val) {
+	$.each(ddj.data.get(), function (key, val) {
 		val.diffdraftinessCurrent = val['diffdraftiness' + userInput.year] || 0;
 		val.draftinessCurrent = val['draftiness' + userInput.year] || 1;
 		val.containerCurrent = val['container' + userInput.year] || '';
@@ -77,8 +77,8 @@ function updateDirtyData() {
 		}
 	});
 
-	if (ddj.autostart.store.selectedItem !== null) {
-		ddj.quickinfo.show(ddj.autostart.store.selectedItem);
+	if (ddj.autostart.default.selectedItem !== null) {
+		ddj.quickinfo.show(ddj.autostart.default.selectedItem);
 	}
 
 	ddj.marker.update();

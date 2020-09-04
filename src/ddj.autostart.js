@@ -8,6 +8,7 @@ import * as map from './ddj.map';
 import * as mapcontrols from './ddj.mapcontrols';
 import * as marker from './ddj.marker';
 import * as quickinfo from './ddj.quickinfo';
+import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
 
@@ -16,6 +17,7 @@ import * as tutorial from './ddj.tutorial';
 const store = {
 	selectedItem: null,
 	onDoneCallback: null,
+	eventPageShowWasSet: false,
 }
 
 export default store;
@@ -94,16 +96,16 @@ function updateMapSelectItem(selectedItem) {
 // -----------------------------------------------------------------------------
 
 function selectSuggestion(selection) {
-	var key, val, items = ddj.getData(), uniqueId = data.getUniqueIdentifier();
+	var key, val, items = data.get(), uniqueId = data.getUniqueIdentifier();
 
 	for (key = 0; key < items.length; ++key) {
 		val = items[key];
 
 		if (val && (val[uniqueId] === selection)) {
 			if (val.lat && val.lng) {
-				ddj.getMap().panTo(new L.LatLng(val.lat, val.lng));
+				map.get().panTo(new L.LatLng(val.lat, val.lng));
 			}
-			updateMapSelectItem(ddj.getAllObjects(val));
+			updateMapSelectItem(tools.getAllObjects(val));
 
 			return;
 		}
@@ -127,7 +129,7 @@ function onPageShow() {
 			},
 		});
 
-		ddj.search.autostart({
+		search.autostart({
 			onClick: function (item) {
 				selectSuggestion(item);
 			},
@@ -196,8 +198,8 @@ function onPageShow() {
 
 // -----------------------------------------------------------------------------
 
-if (!tools.default.eventPageShowWasSet) {
-	tools.default.eventPageShowWasSet = true;
+if (!store.eventPageShowWasSet) {
+	store.eventPageShowWasSet = true;
 
 	window.addEventListener('pageshow', onPageShow);
 }

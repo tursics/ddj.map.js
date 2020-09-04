@@ -3,8 +3,11 @@
 
 // -----------------------------------------------------------------------------
 
+import * as data from './ddj.data';
+
+// -----------------------------------------------------------------------------
+
 const store = {
-	eventPageShowWasSet: false,
 };
 
 export default store;
@@ -89,6 +92,28 @@ export function getSelectionHTML(selector) {
 	}
 
 	return '';
+}
+
+// -----------------------------------------------------------------------------
+
+export function getAllObjects(obj) {
+	var u, allObjects = [], id = data.getUniqueIdentifier();
+
+	if (id === null) {
+		return obj;
+	}
+
+	for (u = 0; u < data.default.userData.length; ++u) {
+		if (data.default.userData[u][id] === obj[id]) {
+			allObjects.push(data.default.userData[u]);
+		}
+	}
+
+	if (allObjects.length === 1) {
+		return allObjects[0];
+	}
+
+	return allObjects;
 }
 
 // -----------------------------------------------------------------------------

@@ -31,7 +31,7 @@ const settings = {
 
 // -----------------------------------------------------------------------------
 
-export function init(settings) {
+export function init(initialSettings) {
 	if (null !== store.layerGroup) {
 		return;
 	}
@@ -42,10 +42,10 @@ export function init(settings) {
 
 	var key;
 
-	if ((settings !== null) && (typeof (settings) === 'object')) {
-		for (key in settings) {
-			if (settings.hasOwnProperty(key) && settings.hasOwnProperty(key)) {
-				settings[key] = settings[key];
+	if ((initialSettings !== null) && (typeof (initialSettings) === 'object')) {
+		for (key in initialSettings) {
+			if (initialSettings.hasOwnProperty(key) && settings.hasOwnProperty(key)) {
+				settings[key] = initialSettings[key];
 			}
 		}
 	}

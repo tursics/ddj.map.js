@@ -3,6 +3,10 @@
 
 // -----------------------------------------------------------------------------
 
+import * as tools from './ddj.tools';
+
+// -----------------------------------------------------------------------------
+
 const store = {
 	root: null
 }
@@ -40,17 +44,17 @@ function formatNumber(txt) {
 
 // -----------------------------------------------------------------------------
 
-export function init(settings) {
+export function init(initialSettings) {
 	if (store.root !== null) {
 		return;
 	}
 
 	var key;
 
-	if ((settings !== null) && (typeof (settings) === 'object')) {
-		for (key in settings) {
-			if (settings.hasOwnProperty(key) && settings.hasOwnProperty(key)) {
-				settings[key] = settings[key];
+	if ((initialSettings !== null) && (typeof (initialSettings) === 'object')) {
+		for (key in initialSettings) {
+			if (initialSettings.hasOwnProperty(key) && settings.hasOwnProperty(key)) {
+				settings[key] = initialSettings[key];
 			}
 		}
 	}
@@ -161,13 +165,13 @@ export function show(obj) {
 export function autostart() {
 	init({
 		onShow: function () {
-			ddj.showSelection('[data-welcome="box"]', false);
+			tools.showSelection('[data-welcome="box"]', false);
 		},
 		onHide: function () {
-			ddj.setSelectionValue('[data-search="textinput"]', '');
-			ddj.showSelection('[data-welcome="box"]', true);
+			tools.setSelectionValue('[data-search="textinput"]', '');
+			tools.showSelection('[data-welcome="box"]', true);
 
-			ddj.autostart.store.selectedItem = null;
+			autostart.default.selectedItem = null;
 		}
 	});
 }
