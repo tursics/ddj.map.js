@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack",
+    "publish": "npm run build && npm login && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npm run watch:build",
     "watch:build": "nodemon --watch src --exec \"npm run build\""
