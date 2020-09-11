@@ -120,7 +120,7 @@ export function autostart() {
 	var elementId = 'map',
 		element = document.getElementById(elementId),
 		mapCenter = tools.getMetaContent('ddj:mapCenter'),
-		attribution = element.getElementsByClassName('attribution');
+		attribution = element.getElementsByClassName('attribution') || [];
 
 	if (element && (mapCenter.split(',').length === 2)) {
 		init(elementId, {
