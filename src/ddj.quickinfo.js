@@ -3,6 +3,7 @@
 
 // -----------------------------------------------------------------------------
 
+import * as autostartLib from './ddj.autostart';
 import * as tools from './ddj.tools';
 
 // -----------------------------------------------------------------------------
@@ -171,7 +172,7 @@ export function autostart() {
 			tools.setSelectionValue('[data-search="textinput"]', '');
 			tools.showSelection('[data-welcome="box"]', true);
 
-			autostart.default.selectedItem = null;
+			autostartLib.default.selectedItem = null;
 		}
 	});
 }
