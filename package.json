@@ -1,6 +1,6 @@
 {
   "name": "ddj.map",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "ddj.map makes it easier working with data on maps",
   "main": "dist/index.js",
   "scripts": {
