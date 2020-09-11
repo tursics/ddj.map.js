@@ -125,7 +125,7 @@ function onPageShow() {
 
 		marker.autostart({
 			onClick: function (latlng, item) {
-				updateMapSelectItem(item);
+				updateMapSelectItem(tools.getAllObjects(item));
 			},
 		});
 
