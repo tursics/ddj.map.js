@@ -90,6 +90,20 @@ Replace ...
 	<meta name="twitter:creator" content="@twitter_handle">
 ```
 
+### x. write a tutorial
+
+```
+<div data-role="popup" data-tutorial="dialog" id="popupTutorial" data-theme="b" class="ui-corner-all">
+	<div data-tutorial="page">
+		text for page 1
+	</div>
+	<div data-tutorial="page">
+		text for page 2
+	</div>
+</div>
+```
+
+
 ## Build your own package
 
 To build the package, use:
