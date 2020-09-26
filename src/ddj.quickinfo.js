@@ -106,7 +106,11 @@ export function show(obj) {
 				txt = (txt === 1 ? settings.dictYes : settings.dictNo);
 			}
 
-			item.text(txt);
+			if (item.tagName.toUpperCase() === 'IMG') {
+				item.src = txt;
+			} else {
+				item.text(txt);
+			}
 		}
 
 		item = store.root.find('[data-hide-if-zero="' + key + '"]');

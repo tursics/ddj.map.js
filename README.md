@@ -23,7 +23,7 @@ todo
 	<!-- placeholder for data source -->
 </head>
 <body>
-	<div data-role="page" id="pageMap">
+	<div data-role="page" id="map"></div>
 </body>
 </html>
 ```
@@ -39,29 +39,49 @@ Replace ...
 	<meta name="ddj:dataUniqueIdentifier" content="id">
 ```
 
+### x. setup libs
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="ddj.map.css" />
+	<link rel="stylesheet" href="theme/realestate/index.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/ddj.map@1.0.1/dist/ddj.map.js"></script>
+	<script src="index.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
+
+### x. setup the map
+
+	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
+	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
+	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
+	<meta name="ddj:mapZoom" content="13">
+
+### x. setup the map pins
+
+	<meta name="ddj:pinColor" content="white">
+	<meta name="ddj:pinIconPrefixColumn" content="pin-prefix">
+	<meta name="ddj:pinIconColumn" content="pin">
+
 ### x. other configuration
 
 ```
-	mapCenter = tools.getMetaContent('ddj:mapCenter')
-	mapboxId: tools.getMetaContent('ddj:mapboxId')
-	mapboxToken: tools.getMetaContent('ddj:mapboxToken')
-	zoom: tools.getMetaContent('ddj:mapZoom')
 	dataShareURI = tools.getMetaContent('ddj:shareURI')
-	var pinColor = tools.getMetaContent('ddj:pinColor') || '',
-		pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
-		pinIcon = tools.getMetaContent('ddj:pinIcon') || '',
-		pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
-		pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
-		pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '';
-		pinColor = tools.getMetaContent('ddj:pinColor') || '',
-		pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
-		pinIcon = tools.getMetaContent('ddj:pinIcon') || '',
-		pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
-		pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
-		pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
-		searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
-		searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
+	pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
+	pinIcon = tools.getMetaContent('ddj:pinIcon') || '',
+	pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
+	searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
+	searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.4.11/jquery.autocomplete.min.js"></script>
 ```
 
 ### x. prepare for Google, Facebook and Twitter
