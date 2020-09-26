@@ -52,7 +52,7 @@ Replace ...
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/ddj.map@1.0.1/dist/ddj.map.js"></script>
+	<script src="https://unpkg.com/ddj.map@1.0.4/dist/ddj.map.js"></script>
 	<script src="index.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 
