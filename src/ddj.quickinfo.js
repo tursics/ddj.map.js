@@ -106,8 +106,8 @@ export function show(obj) {
 				txt = (txt === 1 ? settings.dictYes : settings.dictNo);
 			}
 
-			if (item.tagName.toUpperCase() === 'IMG') {
-				item.src = txt;
+			if (item[0].tagName === 'IMG') {
+				item[0].src = txt;
 			} else {
 				item.text(txt);
 			}
