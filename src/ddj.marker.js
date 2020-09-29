@@ -31,11 +31,20 @@ const settings = {
 
 // -----------------------------------------------------------------------------
 
+export function canInit() {
+	if ((typeof L === 'undefined') || (L === null)) {
+		return false;
+	}
+	return true;
+}
+
+// -----------------------------------------------------------------------------
+
 export function init(initialSettings) {
 	if (null !== store.layerGroup) {
 		return;
 	}
-	if ((typeof L === 'undefined') || (L === null)) {
+	if (!canInit()) {
 		console.error('Error: Please include leaflet.js in your html file.');
 		return;
 	}
@@ -218,32 +227,34 @@ export function autostart(options) {
 		pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
 		pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '';
 
-	init({
-		onAdd: function (marker, value) {
-			if (pinColor !== '') {
-				marker.color = pinColor;
-			}
-			if ((pinColorColumn !== '') && value[pinColorColumn]) {
-				marker.color = value[pinColorColumn];
-			}
+	if (canInit()) {
+		init({
+			onAdd: function (marker, value) {
+				if (pinColor !== '') {
+					marker.color = pinColor;
+				}
+				if ((pinColorColumn !== '') && value[pinColorColumn]) {
+					marker.color = value[pinColorColumn];
+				}
 
-			if (pinIcon !== '') {
-				marker.iconPrefix = pinIconPrefix;
-				marker.iconFace = pinIcon;
-			}
-			if ((pinIconColumn !== '') && value[pinIconColumn]) {
-				marker.iconPrefix = value[pinIconPrefixColumn];
-				marker.iconFace = value[pinIconColumn];
-			}
+				if (pinIcon !== '') {
+					marker.iconPrefix = pinIconPrefix;
+					marker.iconFace = pinIcon;
+				}
+				if ((pinIconColumn !== '') && value[pinIconColumn]) {
+					marker.iconPrefix = value[pinIconPrefixColumn];
+					marker.iconFace = value[pinIconColumn];
+				}
 
-			return true;
-		},
-		onClick: function (latlng, data) {
-			if (options.onClick) {
-				options.onClick(latlng, data);
+				return true;
+			},
+			onClick: function (latlng, data) {
+				if (options.onClick) {
+					options.onClick(latlng, data);
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 // -----------------------------------------------------------------------------

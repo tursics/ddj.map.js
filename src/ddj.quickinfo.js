@@ -60,16 +60,18 @@ export function init(initialSettings) {
 		}
 	}
 
-	store.root = $('div').find('[data-quickinfo="box"]');
+	store.root = document.querySelector('[data-quickinfo="box"]');
 
-	store.root.find('[data-quickinfo="close"]').on('click', function () {
-		setVisible(false);
-	});
-	store.root.find('[data-quickinfo="group"]').on('click', function () {
-		$(this).toggleClass('groupClosed');
-	});
+	if (store.root) {
+		store.root.find('[data-quickinfo="close"]').on('click', function () {
+			setVisible(false);
+		});
+		store.root.find('[data-quickinfo="group"]').on('click', function () {
+			$(this).toggleClass('groupClosed');
+		});
 
-	update();
+		update();
+	}
 }
 
 // -----------------------------------------------------------------------------

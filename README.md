@@ -21,6 +21,7 @@ todo
 
 	<!-- put in your app icon here -->
 	<!-- put in the lib here -->
+	<!-- put in the data here -->
 
 <!-- placeholder for Google, Facebook and Twitter -->
 	<!-- placeholder for data source -->
@@ -42,11 +43,12 @@ Replace ...
 	<script src="https://unpkg.com/ddj.map@1.0.4/dist/ddj.map.js"></script>
 ```
 
-### x. set data source
+### 2. set a data source
 
 Replace ...
 
 ```
+	<!-- put in the data here -->
 	<meta name="ddj:data" content="path/to/data.csv">
 	<meta name="ddj:dataIgnoreSecondLine" content="false">
 	<meta name="ddj:dataIgnoreLastLine" content="false">
