@@ -62,11 +62,20 @@ export function setDOMName(name) {
 
 // -----------------------------------------------------------------------------
 
+export function canInit() {
+	if ((typeof L === 'undefined') || (L === null)) {
+		return false;
+	}
+	return true;
+}
+
+// -----------------------------------------------------------------------------
+
 export function init(elementName, initialSettings) {
 	if (null !== get()) {
 		return;
 	}
-	if ((typeof L === 'undefined') || (L === null)) {
+	if (!canInit()) {
 		console.error('Error: Please include leaflet.js in your html file.');
 		return;
 	}
@@ -87,8 +96,12 @@ export function init(elementName, initialSettings) {
 		attribution.push(settings.attribution);
 	}
 
-	mapboxTiles = L.tileLayer('https://{s}.tiles.mapbox.com/v4/' + settings.mapboxId + '/{z}/{x}/{y}.png?access_token=' + settings.mapboxToken, {
-		attribution: attribution.join(', ')
+	mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+		attribution: attribution.join(', '),
+		tileSize: 512,
+		zoomOffset: -1,
+		id: 'mapbox/streets-v11',
+		accessToken: settings.mapboxToken,
 	});
 
 	setDOMName(elementName);
