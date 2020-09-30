@@ -22,9 +22,9 @@ todo
 	<!-- put in your app icon here -->
 	<!-- put in the lib here -->
 	<!-- put in the data here -->
+	<!-- put in the map here -->
 
-<!-- placeholder for Google, Facebook and Twitter -->
-	<!-- placeholder for data source -->
+	<!-- placeholder for Google, Facebook and Twitter -->
 </head>
 <body>
 	<div data-role="page" id="map"></div>
@@ -32,7 +32,7 @@ todo
 </html>
 ```
 
-### 1. use the lib and choose a theme
+### 2. use the lib and choose a theme
 
 Replace ...
 
@@ -43,7 +43,7 @@ Replace ...
 	<script src="https://unpkg.com/ddj.map@1.0.4/dist/ddj.map.js"></script>
 ```
 
-### 2. set a data source
+### 3. set a data source
 
 Replace ...
 
@@ -55,10 +55,22 @@ Replace ...
 	<meta name="ddj:dataUniqueIdentifier" content="id">
 ```
 
-### x. setup libs
+### 4. setup the map
+
+Replace ...
+
+```
+	<!-- put in the map here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
+	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
+	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
+	<meta name="ddj:mapZoom" content="13">
+```
+
+### x. setup libs
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
@@ -68,13 +80,6 @@ Replace ...
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="index.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
-
-### x. setup the map
-
-	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
-	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
-	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
-	<meta name="ddj:mapZoom" content="13">
 
 ### x. setup the map pins
 

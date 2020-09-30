@@ -32,7 +32,7 @@ const settings = {
 // -----------------------------------------------------------------------------
 
 export function canInit() {
-	if ((typeof L === 'undefined') || (L === null)) {
+	if ((typeof L === 'undefined') || (L === null) || (L.AwesomeMarkers === undefined)) {
 		return false;
 	}
 	return true;
@@ -45,7 +45,7 @@ export function init(initialSettings) {
 		return;
 	}
 	if (!canInit()) {
-		console.error('Error: Please include leaflet.js in your html file.');
+		console.error('Error: Please include leaflet.js and Leaflet.awesome-markers,js in your html file.');
 		return;
 	}
 
