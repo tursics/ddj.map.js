@@ -160,6 +160,11 @@ Replace ...
 </div>
 ```
 
+### To Do
+
+Include polyfill for
+
+* https://github.com/mathiasbynens/CSS.escape
 
 ## Build your own package
 
