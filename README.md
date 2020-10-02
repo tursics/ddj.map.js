@@ -27,7 +27,6 @@ todo
 	<!-- placeholder for Google, Facebook and Twitter -->
 </head>
 <body>
-	<div data-role="page" id="map"></div>
 </body>
 </html>
 ```
@@ -67,6 +66,10 @@ Replace ...
 	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
 	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
 	<meta name="ddj:mapZoom" content="13">
+
+	<body class="m-0">
+		<div data-map id="map"></div>
+	</body>
 ```
 
 ### x. setup libs
