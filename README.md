@@ -110,16 +110,16 @@ Replace ...
 * lightgray
 * black
 
-Font Awesome register for free... https://fontawesome.com/start
+Font Awesome 5.x register for free... https://fontawesome.com/start
 
 ```
 	<!-- put in the map pins here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-	<meta name="ddj:pinColor" content="blue">
-	<meta name="ddj:pinIconPrefix" content="fa">
-	<meta name="ddj:pinIcon" content="fa-user-circle-o">
+	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
+	<meta name="ddj:pinColor" content="cadetblue">
+	<meta name="ddj:pinIconPrefix" content="fas">
+	<meta name="ddj:pinIcon" content="fa-certificate">
 ```
 
 ### x. setup libs

@@ -188,7 +188,8 @@ if (data.getRow()) {
 				store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
 					data: obj.index,
 					icon: L.AwesomeMarkers.icon({
-						prefix: obj.iconPrefix,
+						prefix: 'fa',
+						extraClasses: obj.iconPrefix,
 						icon: obj.iconFace,
 						markerColor: obj.color
 					}),
