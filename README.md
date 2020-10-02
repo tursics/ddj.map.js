@@ -23,6 +23,7 @@ todo
 	<!-- put in the lib here -->
 	<!-- put in the data here -->
 	<!-- put in the map here -->
+	<!-- put in the map pins here -->
 
 	<!-- placeholder for Google, Facebook and Twitter -->
 </head>
@@ -72,31 +73,55 @@ Replace ...
 	</body>
 ```
 
-### x. setup libs
+### 5. show map pins
+
+Replace ...
+* white
+* red
+* darkred
+* lightred
+* orange
+* beige
+* green
+* darkgreen
+* lightgreen
+* blue
+* darkblue
+* lightblue
+* purple
+* darkpurple
+* pink
+* cadetblue
+* gray
+* lightgray
+* black
+
+```
+	<!-- put in the map pins here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<meta name="ddj:pinColor" content="blue">
+	<meta name="ddj:pinIconPrefix" content="fa">
+	<meta name="ddj:pinIcon" content="fa-user-circle-o">
+```
+
+### x. setup libs
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="index.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 
-### x. setup the map pins
-
-	<meta name="ddj:pinColor" content="white">
-	<meta name="ddj:pinIconPrefixColumn" content="pin-prefix">
-	<meta name="ddj:pinIconColumn" content="pin">
-
 ### x. other configuration
 
 ```
 	dataShareURI = tools.getMetaContent('ddj:shareURI')
 	pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
-	pinIcon = tools.getMetaContent('ddj:pinIcon') || '',
-	pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
+	pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
+	pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
 	searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
 	searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
 
