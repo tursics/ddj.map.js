@@ -73,6 +73,20 @@ Replace ...
 	</body>
 ```
 
+### 4b. attribute
+
+Replace ...
+
+```
+	<body class="m-0">
+		<div data-map id="map">
+			<div data-map="attribution">
+				<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map">ddj.map</a>
+			</div>
+		</div>
+	</body>
+```
+
 ### 5. show map pins
 
 Replace ...
@@ -95,6 +109,8 @@ Replace ...
 * gray
 * lightgray
 * black
+
+Font Awesome register for free... https://fontawesome.com/start
 
 ```
 	<!-- put in the map pins here -->
