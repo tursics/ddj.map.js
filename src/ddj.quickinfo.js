@@ -139,6 +139,10 @@ export function show(obj) {
 		}
 	}
 
+	if (store.root === null) {
+		return;
+	}
+
 	var d, data, dataArray = obj, key, i, infoList, infoItems = [], infoSnippets = [];
 
 	if (!Array.isArray(dataArray)) {
