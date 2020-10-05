@@ -32,6 +32,12 @@ todo
 </html>
 ```
 
+Language setting, e.g. ```lang="de"``` for map attribution.
+
+```
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+```
+
 ### 2. use the lib and choose a theme
 
 Replace ...
@@ -50,10 +56,24 @@ Replace ...
 ```
 	<!-- put in the data here -->
 	<meta name="ddj:data" content="path/to/data.csv">
-	<meta name="ddj:dataIgnoreSecondLine" content="false">
-	<meta name="ddj:dataIgnoreLastLine" content="false">
 	<meta name="ddj:dataUniqueIdentifier" content="id">
 ```
+
+Additional ...
+
+```
+	<meta name="ddj:dataIgnoreSecondLine" content="false">
+	<meta name="ddj:dataIgnoreLastLine" content="false">
+	<meta name="ddj:dataNoCache" content="true">
+```
+
+WFS stuff ...
+
+```
+	<script src="https://cdn.jsdelivr.net/npm/leaflet-wfst@2.0.1-beta.25/dist/leaflet-wfst.src.min.js"></script>
+	<meta name="ddj:wfs" content="true">
+```
+
 
 ### 4. setup the map
 
@@ -63,14 +83,18 @@ Replace ...
 	<!-- put in the map here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
-	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
 	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
 	<meta name="ddj:mapZoom" content="13">
 
 	<body class="m-0">
 		<div data-map id="map"></div>
 	</body>
+```
+
+openstreetmap style or mapbox style ...
+
+```
+	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
 ```
 
 ### 4b. attribute
@@ -81,7 +105,7 @@ Replace ...
 	<body class="m-0">
 		<div data-map id="map">
 			<div data-map="attribution">
-				<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map">ddj.map</a>
+				<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank">ddj.map</a>
 			</div>
 		</div>
 	</body>

@@ -17,8 +17,7 @@ export default store;
 // -----------------------------------------------------------------------------
 
 const settings = {
-	mapboxId: 'tursics.l7ad5ee8',
-	mapboxToken: 'pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg',
+	mapboxToken: '',
 	attribution: '',
 	centerLat: 52.518413,
 	centerLng: 13.408368,
@@ -80,7 +79,7 @@ export function init(elementName, initialSettings) {
 		return;
 	}
 
-	var key, mapboxTiles, attribution = [];
+	var key, tileLayer, attribution = [], attributionOSM;
 
 	if ((initialSettings !== null) && (typeof (initialSettings) === 'object')) {
 		for (key in initialSettings) {
@@ -90,23 +89,41 @@ export function init(elementName, initialSettings) {
 		}
 	}
 
-	attribution.push('<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap-Mitwirkende</a>');
-	attribution.push('<a href="https://www.mapbox.com" target="_blank">Mapbox</a>');
-	if (settings.attribution !== '') {
-		attribution.push(settings.attribution);
+	if (document.documentElement.lang === 'de') {
+		attributionOSM = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>-Mitwirkende';
+	} else {
+		attributionOSM = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
 	}
 
-	mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-		attribution: attribution.join(', '),
-		tileSize: 512,
-		zoomOffset: -1,
-		id: 'mapbox/streets-v11',
-		accessToken: settings.mapboxToken,
-	});
+	if (settings.mapboxToken !== '') {
+		attribution.push(attributionOSM);
+		attribution.push('<a href="https://www.mapbox.com" target="_blank">Mapbox</a>');
+		if (settings.attribution !== '') {
+			attribution.push(settings.attribution);
+		}
+
+		tileLayer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+			attribution: attribution.join(', '),
+			tileSize: 512,
+			zoomOffset: -1,
+			id: 'mapbox/streets-v11',
+			accessToken: settings.mapboxToken,
+		});
+	} else {
+		attribution.push(attributionOSM);
+		if (settings.attribution !== '') {
+			attribution.push(settings.attribution);
+		}
+
+		tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: attribution.join(', '),
+			maxZoom: 19,
+		});
+	}
 
 	setDOMName(elementName);
 	set(L.map(elementName, {zoomControl: false, scrollWheelZoom: true})
-		.addLayer(mapboxTiles)
+		.addLayer(tileLayer)
 		.setView([settings.centerLat, settings.centerLng], settings.zoom));
 
 	get().addControl(L.control.zoom({ position: 'bottomright'}));
@@ -137,8 +154,7 @@ export function autostart() {
 
 	if (element && (mapCenter.split(',').length === 2)) {
 		init(elementId, {
-			mapboxId: tools.getMetaContent('ddj:mapboxId'),
-			mapboxToken: tools.getMetaContent('ddj:mapboxToken'),
+			mapboxToken: tools.getMetaContent('ddj:mapboxToken') || '',
 			attribution: attribution.length > 0 ? attribution[0].innerHTML : '',
 			centerLat: mapCenter.split(',')[0].trim(),
 			centerLng: mapCenter.split(',')[1].trim(),
