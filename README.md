@@ -67,13 +67,7 @@ Additional ...
 	<meta name="ddj:dataNoCache" content="true">
 ```
 
-WFS stuff ...
-
-```
-	<script src="https://cdn.jsdelivr.net/npm/leaflet-wfst@2.0.1-beta.25/dist/leaflet-wfst.src.min.js"></script>
-	<meta name="ddj:wfs" content="true">
-```
-
+Info ... CORS problems should be solved by 3rd party proxy
 
 ### 4. setup the map
 

@@ -24,12 +24,8 @@
 	<meta name="msapplication-TileImage" content="./ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 
-	<!-- put in the lib here -->
-	<link rel="stylesheet" href="../src/index.css" />
-	<script src="../dist/ddj.map.js"></script>
-
 	<!-- put in the data here -->
-	<meta name="ddj:data" content="https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_schulen?service=wfs&request=GetCapabilities">
+	<meta name="ddj:data" content="https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_schulen?service=wfs">
 	<meta name="ddj:dataIgnoreSecondLine" content="false">
 	<meta name="ddj:dataIgnoreLastLine" content="false">
 	<meta name="ddj:dataUniqueIdentifier" content="id">
@@ -40,8 +36,9 @@
 	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
 	<meta name="ddj:mapZoom" content="13">
 
-	<script src="https://cdn.jsdelivr.net/npm/leaflet-wfst@2.0.1-beta.25/dist/leaflet-wfst.src.min.js"></script>
-	<meta name="ddj:wfs" content="true">
+	<!-- put in the lib here -->
+	<link rel="stylesheet" href="../src/index.css" />
+	<script src="../dist/ddj.map.js"></script>
 
 	<!-- put in the map pins here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />

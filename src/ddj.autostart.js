@@ -78,6 +78,62 @@ function getJSON(uri, successCallback) {
 }
 
 // -----------------------------------------------------------------------------
+//
+// WFS stuff for later use
+// * Mhhh. https://www.npmjs.com/package/leaflet-geoserver-request needs jquery
+// * Loading Berlin school data results in an error L.Geoserver.js:101
+//
+//```
+//	<meta name="ddj:data" content="https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_schulen?service=wfs">
+//	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+//	<meta name="ddj:wfs" content="true">
+//```
+//
+//npm i leaflet-geoserver-request
+//
+//import * as geoserver from 'leaflet-geoserver-request';
+//
+/*function getWFS(uri, successCallback) {
+	var promiseObject = {
+		onDone: null,
+		onFail: null,
+		onAlways: null,
+
+		done: function(callback) {
+			this.onDone = callback;
+			return this;
+		},
+		fail: function(callback) {
+			this.onFail = callback;
+			return this;
+		},
+		always: function(callback) {
+			this.onAlways = callback;
+			return this;
+		},
+	};
+
+	console.log(uri);
+	var wfs = L.Geoserver.wfs(uri, {
+		layers: `fis:s_schulen`,
+		style: {
+			color: "red",
+			fillOpacity: 0,
+			opacity: 1,
+			stockWidth: 0.5,
+		},
+		onEachFeature: function (f, l) {
+			l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+		},
+//		CQL_FILTER: `name_rg=='Sughd'`,
+		fitLayer: true,
+	});
+	wfs.addTo(map.get());
+
+	return promiseObject;
+}*/
+
+// -----------------------------------------------------------------------------
 
 function cleanURI() {
 	if (window.location.hash) {
@@ -118,7 +174,9 @@ function onPageShow() {
 	var dataUris = tools.getMetaContentArray('ddj:data'),
 		dataIgnoreSecondLines = tools.getMetaContentArray('ddj:dataIgnoreSecondLine'),
 		dataIgnoreLastLines = tools.getMetaContentArray('ddj:dataIgnoreLastLine'),
-		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '';
+		dataNoCaches = tools.getMetaContentArray('ddj:dataNoCache'),
+		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '',
+		dataWFSs = tools.getMetaContentArray('ddj:wfs');
 
 	function onDone() {
 		quickinfo.autostart();
@@ -152,31 +210,41 @@ function onPageShow() {
 
 	function loadData(index) {
 		if (index < dataUris.length) {
-			var dataUri = dataUris[index] + '?nocache=' + (new Date().getTime()),
+			var dataUri = dataUris[index],
 				dataIgnoreSecondLine = (index < dataIgnoreSecondLines.length ? dataIgnoreSecondLines[index] : '') === 'true',
-				dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true';
+				dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true',
+				dataNoCache = (index < dataNoCaches.length ? dataNoCaches[index] : '') === 'true',
+				dataWFS = (index < dataWFSs.length ? dataWFSs[index] : '') === 'true';
 
-			getJSON(dataUri, function (jsonObject) {
-				var jsonData = jsonObject;
+			if (dataNoCache) {
+				dataUri += '?nocache=' + (new Date().getTime());
+			}
 
-				if (dataIgnoreSecondLine) {
-					jsonData.shift();
-				}
-				if (dataIgnoreLastLine) {
-					jsonData.pop();
-				}
+			if (dataWFS) {
+//				getWFS(dataUri, function() {});
+			} else {
+				getJSON(dataUri, function (jsonObject) {
+					var jsonData = jsonObject;
 
-				data.init(jsonData);
+					if (dataIgnoreSecondLine) {
+						jsonData.shift();
+					}
+					if (dataIgnoreLastLine) {
+						jsonData.pop();
+					}
 
-				if (dataUniqueIdentifier !== '') {
-					data.setUniqueIdentifier(dataUniqueIdentifier);
-				}
-			}).done(function() {
-				loadData(index + 1);
-			}).fail(function() {
-				onFail();
-				onAlways();
-			});
+					data.init(jsonData);
+
+					if (dataUniqueIdentifier !== '') {
+						data.setUniqueIdentifier(dataUniqueIdentifier);
+					}
+				}).done(function() {
+					loadData(index + 1);
+				}).fail(function() {
+					onFail();
+					onAlways();
+				});
+			}
 		} else {
 			if (index > 0) {
 				onDone();
@@ -195,6 +263,26 @@ function onPageShow() {
 
 	loadData(0);
 }
+
+// -----------------------------------------------------------------------------
+// https://github.com/Rob--W/cors-anywhere/#documentation
+
+(function() {
+	var cors_api_host = 'cors-anywhere.herokuapp.com';
+	var cors_api_url = 'https://' + cors_api_host + '/';
+	var slice = [].slice;
+	var origin = window.location.protocol + '//' + window.location.host;
+	var open = XMLHttpRequest.prototype.open;
+	XMLHttpRequest.prototype.open = function() {
+		var args = slice.call(arguments);
+		var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+		if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+			targetOrigin[1] !== cors_api_host) {
+			args[1] = cors_api_url + args[1];
+		}
+		return open.apply(this, args);
+	};
+})();
 
 // -----------------------------------------------------------------------------
 
