@@ -46,7 +46,7 @@ Replace ...
 	<!-- put in the lib here -->
 	<link rel="stylesheet" href="ddj.map.css" />
 	<link rel="stylesheet" href="theme/simple/index.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.4/dist/ddj.map.js"></script>
+	<script src="https://unpkg.com/ddj.map@1.0.5/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -241,6 +241,7 @@ To build the package and run a watcher, use:
 To publish the package on npmjs.com:
 
 - open ```package.json``` and increase the version number
-- ```npm run watch```
+- increase the version number in this ```README``` file
+- ```npm run publish```
 - fill in the npmjs.com credencials
-- tag the version in github
+- push and tag the version in github
