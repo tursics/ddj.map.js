@@ -11,6 +11,7 @@ import * as quickinfo from './ddj.quickinfo';
 import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
+import * as csvParse from 'csv-parse/lib/es5/sync';
 
 // -----------------------------------------------------------------------------
 
@@ -56,6 +57,65 @@ function getJSON(uri, successCallback) {
 				}
 				if (promiseObject.onDone) {
 					promiseObject.onDone(jsonData);
+				}
+				if (promiseObject.onAlways) {
+					promiseObject.onAlways();
+				}
+			} else {
+				if (promiseObject.onFail) {
+					promiseObject.onFail(/*jqxhr*/null, /*textStatus*/'', /*error*/null);
+				}
+				if (promiseObject.onAlways) {
+					promiseObject.onAlways();
+				}
+			}
+		}
+	};
+
+	request.send();
+	request = null;
+
+	return promiseObject;
+}
+
+// -----------------------------------------------------------------------------
+// https://csv.js.org/parse/
+
+function getCSV(uri, successCallback) {
+	var promiseObject = {
+		onDone: null,
+		onFail: null,
+		onAlways: null,
+
+		done: function(callback) {
+			this.onDone = callback;
+			return this;
+		},
+		fail: function(callback) {
+			this.onFail = callback;
+			return this;
+		},
+		always: function(callback) {
+			this.onAlways = callback;
+			return this;
+		},
+	};
+
+	var request = new XMLHttpRequest();
+	request.open('GET', uri, true);
+
+	request.onreadystatechange = function() {
+		if (this.readyState === 4) {
+			if (this.status >= 200 && this.status < 400) {
+				const csvData = csvParse(this.responseText, {
+					columns: true,
+					skip_empty_lines: true
+				});
+				if (successCallback) {
+					successCallback(csvData);
+				}
+				if (promiseObject.onDone) {
+					promiseObject.onDone(csvData);
 				}
 				if (promiseObject.onAlways) {
 					promiseObject.onAlways();
@@ -176,7 +236,7 @@ function onPageShow() {
 		dataIgnoreLastLines = tools.getMetaContentArray('ddj:dataIgnoreLastLine'),
 		dataNoCaches = tools.getMetaContentArray('ddj:dataNoCache'),
 		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '',
-		dataWFSs = tools.getMetaContentArray('ddj:wfs');
+		dataTypes = tools.getMetaContentArray('ddj:dataType');
 
 	function onDone() {
 		quickinfo.autostart();
@@ -208,36 +268,48 @@ function onPageShow() {
 		}
 	}
 
+	function onData(objData, index) {
+		var dataIgnoreSecondLine = (index < dataIgnoreSecondLines.length ? dataIgnoreSecondLines[index] : '') === 'true',
+			dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true';
+
+		if (dataIgnoreSecondLine) {
+			objData.shift();
+		}
+		if (dataIgnoreLastLine) {
+			objData.pop();
+		}
+
+		data.init(objData);
+
+		if (dataUniqueIdentifier !== '') {
+			data.setUniqueIdentifier(dataUniqueIdentifier);
+		}
+	}
+
 	function loadData(index) {
 		if (index < dataUris.length) {
 			var dataUri = dataUris[index],
-				dataIgnoreSecondLine = (index < dataIgnoreSecondLines.length ? dataIgnoreSecondLines[index] : '') === 'true',
-				dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true',
 				dataNoCache = (index < dataNoCaches.length ? dataNoCaches[index] : '') === 'true',
-				dataWFS = (index < dataWFSs.length ? dataWFSs[index] : '') === 'true';
+				dataType = (index < dataTypes.length ? dataTypes[index] : 'json').toLowerCase();
 
 			if (dataNoCache) {
 				dataUri += '?nocache=' + (new Date().getTime());
 			}
 
-			if (dataWFS) {
+			if (dataType === 'wfs') {
 //				getWFS(dataUri, function() {});
+			} else if (dataType === 'csv') {
+				getCSV(dataUri, function(csvObject) {
+					onData(csvObject, index);
+				}).done(function() {
+					loadData(index + 1);
+				}).fail(function() {
+					onFail();
+					onAlways();
+				});
 			} else {
-				getJSON(dataUri, function (jsonObject) {
-					var jsonData = jsonObject;
-
-					if (dataIgnoreSecondLine) {
-						jsonData.shift();
-					}
-					if (dataIgnoreLastLine) {
-						jsonData.pop();
-					}
-
-					data.init(jsonData);
-
-					if (dataUniqueIdentifier !== '') {
-						data.setUniqueIdentifier(dataUniqueIdentifier);
-					}
+				getJSON(dataUri, function(jsonObject) {
+					onData(jsonObject, index);
 				}).done(function() {
 					loadData(index + 1);
 				}).fail(function() {
