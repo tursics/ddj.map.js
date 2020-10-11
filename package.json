@@ -1,6 +1,6 @@
 {
   "name": "ddj.map",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "ddj.map makes it easier working with data on maps",
   "main": "dist/index.js",
   "scripts": {
@@ -31,5 +31,8 @@
     "nodemon": "^2.0.4",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "csv-parse": "^4.12.0"
   }
 }

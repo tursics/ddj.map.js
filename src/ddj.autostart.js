@@ -11,6 +11,7 @@ import * as quickinfo from './ddj.quickinfo';
 import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
+import * as csvParse from 'csv-parse/lib/es5/sync';
 
 // -----------------------------------------------------------------------------
 
@@ -78,6 +79,121 @@ function getJSON(uri, successCallback) {
 }
 
 // -----------------------------------------------------------------------------
+// https://csv.js.org/parse/
+
+function getCSV(uri, successCallback) {
+	var promiseObject = {
+		onDone: null,
+		onFail: null,
+		onAlways: null,
+
+		done: function(callback) {
+			this.onDone = callback;
+			return this;
+		},
+		fail: function(callback) {
+			this.onFail = callback;
+			return this;
+		},
+		always: function(callback) {
+			this.onAlways = callback;
+			return this;
+		},
+	};
+
+	var request = new XMLHttpRequest();
+	request.open('GET', uri, true);
+
+	request.onreadystatechange = function() {
+		if (this.readyState === 4) {
+			if (this.status >= 200 && this.status < 400) {
+				const csvData = csvParse(this.responseText, {
+					columns: true,
+					skip_empty_lines: true
+				});
+				if (successCallback) {
+					successCallback(csvData);
+				}
+				if (promiseObject.onDone) {
+					promiseObject.onDone(csvData);
+				}
+				if (promiseObject.onAlways) {
+					promiseObject.onAlways();
+				}
+			} else {
+				if (promiseObject.onFail) {
+					promiseObject.onFail(/*jqxhr*/null, /*textStatus*/'', /*error*/null);
+				}
+				if (promiseObject.onAlways) {
+					promiseObject.onAlways();
+				}
+			}
+		}
+	};
+
+	request.send();
+	request = null;
+
+	return promiseObject;
+}
+
+// -----------------------------------------------------------------------------
+//
+// WFS stuff for later use
+// * Mhhh. https://www.npmjs.com/package/leaflet-geoserver-request needs jquery
+// * Loading Berlin school data results in an error L.Geoserver.js:101
+//
+//```
+//	<meta name="ddj:data" content="https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_schulen?service=wfs">
+//	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+//	<meta name="ddj:wfs" content="true">
+//```
+//
+//npm i leaflet-geoserver-request
+//
+//import * as geoserver from 'leaflet-geoserver-request';
+//
+/*function getWFS(uri, successCallback) {
+	var promiseObject = {
+		onDone: null,
+		onFail: null,
+		onAlways: null,
+
+		done: function(callback) {
+			this.onDone = callback;
+			return this;
+		},
+		fail: function(callback) {
+			this.onFail = callback;
+			return this;
+		},
+		always: function(callback) {
+			this.onAlways = callback;
+			return this;
+		},
+	};
+
+	console.log(uri);
+	var wfs = L.Geoserver.wfs(uri, {
+		layers: `fis:s_schulen`,
+		style: {
+			color: "red",
+			fillOpacity: 0,
+			opacity: 1,
+			stockWidth: 0.5,
+		},
+		onEachFeature: function (f, l) {
+			l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+		},
+//		CQL_FILTER: `name_rg=='Sughd'`,
+		fitLayer: true,
+	});
+	wfs.addTo(map.get());
+
+	return promiseObject;
+}*/
+
+// -----------------------------------------------------------------------------
 
 function cleanURI() {
 	if (window.location.hash) {
@@ -118,7 +234,9 @@ function onPageShow() {
 	var dataUris = tools.getMetaContentArray('ddj:data'),
 		dataIgnoreSecondLines = tools.getMetaContentArray('ddj:dataIgnoreSecondLine'),
 		dataIgnoreLastLines = tools.getMetaContentArray('ddj:dataIgnoreLastLine'),
-		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '';
+		dataNoCaches = tools.getMetaContentArray('ddj:dataNoCache'),
+		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '',
+		dataTypes = tools.getMetaContentArray('ddj:dataType');
 
 	function onDone() {
 		quickinfo.autostart();
@@ -150,33 +268,55 @@ function onPageShow() {
 		}
 	}
 
+	function onData(objData, index) {
+		var dataIgnoreSecondLine = (index < dataIgnoreSecondLines.length ? dataIgnoreSecondLines[index] : '') === 'true',
+			dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true';
+
+		if (dataIgnoreSecondLine) {
+			objData.shift();
+		}
+		if (dataIgnoreLastLine) {
+			objData.pop();
+		}
+
+		data.init(objData);
+
+		if (dataUniqueIdentifier !== '') {
+			data.setUniqueIdentifier(dataUniqueIdentifier);
+		}
+	}
+
 	function loadData(index) {
 		if (index < dataUris.length) {
-			var dataUri = dataUris[index] + '?nocache=' + (new Date().getTime()),
-				dataIgnoreSecondLine = (index < dataIgnoreSecondLines.length ? dataIgnoreSecondLines[index] : '') === 'true',
-				dataIgnoreLastLine = (index < dataIgnoreLastLines.length ? dataIgnoreLastLines[index] : '') === 'true';
+			var dataUri = dataUris[index],
+				dataNoCache = (index < dataNoCaches.length ? dataNoCaches[index] : '') === 'true',
+				dataType = (index < dataTypes.length ? dataTypes[index] : 'json').toLowerCase();
 
-			getJSON(dataUri, function (jsonObject) {
-				var jsonData = jsonObject;
+			if (dataNoCache) {
+				dataUri += '?nocache=' + (new Date().getTime());
+			}
 
-				if (dataIgnoreSecondLine) {
-					jsonData.shift();
-				}
-				if (dataIgnoreLastLine) {
-					jsonData.pop();
-				}
-
-				data.init(jsonData);
-
-				if (dataUniqueIdentifier !== '') {
-					data.setUniqueIdentifier(dataUniqueIdentifier);
-				}
-			}).done(function() {
-				loadData(index + 1);
-			}).fail(function() {
-				onFail();
-				onAlways();
-			});
+			if (dataType === 'wfs') {
+//				getWFS(dataUri, function() {});
+			} else if (dataType === 'csv') {
+				getCSV(dataUri, function(csvObject) {
+					onData(csvObject, index);
+				}).done(function() {
+					loadData(index + 1);
+				}).fail(function() {
+					onFail();
+					onAlways();
+				});
+			} else {
+				getJSON(dataUri, function(jsonObject) {
+					onData(jsonObject, index);
+				}).done(function() {
+					loadData(index + 1);
+				}).fail(function() {
+					onFail();
+					onAlways();
+				});
+			}
 		} else {
 			if (index > 0) {
 				onDone();
@@ -195,6 +335,26 @@ function onPageShow() {
 
 	loadData(0);
 }
+
+// -----------------------------------------------------------------------------
+// https://github.com/Rob--W/cors-anywhere/#documentation
+
+(function() {
+	var cors_api_host = 'cors-anywhere.herokuapp.com';
+	var cors_api_url = 'https://' + cors_api_host + '/';
+	var slice = [].slice;
+	var origin = window.location.protocol + '//' + window.location.host;
+	var open = XMLHttpRequest.prototype.open;
+	XMLHttpRequest.prototype.open = function() {
+		var args = slice.call(arguments);
+		var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+		if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+			targetOrigin[1] !== cors_api_host) {
+			args[1] = cors_api_url + args[1];
+		}
+		return open.apply(this, args);
+	};
+})();
 
 // -----------------------------------------------------------------------------
 

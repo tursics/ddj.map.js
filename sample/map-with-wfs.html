@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
+
+	<!-- put in your app icon here -->
+	<link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="./ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<!-- put in the data here -->
+	<meta name="ddj:data" content="https://fbinter.stadt-berlin.de/fb/wfs/data/senstadt/s_schulen?service=wfs">
+	<meta name="ddj:dataIgnoreSecondLine" content="false">
+	<meta name="ddj:dataIgnoreLastLine" content="false">
+	<meta name="ddj:dataUniqueIdentifier" content="id">
+
+	<!-- put in the map here -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
+	<meta name="ddj:mapZoom" content="13">
+
+	<!-- put in the lib here -->
+	<link rel="stylesheet" href="../src/index.css" />
+	<script src="../dist/ddj.map.js"></script>
+
+	<!-- put in the map pins here -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
+	<meta name="ddj:pinColor" content="cadetblue">
+	<meta name="ddj:pinIconPrefix" content="fas">
+	<meta name="ddj:pinIcon" content="fa-certificate">
+
+	<!-- placeholder for Google, Facebook and Twitter -->
+</head>
+
+<body class="m-0">
+	<div data-map id="map">
+		<div data-map="attribution">
+			<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank">ddj.map</a>,
+			<a href="https://daten.berlin.de/datensaetze/standorte-%C3%B6ffentlicher-schulen-wfs-0" title="Senatsverwaltung für Bildung, Jugend und Wissenschaft" target="_blank">Sen BJW</a>
+		</div>
+	</div>
+</body>
+</html>

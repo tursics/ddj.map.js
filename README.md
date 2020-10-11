@@ -12,70 +12,158 @@ todo
 
 ```
 <!DOCTYPE HTML>
-<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
 
+	<!-- put in your app icon here -->
+	<!-- put in the lib here -->
+	<!-- put in the data here -->
+	<!-- put in the map here -->
+	<!-- put in the map pins here -->
+
 	<!-- placeholder for Google, Facebook and Twitter -->
-	<!-- placeholder for data source -->
 </head>
 <body>
-	<div data-role="page" id="map"></div>
 </body>
 </html>
 ```
 
-### x. set data source
+Language setting, e.g. ```lang="de"``` for map attribution.
+
+```
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+```
+
+### 2. use the lib and choose a theme
 
 Replace ...
 
 ```
+	<!-- put in the lib here -->
+	<link rel="stylesheet" href="ddj.map.css" />
+	<link rel="stylesheet" href="theme/simple/index.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.5/dist/ddj.map.js"></script>
+```
+
+### 3. set a data source
+
+Replace ...
+
+```
+	<!-- put in the data here -->
 	<meta name="ddj:data" content="path/to/data.csv">
-	<meta name="ddj:dataIgnoreSecondLine" content="false">
-	<meta name="ddj:dataIgnoreLastLine" content="false">
+	<meta name="ddj:dataType" content="csv">
 	<meta name="ddj:dataUniqueIdentifier" content="id">
 ```
 
-### x. setup libs
+```dataType``` is one of
+* json (default)
+* csv
+* wfs (in planning)
+
+Additional ...
+
+```
+	<meta name="ddj:dataIgnoreSecondLine" content="false">
+	<meta name="ddj:dataIgnoreLastLine" content="false">
+	<meta name="ddj:dataNoCache" content="true">
+	<meta name="ddj:latitudeColumn" content="lat">
+	<meta name="ddj:longitudeColumn" content="lng">
+```
+
+Info ... CORS problems should be solved by 3rd party proxy
+
+### 4. setup the map
+
+Replace ...
+
+```
+	<!-- put in the map here -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="ddj.map.css" />
-	<link rel="stylesheet" href="theme/realestate/index.css" />
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://unpkg.com/ddj.map@1.0.4/dist/ddj.map.js"></script>
-	<script src="index.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
-
-### x. setup the map
-
-	<meta name="ddj:mapboxId" content="tursics.l7ad5ee8">
-	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
 	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
 	<meta name="ddj:mapZoom" content="13">
 
-### x. setup the map pins
+	<body class="m-0">
+		<div data-map id="map"></div>
+	</body>
+```
 
-	<meta name="ddj:pinColor" content="white">
-	<meta name="ddj:pinIconPrefixColumn" content="pin-prefix">
-	<meta name="ddj:pinIconColumn" content="pin">
+openstreetmap style or mapbox style ...
+
+```
+	<meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg">
+```
+
+### 4b. attribute
+
+Replace ...
+
+```
+	<body class="m-0">
+		<div data-map id="map">
+			<div data-map="attribution">
+				<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank">ddj.map</a>
+			</div>
+		</div>
+	</body>
+```
+
+### 5. show map pins
+
+Replace ...
+* white
+* red
+* darkred
+* lightred
+* orange
+* beige
+* green
+* darkgreen
+* lightgreen
+* blue
+* darkblue
+* lightblue
+* purple
+* darkpurple
+* pink
+* cadetblue
+* gray
+* lightgray
+* black
+
+Font Awesome 5.x register for free... https://fontawesome.com/start
+
+```
+	<!-- put in the map pins here -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
+	<meta name="ddj:pinColor" content="cadetblue">
+	<meta name="ddj:pinIconPrefix" content="fas">
+	<meta name="ddj:pinIcon" content="fa-certificate">
+```
+
+### x. setup libs
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="index.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 
 ### x. other configuration
 
 ```
 	dataShareURI = tools.getMetaContent('ddj:shareURI')
 	pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
-	pinIcon = tools.getMetaContent('ddj:pinIcon') || '',
-	pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
+	pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
+	pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
 	searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
 	searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
 
@@ -108,6 +196,25 @@ Replace ...
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@twitter_handle">
 	<meta name="twitter:creator" content="@twitter_handle">
+
+	<!-- put in your app icon here -->
+	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
 ```
 
 ### x. write a tutorial
@@ -123,6 +230,11 @@ Replace ...
 </div>
 ```
 
+### To Do
+
+Include polyfill for
+
+* https://github.com/mathiasbynens/CSS.escape
 
 ## Build your own package
 
@@ -137,6 +249,7 @@ To build the package and run a watcher, use:
 To publish the package on npmjs.com:
 
 - open ```package.json``` and increase the version number
-- ```npm run watch```
+- increase the version number in this ```README``` file
+- ```npm run publish```
 - fill in the npmjs.com credencials
-- tag the version in github
+- push and tag the version in github

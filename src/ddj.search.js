@@ -10,6 +10,7 @@ import * as tools from './ddj.tools';
 
 const store = {
 	objects: [],
+	root: null
 }
 
 export default store;
@@ -17,7 +18,6 @@ export default store;
 // -----------------------------------------------------------------------------
 
 const settings = {
-	htmlDOMelementID: 'autocomplete',
 	onAdd: function () {
 		return true;
 	},
@@ -46,13 +46,17 @@ export function init(initialSettings) {
 		}
 	}
 
-	$('#' + settings.htmlDOMelementID).focus(function () {
-		if (settings.onFocus) {
-			settings.onFocus();
-		}
-	});
+	store.root = document.querySelector('[data-search="box"]');
 
-	update();
+	if (store.root) {
+		store.root.addEventListener('focus', function () {
+			if (settings.onFocus) {
+				settings.onFocus();
+			}
+		});
+
+		update();
+	}
 }
 
 // -----------------------------------------------------------------------------

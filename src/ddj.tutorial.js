@@ -39,7 +39,7 @@ function updatePagesAndButtons() {
 // -----------------------------------------------------------------------------
 
 export function init() {
-	if ($('[data-tutorial="dialog"]').length !== 1) {
+	if (!document.querySelector('[data-tutorial="dialog"]')) {
 		return;
 	}
 
@@ -120,7 +120,9 @@ export function autostart() {
 	init();
 
 	window.setTimeout(function() {
-		$('[data-tutorial="dialog"]').popup('open');
+		if (document.querySelector('[data-tutorial="dialog"]')) {
+			$('[data-tutorial="dialog"]').popup('open');
+		}
 	}, 0);
 }
 

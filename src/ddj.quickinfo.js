@@ -45,6 +45,12 @@ function formatNumber(txt) {
 
 // -----------------------------------------------------------------------------
 
+function hasClass(element, className) {
+    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+}
+
+// -----------------------------------------------------------------------------
+
 export function init(initialSettings) {
 	if (store.root !== null) {
 		return;
@@ -60,16 +66,24 @@ export function init(initialSettings) {
 		}
 	}
 
-	store.root = $('div').find('[data-quickinfo="box"]');
+	store.root = document.querySelector('[data-quickinfo="box"]');
 
-	store.root.find('[data-quickinfo="close"]').on('click', function () {
-		setVisible(false);
-	});
-	store.root.find('[data-quickinfo="group"]').on('click', function () {
-		$(this).toggleClass('groupClosed');
-	});
+	if (store.root) {
+		var close = store.root.querySelector('[data-quickinfo="close"]');
+		if (close) {
+			close.onclick = function () {
+				setVisible(false);
+			};
+		}
+		var group = store.root.querySelector('[data-quickinfo="group"]');
+		if (group) {
+			group.onclick = function () {
+				$(this).toggleClass('groupClosed');
+			};
+		}
 
-	update();
+		update();
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -81,12 +95,12 @@ export function update() {
 
 export function setVisible(show) {
 	if (show) {
-		store.root.css('display', 'block');
+		store.root.style.display = 'block';
 		if (settings.onShow) {
 			settings.onShow();
 		}
 	} else {
-		store.root.css('display', 'none');
+		store.root.stle.display = 'none';
 		if (settings.onHide) {
 			settings.onHide();
 		}
@@ -97,23 +111,23 @@ export function setVisible(show) {
 
 export function show(obj) {
 	function setText(key, txt) {
-		var item = store.root.find('[data-quickdata="' + key + '"]');
+		var item = store.root.querySelectorAll('[data-quickdata="' + CSS.escape(key) + '"]');
 
 		if (item.length > 0) {
-			if (item.parent().hasClass('number')) {
+			if (hasClass(item[0], 'number')) {
 				txt = formatNumber(txt);
-			} else if (item.parent().hasClass('boolean')) {
+			} else if (hasClass(item[0], 'boolean')) {
 				txt = (txt === 1 ? settings.dictYes : settings.dictNo);
 			}
 
 			if (item[0].tagName === 'IMG') {
 				item[0].src = txt;
 			} else {
-				item.text(txt);
+				item[0].innerHTML = txt;
 			}
 		}
 
-		item = store.root.find('[data-hide-if-zero="' + key + '"]');
+		item = store.root.querySelectorAll('[data-hide-if-zero="' + CSS.escape(key) + '"]');
 
 		if (item.length > 0) {
 			var show = 'block';
@@ -121,8 +135,12 @@ export function show(obj) {
 				show = 'none';
 			}
 
-			item.css('display', show);
+			item[0].style.display = show;
 		}
+	}
+
+	if (store.root === null) {
+		return;
 	}
 
 	var d, data, dataArray = obj, key, i, infoList, infoItems = [], infoSnippets = [];
@@ -131,13 +149,13 @@ export function show(obj) {
 		dataArray = [obj];
 	}
 
-	infoList = store.root.find('[data-quickinfo="list"]');
+	infoList = store.root.querySelectorAll('[data-quickinfo="list"]');
 	if (infoList.length === 1) {
-		infoItems = infoList.find('[data-quickinfo="item"]');
+		infoItems = infoList[0].querySelectorAll('[data-quickinfo="item"]');
 
 		while (infoItems.length > 1) {
 			$(infoItems[0]).remove();
-			infoItems = infoList.find('[data-quickinfo="item"]');
+			infoItems = infoList[0].querySelectorAll('[data-quickinfo="item"]');
 		}
 	}
 
