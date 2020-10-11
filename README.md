@@ -71,6 +71,8 @@ Additional ...
 	<meta name="ddj:dataIgnoreSecondLine" content="false">
 	<meta name="ddj:dataIgnoreLastLine" content="false">
 	<meta name="ddj:dataNoCache" content="true">
+	<meta name="ddj:latitudeColumn" content="lat">
+	<meta name="ddj:longitudeColumn" content="lng">
 ```
 
 Info ... CORS problems should be solved by 3rd party proxy

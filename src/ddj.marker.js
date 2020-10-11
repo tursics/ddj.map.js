@@ -18,6 +18,8 @@ export default store;
 // -----------------------------------------------------------------------------
 
 const settings = {
+	latitudeColumn: 'lat',
+	longitudeColumn: 'lng',
 	onAdd: function () {
 		return true;
 	},
@@ -139,81 +141,92 @@ export function update() {
 		}
 	});
 
-if (data.getRow()) {
-	for (key = 0; key < data.getRow().length; ++key) {
-		val = data.getRow(key);
-		val = fixGeometryData(val);
-		valObj = val;
-		valCount = 1;
+	if (data.getRow()) {
+		for (key = 0; key < data.getRow().length; ++key) {
+			val = data.getRow(key);
+			val = fixGeometryData(val);
+			valObj = val;
+			valCount = 1;
 
-		if (Array.isArray(valObj)) {
-			val = valObj[0];
-			valCount = valObj.length;
-		}
-
-		if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
-			// add marker only once
-			continue;
-		}
-
-		if ((typeof val.lat !== 'undefined') && (val.lat !== '') && (typeof val.lng !== 'undefined') && (val.lng !== '')) {
-			obj = {
-				index: key,
-				count: valCount,
-				lat: parseFloat(val.lat),
-				lng: parseFloat(val.lng),
-				color: 'blue',
-				opacity: 1,
-				clickable: 1,
-				iconPrefix: 'fa',
-				iconFace: 'fa-dot-circle-o',
-				htmlClass: '',
-				htmlIconSize: null,
-				htmlElement: ''
-			};
-			try {
-				addObj = settings.onAdd(obj, val);
-			} catch (x) {
-				console.log(x);
-				addObj = false;
-			}
-			try {
-				addHTMLObj = settings.onAddHTML(obj, val);
-			} catch (y) {
-				console.log(y);
-				addHTMLObj = false;
+			if (Array.isArray(valObj)) {
+				val = valObj[0];
+				valCount = valObj.length;
 			}
 
-			if (addObj !== false) {
-				store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
-					data: obj.index,
-					icon: L.AwesomeMarkers.icon({
-						prefix: 'fa',
-						extraClasses: obj.iconPrefix,
-						icon: obj.iconFace,
-						markerColor: obj.color
-					}),
-					opacity: obj.opacity,
-					clickable: obj.clickable
-				}));
-
-				uniqueSetId.push(val[uniqueId]);
+			if ((uniqueId !== null) && (uniqueSetId.indexOf(val[uniqueId]) > -1)) {
+				// add marker only once
+				continue;
 			}
-			if (addHTMLObj !== false) {
-				store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
-					data: obj.index,
-					icon: L.divIcon({
-						className: obj.htmlClass,
-						iconSize: obj.htmlIconSize,
-						html: obj.htmlElement
-					}),
-					opacity: obj.opacity,
-					clickable: obj.clickable
-				}));
 
-				uniqueSetId.push(val[uniqueId]);
+			if ((settings.latitudeColumn !== '') && (typeof val[settings.latitudeColumn] !== 'undefined') && (val[settings.latitudeColumn] !== '') &&
+				(settings.longitudeColumn !== '') && (typeof val[settings.longitudeColumn] !== 'undefined') && (val[settings.longitudeColumn] !== '')) {
+				var lat = val[settings.latitudeColumn];
+				var lng = val[settings.longitudeColumn];
+
+				if (typeof lat === 'string') {
+					lat = lat.replace(',', '.');
+				}
+				if (typeof lng === 'string') {
+					lng = lng.replace(',', '.');
+				}
+
+				obj = {
+					index: key,
+					count: valCount,
+					lat: parseFloat(lat),
+					lng: parseFloat(lng),
+					color: 'blue',
+					opacity: 1,
+					clickable: 1,
+					iconPrefix: 'fa',
+					iconFace: 'fa-dot-circle-o',
+					htmlClass: '',
+					htmlIconSize: null,
+					htmlElement: ''
+				};
+				try {
+					addObj = settings.onAdd(obj, val);
+				} catch (x) {
+					console.log(x);
+					addObj = false;
+				}
+				try {
+					addHTMLObj = settings.onAddHTML(obj, val);
+				} catch (y) {
+					console.log(y);
+					addHTMLObj = false;
+				}
+
+				if (addObj !== false) {
+					store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
+						data: obj.index,
+						icon: L.AwesomeMarkers.icon({
+							prefix: 'fa',
+							extraClasses: obj.iconPrefix,
+							icon: obj.iconFace,
+							markerColor: obj.color
+						}),
+						opacity: obj.opacity,
+						clickable: obj.clickable
+					}));
+
+					uniqueSetId.push(val[uniqueId]);
+				}
+				if (addHTMLObj !== false) {
+					store.layerGroup.addLayer(L.marker([obj.lat, obj.lng], {
+						data: obj.index,
+						icon: L.divIcon({
+							className: obj.htmlClass,
+							iconSize: obj.htmlIconSize,
+							html: obj.htmlElement
+						}),
+						opacity: obj.opacity,
+						clickable: obj.clickable
+					}));
+
+					uniqueSetId.push(val[uniqueId]);
+				}
 			}
-		}
 		}
 	}
 }
@@ -227,6 +240,9 @@ export function autostart(options) {
 		pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
 		pinIconPrefix = tools.getMetaContent('ddj:pinIconPrefix') || '',
 		pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '';
+
+	settings.latitudeColumn = tools.getMetaContent('ddj:latitudeColumn') || 'lat';
+	settings.longitudeColumn = tools.getMetaContent('ddj:longitudeColumn') || 'lng';
 
 	if (canInit()) {
 		init({

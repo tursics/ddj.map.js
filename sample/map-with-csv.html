@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="de" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,18 +13,34 @@
 	<script src="../dist/ddj.map.js"></script>
 
 	<!-- put in the data here -->
-    <meta name="ddj:data" content="https://www.offenesdatenportal.de/dataset/c5613506-5673-46e5-8c39-732aaf559654/resource/2a8fafd0-b87f-4342-82b6-6e56569d673d/download/opendataportals.csv">
+    <meta name="ddj:data" content="./data/berliner-toiletten-standorte.csv">
 	<meta name="ddj:dataType" content="csv">
-    <meta name="ddj:dataUniqueIdentifier" content="id">
-    <meta name="ddj:dataIgnoreSecondLine" content="false">
-    <meta name="ddj:dataIgnoreLastLine" content="false">
-    <meta name="ddj:dataNoCache" content="true">
+    <meta name="ddj:dataUniqueIdentifier" content="LavatoryID">
+	<meta name="ddj:latitudeColumn" content="Latitude">
+	<meta name="ddj:longitudeColumn" content="Longitude">
 
 	<!-- put in the map here -->
-    <!-- put in the map pins here -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+	<meta name="ddj:mapCenter" content="52.527040, 13.338440"> <!-- center old city hall of Berlin-Mitte -->
+	<meta name="ddj:mapZoom" content="13">
+
+	<!-- put in the map pins here -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
+	<meta name="ddj:pinColor" content="cadetblue">
+	<meta name="ddj:pinIconPrefix" content="fas">
+	<meta name="ddj:pinIcon" content="fa-toilet">
 
     <!-- placeholder for Google, Facebook and Twitter -->
 </head>
-<body>
+<body class="m-0">
+	<div data-map id="map">
+		<div data-map="attribution">
+			<a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank">ddj.map</a>,
+			<a href="https://daten.berlin.de/datensaetze/standorte-der-%C3%B6ffentlichen-toiletten" title="Standorte der öffentlichen Toiletten" target="_blank">data</a>
+		</div>
+	</div>
 </body>
 </html>
