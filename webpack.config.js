@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: 'production',
@@ -18,6 +19,27 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader"]
       },
+	  {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /node_modules/,
+        use: [
+		  MiniCssExtractPlugin.loader,
+		  'css-loader'
+		],
+      },
+	  {
+        test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 8192,
+        },
+      },
     ],
   },
+  plugins: [
+ 	new MiniCssExtractPlugin({
+	  filename: 'ddj.map.css',
+	  chunkFilename: 'ddj.map.async.css'
+    })
+  ],
 };

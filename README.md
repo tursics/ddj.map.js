@@ -4,11 +4,17 @@ ddj.map makes it easier working with data on maps
 
 https://www.npmjs.com/package/ddj.map
 
+This is one of the very first version of this npm package.
+Adding more functionality and removing the bugs occupy much time.
+So the documentation suffers a lot.
+
 ## Write your own map
 
 ### 1. Create a HTML file template
 
-todo
+Create a new and empty HTML file.
+Copy the code below and get a blueprint of a simple website.
+The lines beginning with ```<!--``` are placeholder for later use.
 
 ```
 <!DOCTYPE HTML>
@@ -44,9 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="ddj.map.css" />
-	<link rel="stylesheet" href="theme/simple/index.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.5/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.7/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.7/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
