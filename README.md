@@ -44,9 +44,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="ddj.map.css" />
-	<link rel="stylesheet" href="theme/simple/index.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.5/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.6/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.6/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source

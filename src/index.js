@@ -13,6 +13,8 @@ import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
 
+import css from './index.css';
+
 // -----------------------------------------------------------------------------
 
 export {
