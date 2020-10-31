@@ -81,7 +81,7 @@ function getJSON(uri, successCallback) {
 // -----------------------------------------------------------------------------
 // https://csv.js.org/parse/
 
-function getCSV(uri, successCallback) {
+function getCSV(uri, delimiter, successCallback) {
 	var promiseObject = {
 		onDone: null,
 		onFail: null,
@@ -109,6 +109,7 @@ function getCSV(uri, successCallback) {
 			if (this.status >= 200 && this.status < 400) {
 				const csvData = csvParse(this.responseText, {
 					columns: true,
+					delimiter: delimiter,
 					skip_empty_lines: true
 				});
 				if (successCallback) {
@@ -236,7 +237,8 @@ function onPageShow() {
 		dataIgnoreLastLines = tools.getMetaContentArray('ddj:dataIgnoreLastLine'),
 		dataNoCaches = tools.getMetaContentArray('ddj:dataNoCache'),
 		dataUniqueIdentifier = tools.getMetaContent('ddj:dataUniqueIdentifier') || '',
-		dataTypes = tools.getMetaContentArray('ddj:dataType');
+		dataTypes = tools.getMetaContentArray('ddj:dataType'),
+		dataDelimiters = tools.getMetaContentArray('ddj:dataDelimiter');
 
 	function onDone() {
 		quickinfo.autostart();
@@ -290,7 +292,8 @@ function onPageShow() {
 		if (index < dataUris.length) {
 			var dataUri = dataUris[index],
 				dataNoCache = (index < dataNoCaches.length ? dataNoCaches[index] : '') === 'true',
-				dataType = (index < dataTypes.length ? dataTypes[index] : 'json').toLowerCase();
+				dataType = (index < dataTypes.length ? dataTypes[index] : 'json').toLowerCase(),
+				dataDelimiter = (index < dataDelimiters.length ? dataDelimiters[index] : ',');
 
 			if (dataNoCache) {
 				dataUri += '?nocache=' + (new Date().getTime());
@@ -299,7 +302,7 @@ function onPageShow() {
 			if (dataType === 'wfs') {
 //				getWFS(dataUri, function() {});
 			} else if (dataType === 'csv') {
-				getCSV(dataUri, function(csvObject) {
+				getCSV(dataUri, dataDelimiter, function(csvObject) {
 					onData(csvObject, index);
 				}).done(function() {
 					loadData(index + 1);

@@ -76,6 +76,7 @@ Additional ...
 	<meta name="ddj:dataIgnoreSecondLine" content="false">
 	<meta name="ddj:dataIgnoreLastLine" content="false">
 	<meta name="ddj:dataNoCache" content="true">
+	<meta name="ddj:dataDelimiter" content=",">
 	<meta name="ddj:latitudeColumn" content="lat">
 	<meta name="ddj:longitudeColumn" content="lng">
 ```
@@ -233,6 +234,16 @@ Replace ...
 		text for page 2
 	</div>
 </div>
+```
+
+### x. advanced - add some interaction
+
+```
+<script>
+	ddj.autostart.onDone(function() {
+		ddj.map.get().scrollWheelZoom.disable();
+	});
+</script>
 ```
 
 ### To Do
