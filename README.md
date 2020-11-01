@@ -50,8 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.7/dist/ddj.map.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.7/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.8/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.8/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -76,6 +76,7 @@ Additional ...
 	<meta name="ddj:dataIgnoreSecondLine" content="false">
 	<meta name="ddj:dataIgnoreLastLine" content="false">
 	<meta name="ddj:dataNoCache" content="true">
+	<meta name="ddj:dataDelimiter" content=",">
 	<meta name="ddj:latitudeColumn" content="lat">
 	<meta name="ddj:longitudeColumn" content="lng">
 ```
@@ -233,6 +234,30 @@ Replace ...
 		text for page 2
 	</div>
 </div>
+```
+
+### x. advanced - add some interaction
+
+```
+<script>
+	ddj.autostart.onDone(function() {
+		ddj.map.get().scrollWheelZoom.disable();
+	});
+
+	ddj.autostart.onAddMarker(function(marker, value) {
+		marker.index: key,
+		marker.count: valCount,
+		marker.lat: lat,
+		marker.lng: lng,
+		marker.color: 'blue',
+		marker.opacity: 1,
+		marker.clickable: 1,
+		marker.iconPrefix: 'fa',
+		marker.iconFace: 'fa-dot-circle-o',
+
+		return true;
+	});
+</script>
 ```
 
 ### To Do

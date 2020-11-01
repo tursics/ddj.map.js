@@ -247,6 +247,10 @@ export function autostart(options) {
 	if (canInit()) {
 		init({
 			onAdd: function (marker, value) {
+				if (options.onAdd) {
+					return options.onAdd(marker, value);
+				}
+
 				if (pinColor !== '') {
 					marker.color = pinColor;
 				}
