@@ -27,9 +27,6 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
 	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
-	<meta name="ddj:pinColor" content="beige">
-	<meta name="ddj:pinIconPrefix" content="fas">
-	<meta name="ddj:pinIcon" content="fa-train">
 
     <!-- placeholder for Google, Facebook and Twitter -->
 </head>
@@ -40,5 +37,33 @@
 			<a href="https://daten.berlin.de/datensaetze/standorte-der-%C3%B6ffentlichen-toiletten" title="Standorte der öffentlichen Toiletten" target="_blank">data</a>
 		</div>
 	</div>
+
+	<script>
+		var speed = 333;
+
+		ddj.autostart.onDone(function() {
+			var t = setInterval(ddj.marker.update, speed);
+		});
+		ddj.autostart.onAddMarker(function(marker, value) {
+			var id = parseInt(value.id, 10);
+			var count = ddj.data.get().length;
+			var seconds = parseInt(new Date().getTime() / speed) % count;
+
+			marker.iconPrefix = 'fas';
+			marker.iconFace = 'fa-train';
+
+			if (id === seconds) {
+				marker.color = 'blue';
+			} else if (id === ((seconds + 1) % count)) {
+				marker.color = 'cadetblue';
+			} else if (id === ((seconds + 2) % count)) {
+				marker.color = 'darkblue';
+			} else {
+				marker.color = 'lightblue';
+			}
+
+			return true;
+		});
+	</script>
 </body>
 </html>

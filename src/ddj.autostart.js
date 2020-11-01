@@ -18,6 +18,7 @@ import * as csvParse from 'csv-parse/lib/es5/sync';
 const store = {
 	selectedItem: null,
 	onDoneCallback: null,
+	onAddMarkerCallback: null,
 	eventPageShowWasSet: false,
 }
 
@@ -244,6 +245,7 @@ function onPageShow() {
 		quickinfo.autostart();
 
 		marker.autostart({
+			onAdd: store.onAddMarkerCallback,
 			onClick: function (latlng, item) {
 				updateMapSelectItem(tools.getAllObjects(item));
 			},
@@ -371,6 +373,12 @@ if (!store.eventPageShowWasSet) {
 
 export function onDone(callback) {
 	store.onDoneCallback = callback;
+}
+
+// -----------------------------------------------------------------------------
+
+export function onAddMarker(callback) {
+	store.onAddMarkerCallback = callback;
 }
 
 // -----------------------------------------------------------------------------

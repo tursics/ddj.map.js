@@ -1,2 +1,28 @@
 id;title;uri;lat;lng
 0;Berlin-Gesundbrunnen;https://www.bahnhof.de/bahnhof-de/bahnhof/Berlin-Gesundbrunnen-1029518;52.548903;13.388909
+1;Schönhauser Allee;https://sbahn.berlin/fahren/bahnhofsuebersicht/schoenhauser-allee/;52.549429;13.414181
+2;Prenzlauer Allee;https://sbahn.berlin/fahren/bahnhofsuebersicht/prenzlauer-allee/;52.544490;13.426847
+3;S Greifswalder Str.;https://sbahn.berlin/fahren/bahnhofsuebersicht/greifswalder-strasse/;52.540582;13.438555
+4;S Landsberger Allee;;52.528690;13.455610
+5;S Storkower Str.;;52.524478;13.465201
+6;Frankfurter Allee;;52.514205;13.474742
+7;Berlin Ostkreuz;;52.503716;13.469082
+8;Treptower Park;https://sbahn.berlin/fahren/bahnhofsuebersicht/treptower-park/;52.493883;13.461404
+9;S Sonnenallee;;52.472804;13.455275
+10;S+U Bahnhof Neukölln;;52.469398;13.441931
+11;Hermannstraße;;52.467653;13.431237
+12;S+U Tempelhof;;52.470906;13.385276
+13;Berlin Südkreuz;https://www.bahnhof.de/bahnhof-de/bahnhof/Berlin-S-C3-BCdkreuz-1029806;52.476337;13.364653
+14;Schöneberg;;52.479821;13.352507
+15;Innsbrucker Platz;;52.478090;13.343257
+16;Bundesplatz;;52.477638;13.328280
+17;Heidelberger Platz;;52.480140;13.311911
+18;Hohenzollerndamm;;52.488450;13.300993
+19;S Halensee;;52.496717;13.289953
+20;Westkreuz;;52.501115;13.283102
+21;S Messe Nord/ICC (Witzleben);https://sbahn.berlin/fahren/bahnhofsuebersicht/messe-nordicc/;52.506628;13.282878
+22;S Westend;;52.518478;13.284271
+23;S+U Jungfernheide Bhf;;52.530655;13.300489
+24;S Beusselstr. (Berlin);;52.534298;13.328554
+25;Westhafen;https://sbahn.berlin/fahren/bahnhofsuebersicht/westhafen/;52.536173;13.343869
+26;Wedding;https://sbahn.berlin/fahren/bahnhofsuebersicht/wedding/;52.542455;13.366248
