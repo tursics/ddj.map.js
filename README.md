@@ -280,6 +280,6 @@ To publish the package on npmjs.com:
 
 - open ```package.json``` and increase the version number
 - increase the version number in this ```README``` file
-- ```npm run publish```
+- ```npm run release```
 - fill in the npmjs.com credencials
 - push and tag the version in github
