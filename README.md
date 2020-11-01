@@ -243,6 +243,20 @@ Replace ...
 	ddj.autostart.onDone(function() {
 		ddj.map.get().scrollWheelZoom.disable();
 	});
+
+	ddj.autostart.onAddMarker(function(marker, value) {
+		marker.index: key,
+		marker.count: valCount,
+		marker.lat: lat,
+		marker.lng: lng,
+		marker.color: 'blue',
+		marker.opacity: 1,
+		marker.clickable: 1,
+		marker.iconPrefix: 'fa',
+		marker.iconFace: 'fa-dot-circle-o',
+
+		return true;
+	});
 </script>
 ```
 
