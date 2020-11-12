@@ -100,7 +100,7 @@ export function setVisible(show) {
 			settings.onShow();
 		}
 	} else {
-		store.root.stle.display = 'none';
+		store.root.style.display = 'none';
 		if (settings.onHide) {
 			settings.onHide();
 		}
