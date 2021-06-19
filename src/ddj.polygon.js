@@ -3,6 +3,8 @@
 
 // -----------------------------------------------------------------------------
 
+import * as data from './ddj.data';
+import * as map from './ddj.map';
 import * as tools from './ddj.tools';
 
 // -----------------------------------------------------------------------------
@@ -50,9 +52,6 @@ export function canInit() {
 // -----------------------------------------------------------------------------
 
 export function init(initialSettings) {
-	if (0 !== store.versionLeaflet) {
-		return;
-	}
 	if (!canInit()) {
 		console.error('Error: Please include leaflet.js version 1 or above in your html file.');
 		return;
@@ -80,7 +79,7 @@ export function update() {
 // -----------------------------------------------------------------------------
 
 export function push(layerSettings) {
-	if (ddj.getRowData().length === 0) {
+	if (data.getRow().length === 0) {
 		return;
 	}
 
@@ -101,12 +100,12 @@ export function push(layerSettings) {
 		}
 	}
 
-	val = ddj.getRowData()[0];
+	val = data.getRow()[0];
 	style = {
 		color: '#1f78b4',
 		fillColor: '#1f78b4',
 		fillOpacity: 0.5,
-		weight: 1
+		weight: 3
 	};
 	markerStyle = {
 		radius: 5,
@@ -116,8 +115,9 @@ export function push(layerSettings) {
 		opacity: 1
 	};
 
-	if (val.geometry && val.properties && (val.geometry.type === 'Polygon')) {
-		L.geoJSON(ddj.getRowData(), {
+	console.log(val.geometry);
+	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon'].indexOf(val.geometry.type))) {
+		L.geoJSON(data.getRow(), {
 			style: function (data) {
 				if (settings.layers[layer].onStyle) {
 					return settings.layers[layer].onStyle(data.properties, style);
@@ -160,7 +160,7 @@ export function push(layerSettings) {
 		}).bindPopup(function (layer) {
 			console.log(layer);
 			return layer.feature.properties.description;
-		}).addTo(ddj.getMap());
+		}).addTo(map.get());
 	}
 }
 
