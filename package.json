@@ -1,6 +1,6 @@
 {
   "name": "ddj.map",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "ddj.map makes it easier working with data on maps",
   "main": "dist/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "caniuse-lite": "^1.0.30001239",
     "csv-parse": "^4.12.0"
   }
 }

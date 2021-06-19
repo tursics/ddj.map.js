@@ -50,8 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.9/dist/ddj.map.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.9/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.10/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.10/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -67,8 +67,14 @@ Replace ...
 
 ```dataType``` is one of
 * json (default)
+* geojson
 * csv
 * wfs (in planning)
+
+If you see CORS problems use
+```
+    <meta name="ddj:dataUseCorsProxy" content="cors-anywhere.herokuapp.com">
+```
 
 Additional ...
 
@@ -172,6 +178,8 @@ Font Awesome 5.x register for free... https://fontawesome.com/start
 	pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
 	searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
 	searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
+
+	data-hide-if-zero
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
