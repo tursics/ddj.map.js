@@ -1,6 +1,6 @@
 {
   "name": "ddj.map",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "ddj.map makes it easier working with data on maps",
   "main": "dist/index.js",
   "scripts": {
@@ -28,6 +28,7 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "babel-loader": "^8.1.0",
+    "caniuse-lite": "^1.0.30001239",
     "css-loader": "^4.3.0",
     "mini-css-extract-plugin": "^1.0.0",
     "nodemon": "^2.0.4",
