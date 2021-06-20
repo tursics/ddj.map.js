@@ -18,7 +18,10 @@ export default store;
 // -----------------------------------------------------------------------------
 
 const settings = {
-	layers: []
+	layers: [],
+	onMouseOver: null,
+	onMouseOut: null,
+	onClick: null
 };
 
 const settingsTemplate = {
@@ -115,7 +118,6 @@ export function push(layerSettings) {
 		opacity: 1
 	};
 
-	console.log(val.geometry);
 	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon'].indexOf(val.geometry.type))) {
 		L.geoJSON(data.getRow(), {
 			style: function (data) {
@@ -133,21 +135,21 @@ export function push(layerSettings) {
 				return L.circleMarker(latlng, applyStyle);
 			},
 			onEachFeature: function (feature, layer) {
-				layer.bindPopup(feature.properties.type);
-/*						layer.on({
-					click: function (e) {
-						console.log(e);
-					}
-				});*/
-/*						layer.on('mouseover', function (e) {
-					console.log(e);
-				});*/
 				layer.on({
-					mouseover: function (e) {
-						console.log(e);
+					click: function (evt) {
+						if (settings.onClick) {
+							settings.onClick([evt.latlng.lat, evt.latlng.lng], evt.sourceTarget.feature.properties);
+						}
 					},
-					mouseout: function (e) {
-						console.log(e);
+					mouseover: function (evt) {
+						if (settings.onMouseOver) {
+							settings.onMouseOver([evt.latlng.lat, evt.latlng.lng], evt.sourceTarget.feature.properties);
+						}
+					},
+					mouseout: function (evt) {
+						if (settings.onMouseOut) {
+							settings.onMouseOut([evt.latlng.lat, evt.latlng.lng], evt.sourceTarget.feature.properties);
+						}
 					}
 				});
 			},
@@ -157,9 +159,6 @@ export function push(layerSettings) {
 				}
 				return true;
 			}
-		}).bindPopup(function (layer) {
-			console.log(layer);
-			return layer.feature.properties.description;
 		}).addTo(map.get());
 	}
 }
@@ -174,7 +173,7 @@ export function autostart(options) {
 
 	if (dataType === 'geojson') {
 		if (canInit()) {
-			init({});
+			init(options);
 		} else {
 			console.error('Error: Please include leaflet.js version 1 or above in your html file.');
 		}

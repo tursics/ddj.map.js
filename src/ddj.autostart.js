@@ -245,7 +245,11 @@ function onPageShow() {
 	function onDone() {
 		quickinfo.autostart();
 
-		polygon.autostart();
+		polygon.autostart({
+			onClick: function (latlng, item) {
+				updateMapSelectItem(tools.getAllObjects(item));
+			},
+		});
 
 		marker.autostart({
 			onAdd: store.onAddMarkerCallback,
