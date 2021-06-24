@@ -1,0 +1,16 @@
+pre {
+  border: 1px solid #888;
+}
+
+pre code {
+  height: 75vh;
+}
+
+.card.map-preview {
+  border-color: #888;
+  height: 75vh;
+}
+
+.card.map-preview .card-body {
+  padding: 0;
+}
