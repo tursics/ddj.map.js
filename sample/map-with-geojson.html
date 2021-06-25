@@ -1,44 +1,94 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
 
-	<!-- put in your app icon here -->
-
-    <!-- put in the lib here -->
-    <link rel="stylesheet" href="../dist/ddj.map.css" />
     <script src="../dist/ddj.map.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
 
-	<!-- put in the data here -->
-    <meta name="ddj:data" content="https://raw.githubusercontent.com/tursics/thought-karte-pankow/main/data/travel.geojson">
-	<meta name="ddj:dataType" content="geojson">
-	<meta name="ddj:dataUniqueIdentifier" content="id">
-
-	<!-- put in the map here -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
-    <meta name="ddj:mapCenter" content="52.588843, 13.440145"> <!-- center of Berlin-Pankow -->
-	<meta name="ddj:mapZoom" content="12">
-
-    <!-- dirty hacks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" />
-	<script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
-    
-    <!-- put in the map pins here -->
-
-	<!-- placeholder for Google, Facebook and Twitter -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/styles/default.min.css">
+    <link href="sample.css" rel="stylesheet">
 </head>
-<body class="m-0">
-    <div data-map id="map">
-        <div data-map="attribution">
-            <a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank">ddj.map</a>
+<body>
+    <nav class="navbar fixed-top navbar-dark bg-gradient bg-success">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1">ddj.map.js</span>
+        </div>
+    </nav>
+    <div class="py-5"></div>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Sample</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="map.html">Map</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="map-with-csv.html">CSV</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="map-with-geojson.html">GeoJSON</a>
+        </li>
+    </ul>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 pt-3">
+                <pre><code contenteditable spellcheck="false" class="language-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" /&gt;
+
+    &lt;!-- put in your app icon here --&gt;
+    &lt;!-- put in the lib here --&gt;
+    &lt;link rel="stylesheet" href="../dist/ddj.map.css" /&gt;
+    &lt;script src="../dist/ddj.map.js"&gt;&lt;/script&gt;
+    &lt;!-- put in the data here --&gt;
+    &lt;meta name="ddj:data_" content="./data/bezirksgrenzen.geojson"&gt;
+    &lt;meta name="ddj:data" content="https://raw.githubusercontent.com/tursics/ddj.map.js/develop/sample/data/bezirksgrenzen.geojson"&gt;
+    &lt;meta name="ddj:dataType" content="geojson"&gt;
+    &lt;meta name="ddj:dataUniqueIdentifier" content="Gemeinde_schluessel"&gt;
+    &lt;!-- put in the map here --&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" /&gt;
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"&gt;&lt;/script&gt;
+    &lt;meta name="ddj:mapCenter" content="52.51, 13.42"&gt;
+    &lt;meta name="ddj:mapZoom" content="10"&gt;
+    &lt;!-- put in the map pins here --&gt;
+
+    &lt;!-- placeholder for Google, Facebook and Twitter --&gt;
+&lt;/head&gt;
+&lt;body class="m-0"&gt;
+    &lt;div data-map id="map"&gt;
+        &lt;div data-map="attribution"&gt;
+            &lt;a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank"&gt;ddj.map&lt;/a&gt;,
+            &lt;a href="https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/" title="Bezirksgrenzen" target="_blank"&gt;Geoportal Berlin / s_wfs_alkis_bezirk&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                                    </code></pre>
+            </div>
+            <div class="col-6 pt-3">
+                <div class="card map-preview">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/highlight.min.js"></script>
+    <script src="sample.js"></script>
+    <script>hljs.highlightAll();</script>
 </body>
 </html>

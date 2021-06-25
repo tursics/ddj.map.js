@@ -118,7 +118,7 @@ export function push(layerSettings) {
 		opacity: 1
 	};
 
-	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon'].indexOf(val.geometry.type))) {
+	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon','MultiPolygon'].indexOf(val.geometry.type))) {
 		L.geoJSON(data.getRow(), {
 			style: function (data) {
 				if (settings.layers[layer].onStyle) {
