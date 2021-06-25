@@ -383,6 +383,12 @@ if (!store.eventPageShowWasSet) {
 
 // -----------------------------------------------------------------------------
 
+export function reload() {
+	onPageShow();
+}
+
+// -----------------------------------------------------------------------------
+
 export function onDone(callback) {
 	store.onDoneCallback = callback;
 }
