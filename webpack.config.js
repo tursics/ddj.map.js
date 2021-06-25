@@ -7,9 +7,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'ddj.map.js',
-	library: 'ddj',
-	libraryTarget: 'umd',
-	globalObject: 'this',
+  	library: 'ddj',
+  	libraryTarget: 'umd',
+	  globalObject: 'this',
   },
   devtool: 'source-map',
   module: {
