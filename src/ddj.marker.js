@@ -275,6 +275,11 @@ export function autostart(options) {
 				}
 			}
 		});
+	} else {
+		var pins = pinColor + pinColorColumn + pinIcon + pinIconColumn + pinIconPrefix + pinIconPrefixColumn;
+		if (pins !== '') {
+			console.error('Error: Please include Leaflet.awesome-markers.js in your html file.');
+		}
 	}
 }
 
