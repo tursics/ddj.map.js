@@ -50,8 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.11/dist/ddj.map.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.11/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.12/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.12/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -308,6 +308,7 @@ To publish the package on npmjs.com:
 
 - open ```package.json``` and increase the version number
 - increase the version number in this ```README``` file
+- increase the version number in ```sample/sample.js``` file
 - ```npm run release```
 - fill in the npmjs.com credencials
 - push and tag the version in github
