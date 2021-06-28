@@ -158,6 +158,20 @@ Font Awesome 5.x register for free... https://fontawesome.com/start
 	<meta name="ddj:pinColor" content="cadetblue">
 	<meta name="ddj:pinIconPrefix" content="fas">
 	<meta name="ddj:pinIcon" content="fa-certificate">
+
+	<meta name="ddj:pinColorColumn" content="pin-color">
+	<meta name="ddj:pinIconPrefixColumn" content="pin-icon-prefix">
+	<meta name="ddj:pinIconColumn" content="pin-icon">
+
+    <meta name="ddj:borderColor" content="darkred">
+    <meta name="ddj:borderWeight" content="1">
+    <meta name="ddj:fillColor" content="red">
+    <meta name="ddj:fillOpacity" content=".25">
+
+    <meta name="ddj:borderColorColumn" content="border-color">
+    <meta name="ddj:borderWeightColumn" content="border-weight">
+    <meta name="ddj:fillColorColumn" content="fill-color">
+    <meta name="ddj:fillOpacityColumn" content="fill-opacity">
 ```
 
 ### x. setup libs
@@ -173,9 +187,6 @@ Font Awesome 5.x register for free... https://fontawesome.com/start
 
 ```
 	dataShareURI = tools.getMetaContent('ddj:shareURI')
-	pinColorColumn = tools.getMetaContent('ddj:pinColorColumn') || '',
-	pinIconColumn = tools.getMetaContent('ddj:pinIconColumn') || '',
-	pinIconPrefixColumn = tools.getMetaContent('ddj:pinIconPrefixColumn') || '',
 	searchTitleColumn = tools.getMetaContent('ddj:searchTitleColumn') || '',
 	searchDescriptionColumn = tools.getMetaContent('ddj:searchDescriptionColumn') || '',
 
@@ -253,18 +264,27 @@ Replace ...
 	});
 
 	ddj.autostart.onAddMarker(function(marker, value) {
-		marker.index: key,
-		marker.count: valCount,
-		marker.lat: lat,
-		marker.lng: lng,
-		marker.color: 'blue',
-		marker.opacity: 1,
-		marker.clickable: 1,
-		marker.iconPrefix: 'fa',
-		marker.iconFace: 'fa-dot-circle-o',
+		marker.index = key;
+		marker.count = valCount;
+		marker.lat = lat;
+		marker.lng = lng;
+		marker.color = 'blue';
+		marker.opacity = 1;
+		marker.clickable = 1;
+		marker.iconPrefix = 'fa';
+		marker.iconFace = 'fa-dot-circle-o';
 
 		return true;
 	});
+
+	// for geojson files...
+    ddj.autostart.onAddMarker(function(marker, value) {
+        marker.borderColor = '#088';
+        marker.borderWeight = 1;
+        marker.fillColor = '#8ff';
+        marker.fillOpacity = .5;
+    });
+
 </script>
 ```
 

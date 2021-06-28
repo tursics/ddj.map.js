@@ -121,8 +121,12 @@ export function push(layerSettings) {
 	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon','MultiPolygon'].indexOf(val.geometry.type))) {
 		L.geoJSON(data.getRow(), {
 			style: function (data) {
-				if (settings.layers[layer].onStyle) {
-					return settings.layers[layer].onStyle(data.properties, style);
+				try {
+					if (settings.layers[layer].onStyle) {
+						return settings.layers[layer].onStyle(data.properties, style);
+					}
+				} catch (x) {
+					console.log(x);
 				}
 				return style;
 			},
@@ -167,13 +171,73 @@ export function push(layerSettings) {
 
 export function autostart(options) {
 
-	const dataTypes = tools.getMetaContentArray('ddj:dataType');
+	const dataTypes = tools.getMetaContentArray('ddj:dataType'),
+		borderColor = tools.getMetaContent('ddj:borderColor') || '',
+		borderColorColumn = tools.getMetaContent('ddj:borderColorColumn') || '',
+		borderWeight = tools.getMetaContent('ddj:borderWeight') || '',
+		borderWeightColumn = tools.getMetaContent('ddj:borderWeightColumn') || '',
+		fillColor = tools.getMetaContent('ddj:fillColor') || '',
+		fillColorColumn = tools.getMetaContent('ddj:fillColorColumn') || '',
+		fillOpacity = tools.getMetaContent('ddj:fillOpacity') || '',
+		fillOpacityColumn = tools.getMetaContent('ddj:fillOpacityColumn') || '';
 	const index = 0;
 	const dataType = (index < dataTypes.length ? dataTypes[index] : '').toLowerCase();
 
 	if (dataType === 'geojson') {
 		if (canInit()) {
-			init(options);
+			init({
+				onStyle: function (data, style) {
+					var value = undefined;
+
+					data.borderColor = style.color;
+					if (borderColor !== '') {
+						data.borderColor = borderColor;
+					}
+					if ((borderColorColumn !== '') && data[borderColorColumn]) {
+						data.borderColor = data[borderColorColumn];
+					}
+
+					data.borderWeight = style.weight;
+					if (borderWeight !== '') {
+						data.borderWeight = borderWeight;
+					}
+					if ((borderWeightColumn !== '') && data[borderWeightColumn]) {
+						data.borderWeight = data[borderWeightColumn];
+					}
+
+					data.fillColor = style.fillColor;
+					if (fillColor !== '') {
+						data.fillColor = fillColor;
+					}
+					if ((fillColorColumn !== '') && data[fillColorColumn]) {
+						data.fillColor = data[fillColorColumn];
+					}
+
+					data.fillOpacity = style.fillOpacity;
+					if (fillOpacity !== '') {
+						data.fillOpacity = fillOpacity;
+					}
+					if ((fillOpacityColumn !== '') && data[fillOpacityColumn]) {
+						data.fillOpacity = data[fillOpacityColumn];
+					}
+
+					if (options.onStyle) {
+						options.onStyle(data, value);
+					}
+
+					style.color = data.borderColor;
+					style.weight = data.borderWeight;
+					style.fillColor = data.fillColor;
+					style.fillOpacity = data.fillOpacity;
+
+					return style;
+				},
+				onClick: function (latlng, data) {
+					if (options.onClick) {
+						options.onClick(latlng, data);
+					}
+				}	
+			});
 		} else {
 			console.error('Error: Please include leaflet.js version 1 or above in your html file.');
 		}

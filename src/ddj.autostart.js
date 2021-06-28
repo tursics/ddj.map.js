@@ -246,6 +246,10 @@ function onPageShow() {
 		quickinfo.autostart();
 
 		polygon.autostart({
+			onStyle: store.onAddMarkerCallback,
+			onMarkerStyle: function (data, style) {
+				return style;
+			},
 			onClick: function (latlng, item) {
 				updateMapSelectItem(tools.getAllObjects(item));
 			},

@@ -59,6 +59,7 @@
     &lt;meta name="ddj:mapCenter" content="52.527040, 13.338440"&gt; &lt;!-- center old city hall of Berlin-Mitte --&gt;
     &lt;meta name="ddj:mapZoom" content="13"&gt;
     &lt;!-- put in the map pins here --&gt;
+    &lt;!-- put in the line and shape formats here -->
 
     &lt;!-- placeholder for Google, Facebook and Twitter --&gt;
 &lt;/head&gt;
@@ -70,7 +71,54 @@
     &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-                                    </code></pre>
+                </code></pre>
+            </div>
+            <div class="col-6 pt-3">
+                <div class="card map-preview">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 pt-3">
+                <pre><code contenteditable spellcheck="false" class="language-html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" /&gt;
+
+    &lt;!-- put in your app icon here --&gt;
+    &lt;!-- put in the lib here --&gt;
+    &lt;link rel="stylesheet" href="../dist/ddj.map.css" /&gt;
+    &lt;script src="../dist/ddj.map.js"&gt;&lt;/script&gt;
+    &lt;!-- put in the data here --&gt;
+    &lt;!-- put in the map here --&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" /&gt;
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"&gt;&lt;/script&gt;
+    &lt;meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg"&gt;
+    &lt;meta name="ddj:mapCenter" content="52.527040, 13.338440"&gt; &lt;!-- center old city hall of Berlin-Mitte --&gt;
+    &lt;meta name="ddj:mapZoom" content="13"&gt;
+    &lt;!-- put in the map pins here --&gt;
+    &lt;!-- put in the line and shape formats here -->
+
+    &lt;!-- placeholder for Google, Facebook and Twitter --&gt;
+&lt;/head&gt;
+&lt;body class="m-0"&gt;
+    &lt;div data-map id="map"&gt;
+        &lt;div data-map="attribution"&gt;
+            &lt;a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank"&gt;ddj.map&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
             </div>
             <div class="col-6 pt-3">
                 <div class="card map-preview">

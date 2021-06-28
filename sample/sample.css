@@ -3,12 +3,12 @@ pre {
 }
 
 pre code {
-  height: 75vh;
+  height: 50vh;
 }
 
 .card.map-preview {
   border-color: #888;
-  height: 75vh;
+  height: 50vh;
 }
 
 .card.map-preview .card-body {
