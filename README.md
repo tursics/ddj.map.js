@@ -50,8 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.12/dist/ddj.map.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.12/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.13/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.13/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
