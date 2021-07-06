@@ -245,16 +245,6 @@ function onPageShow() {
 	function onDone() {
 		quickinfo.autostart();
 
-		polygon.autostart({
-			onStyle: store.onAddMarkerCallback,
-			onMarkerStyle: function (data, style) {
-				return style;
-			},
-			onClick: function (latlng, item) {
-				updateMapSelectItem(tools.getAllObjects(item));
-			},
-		});
-
 		marker.autostart({
 			onAdd: store.onAddMarkerCallback,
 			onClick: function (latlng, item) {
@@ -299,6 +289,17 @@ function onPageShow() {
 		if (dataUniqueIdentifier !== '') {
 			data.setUniqueIdentifier(dataUniqueIdentifier);
 		}
+
+		polygon.autostart({
+			onStyle: store.onAddMarkerCallback,
+			onMarkerStyle: function (data, style) {
+				return style;
+			},
+			onClick: function (latlng, item) {
+				updateMapSelectItem(tools.getAllObjects(item));
+			},
+		});
+
 	}
 
 	function loadData(index) {

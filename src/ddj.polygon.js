@@ -172,16 +172,24 @@ export function push(layerSettings) {
 export function autostart(options) {
 
 	const dataTypes = tools.getMetaContentArray('ddj:dataType'),
-		borderColor = tools.getMetaContent('ddj:borderColor') || '',
-		borderColorColumn = tools.getMetaContent('ddj:borderColorColumn') || '',
-		borderWeight = tools.getMetaContent('ddj:borderWeight') || '',
-		borderWeightColumn = tools.getMetaContent('ddj:borderWeightColumn') || '',
-		fillColor = tools.getMetaContent('ddj:fillColor') || '',
-		fillColorColumn = tools.getMetaContent('ddj:fillColorColumn') || '',
-		fillOpacity = tools.getMetaContent('ddj:fillOpacity') || '',
-		fillOpacityColumn = tools.getMetaContent('ddj:fillOpacityColumn') || '';
-	const index = 0;
-	const dataType = (index < dataTypes.length ? dataTypes[index] : '').toLowerCase();
+		borderColors = tools.getMetaContentArray('ddj:borderColor'),
+		borderColorColumns = tools.getMetaContentArray('ddj:borderColorColumn'),
+		borderWeights = tools.getMetaContentArray('ddj:borderWeight'),
+		borderWeightColumns = tools.getMetaContentArray('ddj:borderWeightColumn'),
+		fillColors = tools.getMetaContentArray('ddj:fillColor'),
+		fillColorColumns = tools.getMetaContentArray('ddj:fillColorColumn'),
+		fillOpacitys = tools.getMetaContentArray('ddj:fillOpacity'),
+		fillOpacityColumns = tools.getMetaContentArray('ddj:fillOpacityColumn');
+	const index = data.count() - 1;
+	const dataType = (index < dataTypes.length ? dataTypes[index] : '').toLowerCase(),
+		  borderColor = (index < borderColors.length ? borderColors[index] : ''),
+		  borderColorColumn = (index < borderColorColumns.length ? borderColorColumns[index] : ''),
+		  borderWeight = (index < borderWeights.length ? borderWeights[index] : ''),
+		  borderWeightColumn = (index < borderWeightColumns.length ? borderWeightColumns[index] : ''),
+		  fillColor = (index < fillColors.length ? fillColors[index] : ''),
+		  fillColorColumn = (index < fillColorColumns.length ? fillColorColumns[index] : ''),
+		  fillOpacity = (index < fillOpacitys.length ? fillOpacitys[index] : ''),
+		  fillOpacityColumn = (index < fillOpacityColumns.length ? fillOpacityColumns[index] : '');
 
 	if (dataType === 'geojson') {
 		if (canInit()) {
