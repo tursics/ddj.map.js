@@ -4,7 +4,8 @@
 // -----------------------------------------------------------------------------
 
 const store = {
-	userData: null,
+	userData: [],
+	page: null,
 	uniqueIdentifier: null,
 }
 
@@ -17,15 +18,24 @@ const settings = {
 
 // -----------------------------------------------------------------------------
 
+export function count() {
+	return store.userData.length;
+}
+
+// -----------------------------------------------------------------------------
+
 export function getRow(key) {
+	if (store.page === null) {
+		return null;
+	}
 	if (typeof key === 'undefined') {
-		return store.userData;
+		return store.userData[store.page];
 	}
 	if (key === null) {
-		return store.userData;
+		return store.userData[store.page];
 	}
 
-	return store.userData[key];
+	return store.userData[store.page][key];
 }
 
 // -----------------------------------------------------------------------------
@@ -44,11 +54,12 @@ export function get(key) {
 // -----------------------------------------------------------------------------
 
 export function init(userData) {
-	store.userData = userData;
+	store.page = store.userData.length;
+	store.userData[store.page] = userData;
 
 	// use geojson file
 	if (userData && userData.type && (userData.type === 'FeatureCollection') && userData.features) {
-		store.userData = userData.features;
+		store.userData[store.page] = userData.features;
 	}
 
 	String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
