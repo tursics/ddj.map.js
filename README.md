@@ -50,8 +50,8 @@ Replace ...
 
 ```
 	<!-- put in the lib here -->
-	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.13/dist/ddj.map.css" />
-	<script src="https://unpkg.com/ddj.map@1.0.13/dist/ddj.map.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.14/dist/ddj.map.css" />
+	<script src="https://unpkg.com/ddj.map@1.0.14/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -167,6 +167,8 @@ Font Awesome 5.x register for free... https://fontawesome.com/start
     <meta name="ddj:borderWeight" content="1">
     <meta name="ddj:fillColor" content="red">
     <meta name="ddj:fillOpacity" content=".25">
+
+    <meta name="ddj:invertPolygons" content="true">
 
     <meta name="ddj:borderColorColumn" content="border-color">
     <meta name="ddj:borderWeightColumn" content="border-weight">
