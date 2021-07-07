@@ -25,8 +25,8 @@ const settings = {
 };
 
 const settingsTemplate = {
-	onStyle: function (data, style) {
-		return style;
+	onStyle: function (data, value) {
+		return data;
 	},
 	onMarkerStyle: function (data, style) {
 		return style;
@@ -81,10 +81,25 @@ export function update() {
 
 // -----------------------------------------------------------------------------
 
+function invertAllPolygons(geoJson) {
+	var featureCount = geoJson.length;
+	for (var f = 0; f < featureCount; ++f) {
+		var feature = geoJson[f];
+		feature.geometry.coordinates[0].unshift([[180, -90], [180, 90], [-180, 90], [-180, -90]]);
+	}
+}
+
+// -----------------------------------------------------------------------------
+
 export function push(layerSettings) {
-	if (data.getRow().length === 0) {
+	var geoJson = data.getRow();
+	if (geoJson.length === 0) {
 		return;
 	}
+
+	const invertPolygons = tools.getMetaContentArray('ddj:invertPolygons'),
+		index = data.count() - 1,
+		invertPolygon = (index < invertPolygons.length ? invertPolygons[index] : '');
 
 	var key, val, layer = settings.layers.length, style, markerStyle;
 
@@ -103,7 +118,7 @@ export function push(layerSettings) {
 		}
 	}
 
-	val = data.getRow()[0];
+	val = geoJson[0];
 	style = {
 		color: '#1f78b4',
 		fillColor: '#1f78b4',
@@ -119,7 +134,10 @@ export function push(layerSettings) {
 	};
 
 	if (val.geometry && val.properties && (-1 !== ['MultiLineString','Polygon','MultiPolygon'].indexOf(val.geometry.type))) {
-		L.geoJSON(data.getRow(), {
+		if (invertPolygon === 'true') {
+			invertAllPolygons(geoJson);
+		}
+		L.geoJSON(geoJson, {
 			style: function (data) {
 				try {
 					if (settings.layers[layer].onStyle) {

@@ -168,6 +168,8 @@ Font Awesome 5.x register for free... https://fontawesome.com/start
     <meta name="ddj:fillColor" content="red">
     <meta name="ddj:fillOpacity" content=".25">
 
+    <meta name="ddj:invertPolygons" content="true">
+
     <meta name="ddj:borderColorColumn" content="border-color">
     <meta name="ddj:borderWeightColumn" content="border-weight">
     <meta name="ddj:fillColorColumn" content="fill-color">
