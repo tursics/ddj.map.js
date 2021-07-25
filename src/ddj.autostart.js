@@ -3,6 +3,7 @@
 
 // -----------------------------------------------------------------------------
 
+import * as csvParse from 'csv-parse/lib/es5/sync';
 import * as data from './ddj.data';
 import * as map from './ddj.map';
 import * as mapcontrols from './ddj.mapcontrols';
@@ -12,7 +13,7 @@ import * as quickinfo from './ddj.quickinfo';
 import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
-import * as csvParse from 'csv-parse/lib/es5/sync';
+import * as url from './ddj.url';
 
 // -----------------------------------------------------------------------------
 
@@ -20,6 +21,8 @@ const store = {
 	selectedItem: null,
 	onDoneCallback: null,
 	onAddMarkerCallback: null,
+	onKeyValueLinkClickedCallback: null,
+	onInitURLCallback: null,
 	eventPageShowWasSet: false,
 }
 
@@ -346,6 +349,11 @@ function onPageShow() {
 
 	store.selectedItem = null;
 	tools.setSelectionValue('[data-search="textinput"]', '');
+	url.init({
+		onInit: store.onInitURLCallback,
+		onKeyValueLinkClicked: store.onKeyValueLinkClickedCallback
+	});
+
 	map.autostart();
 	mapcontrols.autostart();
 	tutorial.autostart();
@@ -402,6 +410,18 @@ export function onDone(callback) {
 
 export function onAddMarker(callback) {
 	store.onAddMarkerCallback = callback;
+}
+
+// -----------------------------------------------------------------------------
+
+export function onKeyValueLinkClicked(callback) {
+	store.onKeyValueLinkClickedCallback = callback;
+}
+
+// -----------------------------------------------------------------------------
+
+export function onInitURL(callback) {
+	store.onInitURLCallback = callback;
 }
 
 // -----------------------------------------------------------------------------

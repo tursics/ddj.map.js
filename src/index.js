@@ -13,6 +13,7 @@ import * as quickinfo from './ddj.quickinfo';
 import * as search from './ddj.search';
 import * as tools from './ddj.tools';
 import * as tutorial from './ddj.tutorial';
+import * as url from './ddj.url';
 
 import css from './index.css';
 
@@ -29,6 +30,7 @@ export {
 	search,
 	tools,
 	tutorial,
+	url,
 };
 
 // -----------------------------------------------------------------------------
