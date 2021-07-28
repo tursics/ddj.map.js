@@ -210,8 +210,12 @@ data-hide-if-zero
 ``` html
 <a href="#" data-key="city" data-value="Berlin">Berlin</a>
 
-ddj.autostart.onInitURL(obj => {});
-ddj.autostart.onKeyValueLinkClicked((key, value) => {});
+ddj.autostart.onInitURL(function(obj) {
+    console.log(obj);
+});
+ddj.autostart.onKeyValueLinkClicked(function(key, value) {
+    console.log(key, value);
+});
 ddj.url.replace({city: 'Berlin'});
 ddj.url.push({city: 'Berlin'});
 ```
@@ -302,6 +306,10 @@ Replace ...
         marker.borderWeight = 1;
         marker.fillColor = '#8ff';
         marker.fillOpacity = .5;
+    });
+
+    ddj.autostart.onSelected(function(selectedItem) {
+        console.log(selectedItem);
     });
 
 </script>
