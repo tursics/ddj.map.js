@@ -18,12 +18,13 @@ import * as url from './ddj.url';
 // -----------------------------------------------------------------------------
 
 const store = {
-	selectedItem: null,
-	onDoneCallback: null,
-	onAddMarkerCallback: null,
-	onKeyValueLinkClickedCallback: null,
-	onInitURLCallback: null,
 	eventPageShowWasSet: false,
+	onAddMarkerCallback: null,
+	onDoneCallback: null,
+	onInitURLCallback: null,
+	onKeyValueLinkClickedCallback: null,
+	onSelectedCallback: null,
+	selectedItem: null,
 }
 
 export default store;
@@ -213,6 +214,9 @@ function updateMapSelectItem(selectedItem) {
 	store.selectedItem = selectedItem;
 
 	quickinfo.show(store.selectedItem);
+	if (store.onSelectedCallback) {
+		store.onSelectedCallback(store.selectedItem);
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -422,6 +426,12 @@ export function onKeyValueLinkClicked(callback) {
 
 export function onInitURL(callback) {
 	store.onInitURLCallback = callback;
+}
+
+// -----------------------------------------------------------------------------
+
+export function onSelected(callback) {
+	store.onSelectedCallback = callback;
 }
 
 // -----------------------------------------------------------------------------
