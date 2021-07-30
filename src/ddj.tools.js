@@ -106,6 +106,13 @@ export function getAllObjects(obj) {
 	for (u = 0; u < data.default.userData.length; ++u) {
 		if (data.default.userData[u][id] === obj[id]) {
 			allObjects.push(data.default.userData[u]);
+		} else {
+			for (var f = 0; f < data.default.userData[u].length; ++f) {
+				var feat = data.default.userData[u][f];
+				if (feat && (feat.type === 'Feature') && feat.properties && (feat.properties[id] === obj[id])) {
+					allObjects.push(feat);
+				}
+			}
 		}
 	}
 
