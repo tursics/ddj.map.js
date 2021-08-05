@@ -147,19 +147,35 @@ export function init(elementName, initialSettings) {
 // -----------------------------------------------------------------------------
 
 export function autostart() {
-	var elementId = 'map',
-		element = document.getElementById(elementId),
-		mapCenter = tools.getMetaContent('ddj:mapCenter'),
-		attribution = document.querySelectorAll('[data-map="attribution"]') || [];
+	var maps = [], maps_ = document.querySelectorAll('[data-map]') || [],
+		attributions = document.querySelectorAll('[data-map="attribution"]') || [],
+		mapCenters = tools.getMetaContentArray('ddj:mapCenter'),
+		mapboxTokens = tools.getMetaContentArray('ddj:mapboxToken'),
+		mapZooms = tools.getMetaContentArray('ddj:mapZoom');
 
-	if (element && (mapCenter.split(',').length === 2)) {
-		init(elementId, {
-			mapboxToken: tools.getMetaContent('ddj:mapboxToken') || '',
-			attribution: attribution.length > 0 ? attribution[0].innerHTML : '',
-			centerLat: mapCenter.split(',')[0].trim(),
-			centerLng: mapCenter.split(',')[1].trim(),
-			zoom: tools.getMetaContent('ddj:mapZoom'),
-		});
+	for (var m = 0; m < maps_.length; ++m) {
+		var map = maps_[m];
+		if ('' === map.getAttribute('data-map')) {
+			maps.push(map);
+		}
+	}
+	console.log(maps);
+	console.log(attributions);
+	console.log(mapCenters);
+	console.log(mapboxTokens);
+	console.log(mapZooms);
+
+	for (var id = 0; id < maps.length; ++id) {
+		if (maps[id] && (mapCenters.length > id) && (mapCenters[id].split(',').length === 2)) {
+			maps[id].id = 'mapid' + id;
+			init(maps[id].id, {
+				mapboxToken: mapboxTokens.length > id ? mapboxTokens[id] : '',
+				attribution: attributions.length > id ? attributions[id].innerHTML : '',
+				centerLat: mapCenters[id].split(',')[0].trim(),
+				centerLng: mapCenters[id].split(',')[1].trim(),
+				zoom: mapZooms.length > id ? mapZooms[id] : '',
+			});
+		}
 	}
 }
 
