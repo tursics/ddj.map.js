@@ -8,7 +8,8 @@ import * as tools from './ddj.tools';
 // -----------------------------------------------------------------------------
 
 const store = {
-	map: null,
+	maps: [],
+	page: null,
 	mapDOMelementID: '',
 }
 
@@ -37,14 +38,25 @@ String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
 
 // -----------------------------------------------------------------------------
 
+export function count() {
+	return store.maps.length;
+}
+
+// -----------------------------------------------------------------------------
+
 export function get() {
-	return store.map;
+	if (store.page === null) {
+		return null;
+	}
+
+	return store.maps[store.page];
 }
 
 // -----------------------------------------------------------------------------
 
 export function set(map) {
-	store.map = map;
+	store.page = store.maps.length;
+	store.maps[store.page] = map;
 }
 
 // -----------------------------------------------------------------------------
@@ -71,9 +83,6 @@ export function canInit() {
 // -----------------------------------------------------------------------------
 
 export function init(elementName, initialSettings) {
-	if (null !== get()) {
-		return;
-	}
 	if (!canInit()) {
 		console.error('Error: Please include leaflet.js in your html file.');
 		return;
