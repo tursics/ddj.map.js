@@ -51,8 +51,8 @@ Replace ...
 
 ``` html
 <!-- put in the lib here -->
-<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.18/dist/ddj.map.css" />
-<script src="https://unpkg.com/ddj.map@1.0.18/dist/ddj.map.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/ddj.map@1.0.19/dist/ddj.map.css" />
+<script src="https://unpkg.com/ddj.map@1.0.19/dist/ddj.map.js"></script>
 ```
 
 ### 3. set a data source
@@ -306,6 +306,8 @@ Replace ...
         marker.borderWeight = 1;
         marker.fillColor = '#8ff';
         marker.fillOpacity = .5;
+        marker.dashArray = null;
+        marker.dashOffset = null;
     });
 
     ddj.autostart.onSelected(function(selectedItem) {
