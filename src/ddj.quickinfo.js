@@ -112,6 +112,7 @@ export function setVisible(show) {
 export function show(obj) {
 	function setText(key, txt) {
 		var item = store.root.querySelectorAll('[data-quickdata="' + CSS.escape(key) + '"]');
+		var show, i;
 
 		if (item.length > 0) {
 			if (hasClass(item[0], 'number')) {
@@ -128,14 +129,23 @@ export function show(obj) {
 		}
 
 		item = store.root.querySelectorAll('[data-hide-if-zero="' + CSS.escape(key) + '"]');
+		show = 'block';
+		if ((txt === '0') || (txt === 0) || (txt === null)) {
+			show = 'none';
+		}
 
-		if (item.length > 0) {
-			var show = 'block';
-			if ((txt === '0') || (txt === 0) || (txt === null)) {
-				show = 'none';
-			}
+		for (i = 0; i < item.length; ++i) {
+			item[i].style.display = show;
+		}
 
-			item[0].style.display = show;
+		item = store.root.querySelectorAll('[data-hide-if-empty="' + CSS.escape(key) + '"]');
+		show = 'block';
+		if ((txt.trim() === '') || (txt === null)) {
+			show = 'none';
+		}
+
+		for (i = 0; i < item.length; ++i) {
+			item[i].style.display = show;
 		}
 	}
 

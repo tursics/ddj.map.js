@@ -121,6 +121,8 @@ export function push(layerSettings) {
 	val = geoJson[0];
 	style = {
 		color: '#1f78b4',
+		dashArray: null,
+		dashOffset: null,
 		fillColor: '#1f78b4',
 		fillOpacity: 0.5,
 		weight: 3
@@ -255,6 +257,8 @@ export function autostart(options) {
 					style.weight = data.borderWeight;
 					style.fillColor = data.fillColor;
 					style.fillOpacity = data.fillOpacity;
+					style.dashArray = data.dashArray;
+					style.dashOffset = data.dashOffset;
 
 					return style;
 				},

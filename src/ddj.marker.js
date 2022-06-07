@@ -101,6 +101,13 @@ export function fixGeometryData(val) {
 		} else if (val.geometry.type === 'Point') {
 			lat = val.geometry.coordinates[1];
 			lng = val.geometry.coordinates[0];
+		} else if (val.geometry.type === 'MultiPoint') {
+			if (val.geometry.coordinates.length === 1) {
+				lat = val.geometry.coordinates[0][1];
+				lng = val.geometry.coordinates[0][0];
+			} else {
+				console.log(val.geometry.type + ' not fully implemented');
+			}
 		} else {
 			console.log(val.geometry.type + ' not yet implemented');
 		}

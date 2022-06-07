@@ -30,11 +30,19 @@ export function getMetaContentArray(name) {
 	var metaTag = document.querySelectorAll('meta[name="' + name + '"]'),
 		content = [];
 
-	if (metaTag) {
+	if (metaTag && (metaTag.length > 0)) {
+		// console.log(name, metaTag);
 		for (var m = 0; m < metaTag.length; ++m) {
 			content.push(metaTag[m].content || '');
-		}
 
+			var node = metaTag[m].parentNode;
+			var tagName = '';
+			for (; node !== document; node = node.parentNode) {
+				tagName = node.tagName.toLowerCase() + '.' + tagName;
+			}
+			// console.log(tagName);
+		}
+		// console.log('');
 	}
 
 	return content;

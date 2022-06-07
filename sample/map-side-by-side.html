@@ -6,10 +6,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" />
 
-    <meta name="ddj:mapCenter" content="0, 0">
-
     <script src="../dist/ddj.map.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+    <script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/styles/default.min.css">
@@ -28,7 +28,7 @@
             <a class="nav-link" href="index.html">Sample</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="map.html">Map</a>
+            <a class="nav-link" href="map.html">Map</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="map-with-csv.html">CSV</a>
@@ -36,11 +36,15 @@
         <li class="nav-item">
             <a class="nav-link" href="map-with-geojson.html">GeoJSON</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="map-side-by-side.html">Side by Side</a>
+        </li>
     </ul>
 
     <div class="container">
         <div class="row">
             <div class="col-6 pt-3">
+                https://github.com/digidem/leaflet-side-by-side
                 <pre><code contenteditable spellcheck="false" class="language-html">
 &lt;!DOCTYPE HTML&gt;
 &lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
@@ -54,13 +58,25 @@
     &lt;!-- put in the lib here --&gt;
     &lt;link rel="stylesheet" href="../dist/ddj.map.css" /&gt;
     &lt;script src="../dist/ddj.map.js"&gt;&lt;/script&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/leaflet-side-by-side@2.1.0/index.min.js"&gt;&lt;/script&gt;
     &lt;!-- put in the data here --&gt;
+    &lt;meta name="ddj:data" content="./data/berliner-toiletten-standorte.csv"&gt;
+    &lt;meta name="ddj:dataType" content="csv"&gt;
+    &lt;meta name="ddj:dataUniqueIdentifier" content="LavatoryID"&gt;
+    &lt;meta name="ddj:latitudeColumn" content="Latitude"&gt;
+    &lt;meta name="ddj:longitudeColumn" content="Longitude"&gt;
     &lt;!-- put in the map here --&gt;
     &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" /&gt;
     &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"&gt;&lt;/script&gt;
     &lt;meta name="ddj:mapCenter" content="52.527040, 13.338440"&gt; &lt;!-- center old city hall of Berlin-Mitte --&gt;
     &lt;meta name="ddj:mapZoom" content="13"&gt;
     &lt;!-- put in the map pins here --&gt;
+    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" /&gt;
+    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"&gt;&lt;/script&gt;
+    &lt;script src="https://kit.fontawesome.com/d2a4339e1e.js" crossorigin="anonymous"&gt;&lt;/script&gt;
+    &lt;meta name="ddj:pinColor" content="cadetblue"&gt;
+    &lt;meta name="ddj:pinIconPrefix" content="fas"&gt;
+    &lt;meta name="ddj:pinIcon" content="fa-toilet-paper"&gt;
     &lt;!-- put in the line and shape formats here -->
 
     &lt;!-- placeholder for Google, Facebook and Twitter --&gt;
@@ -68,59 +84,13 @@
 &lt;body class="m-0"&gt;
     &lt;div data-map id="map"&gt;
         &lt;div data-map="attribution"&gt;
-            &lt;a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank"&gt;ddj.map&lt;/a&gt;
+            &lt;a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank"&gt;ddj.map&lt;/a&gt;,
+            &lt;a href="https://daten.berlin.de/datensaetze/standorte-der-%C3%B6ffentlichen-toiletten" title="Standorte der öffentlichen Toiletten" target="_blank"&gt;SenUVK&lt;/a&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
-                </code></pre>
-            </div>
-            <div class="col-6 pt-3">
-                <div class="card map-preview">
-                    <div class="card-body">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-6 pt-3">
-                <pre><code contenteditable spellcheck="false" class="language-html">
-&lt;!DOCTYPE HTML&gt;
-&lt;html lang="en" xmlns="http://www.w3.org/1999/xhtml"&gt;
-&lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9; IE=10" /&gt;
-
-    &lt;!-- put in your app icon here --&gt;
-    &lt;!-- put in the lib here --&gt;
-    &lt;link rel="stylesheet" href="../dist/ddj.map.css" /&gt;
-    &lt;script src="../dist/ddj.map.js"&gt;&lt;/script&gt;
-    &lt;!-- put in the data here --&gt;
-    &lt;!-- put in the map here --&gt;
-    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" /&gt;
-    &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"&gt;&lt;/script&gt;
-    &lt;meta name="ddj:mapboxToken" content="pk.eyJ1IjoidHVyc2ljcyIsImEiOiI1UWlEY3RNIn0.U9sg8F_23xWXLn4QdfZeqg"&gt;
-    &lt;meta name="ddj:mapCenter" content="52.527040, 13.338440"&gt; &lt;!-- center old city hall of Berlin-Mitte --&gt;
-    &lt;meta name="ddj:mapZoom" content="13"&gt;
-    &lt;!-- put in the map pins here --&gt;
-    &lt;!-- put in the line and shape formats here -->
-
-    &lt;!-- placeholder for Google, Facebook and Twitter --&gt;
-&lt;/head&gt;
-&lt;body class="m-0"&gt;
-    &lt;div data-map id="map"&gt;
-        &lt;div data-map="attribution"&gt;
-            &lt;a href="https://www.npmjs.com/package/ddj.map" title="ddj.map" target="_blank"&gt;ddj.map&lt;/a&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-                </code></pre>
+                                    </code></pre>
             </div>
             <div class="col-6 pt-3">
                 <div class="card map-preview">
@@ -133,7 +103,24 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.0.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-side-by-side@2.1.0/index.min.js"></script>
     <script src="sample.js"></script>
     <script>hljs.highlightAll();</script>
+
+    <script>
+        ddj.autostart.onDone(function() {
+            var map = ddj.map.get();
+            var layers = [];
+            layers.push([]);
+            layers.push([]);
+
+            map.eachLayer(function(layer){
+                layers[Math.round(Math.random())].push(layer);
+            });
+
+            console.log(layers);
+            L.control.sideBySide(layers[0], layers[1]).addTo(map);
+        });
+    </script>
 </body>
 </html>

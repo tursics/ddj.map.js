@@ -8,7 +8,8 @@ import * as tools from './ddj.tools';
 // -----------------------------------------------------------------------------
 
 const store = {
-	map: null,
+	maps: [],
+	page: null,
 	mapDOMelementID: '',
 }
 
@@ -37,14 +38,25 @@ String.prototype.startsWith = String.prototype.startsWith || function (prefix) {
 
 // -----------------------------------------------------------------------------
 
+export function count() {
+	return store.maps.length;
+}
+
+// -----------------------------------------------------------------------------
+
 export function get() {
-	return store.map;
+	if (store.page === null) {
+		return null;
+	}
+
+	return store.maps[store.page];
 }
 
 // -----------------------------------------------------------------------------
 
 export function set(map) {
-	store.map = map;
+	store.page = store.maps.length;
+	store.maps[store.page] = map;
 }
 
 // -----------------------------------------------------------------------------
@@ -71,9 +83,6 @@ export function canInit() {
 // -----------------------------------------------------------------------------
 
 export function init(elementName, initialSettings) {
-	if (null !== get()) {
-		return;
-	}
 	if (!canInit()) {
 		console.error('Error: Please include leaflet.js in your html file.');
 		return;
@@ -146,20 +155,59 @@ export function init(elementName, initialSettings) {
 
 // -----------------------------------------------------------------------------
 
-export function autostart() {
-	var elementId = 'map',
-		element = document.getElementById(elementId),
-		mapCenter = tools.getMetaContent('ddj:mapCenter'),
-		attribution = document.querySelectorAll('[data-map="attribution"]') || [];
+function getClosestParent(elem1, elem2) {
+	for ( ; elem1 && elem1 !== document; elem1 = elem1.parentNode ) {
+		for (var elem = elem2; elem && elem !== document; elem = elem.parentNode ) {
+			if  (elem === elem1) {
+				return elem;
+			}
+		}
+	}
 
-	if (element && (mapCenter.split(',').length === 2)) {
-		init(elementId, {
-			mapboxToken: tools.getMetaContent('ddj:mapboxToken') || '',
-			attribution: attribution.length > 0 ? attribution[0].innerHTML : '',
-			centerLat: mapCenter.split(',')[0].trim(),
-			centerLng: mapCenter.split(',')[1].trim(),
-			zoom: tools.getMetaContent('ddj:mapZoom'),
-		});
+	return null;
+}
+
+// -----------------------------------------------------------------------------
+
+export function autostart() {
+	var maps = [], maps_ = document.querySelectorAll('[data-map]') || [],
+		attributions = document.querySelectorAll('[data-map="attribution"]') || [],
+		mapCenters = tools.getMetaContentArray('ddj:mapCenter'),
+		mapboxTokens = tools.getMetaContentArray('ddj:mapboxToken'),
+		mapZooms = tools.getMetaContentArray('ddj:mapZoom');
+
+	for (var m = 0; m < maps_.length; ++m) {
+		var map = maps_[m];
+		if ('' === map.getAttribute('data-map')) {
+			maps.push(map);
+		}
+	}
+	// console.log(maps);
+	// console.log(attributions);
+	// console.log(mapCenters);
+	// console.log(mapboxTokens);
+	// console.log(mapZooms);
+
+	/* var test0 = getClosestParent(mapCenters[0], mapboxTokens[0]);
+	var test1 = getClosestParent(mapCenters[1], mapboxTokens[1]);
+	var test2 = getClosestParent(mapCenters[0], mapboxTokens[1]);
+	console.log('x');
+	console.log(test0);
+	console.log(test1);
+	console.log(test2);
+	console.log('x'); */
+
+	for (var id = 0; id < maps.length; ++id) {
+		if (maps[id] && (mapCenters.length > id) && (mapCenters[id].split(',').length === 2)) {
+			maps[id].id = 'mapid' + id;
+			init(maps[id].id, {
+				mapboxToken: mapboxTokens.length > id ? mapboxTokens[id] : '',
+				attribution: attributions.length > id ? attributions[id].innerHTML : '',
+				centerLat: mapCenters[id].split(',')[0].trim(),
+				centerLng: mapCenters[id].split(',')[1].trim(),
+				zoom: mapZooms.length > id ? mapZooms[id] : '',
+			});
+		}
 	}
 }
 
