@@ -155,6 +155,20 @@ export function init(elementName, initialSettings) {
 
 // -----------------------------------------------------------------------------
 
+function getClosestParent(elem1, elem2) {
+	for ( ; elem1 && elem1 !== document; elem1 = elem1.parentNode ) {
+		for (var elem = elem2; elem && elem !== document; elem = elem.parentNode ) {
+			if  (elem === elem1) {
+				return elem;
+			}
+		}
+	}
+
+	return null;
+}
+
+// -----------------------------------------------------------------------------
+
 export function autostart() {
 	var maps = [], maps_ = document.querySelectorAll('[data-map]') || [],
 		attributions = document.querySelectorAll('[data-map="attribution"]') || [],
@@ -168,11 +182,20 @@ export function autostart() {
 			maps.push(map);
 		}
 	}
-	console.log(maps);
-	console.log(attributions);
-	console.log(mapCenters);
-	console.log(mapboxTokens);
-	console.log(mapZooms);
+	// console.log(maps);
+	// console.log(attributions);
+	// console.log(mapCenters);
+	// console.log(mapboxTokens);
+	// console.log(mapZooms);
+
+	/* var test0 = getClosestParent(mapCenters[0], mapboxTokens[0]);
+	var test1 = getClosestParent(mapCenters[1], mapboxTokens[1]);
+	var test2 = getClosestParent(mapCenters[0], mapboxTokens[1]);
+	console.log('x');
+	console.log(test0);
+	console.log(test1);
+	console.log(test2);
+	console.log('x'); */
 
 	for (var id = 0; id < maps.length; ++id) {
 		if (maps[id] && (mapCenters.length > id) && (mapCenters[id].split(',').length === 2)) {
